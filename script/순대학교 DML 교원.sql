@@ -115,3 +115,5 @@ INSERT INTO PROFESSORS
 VALUES('P90301','pha','진박사','C903','010-7132-3332','pharmacy@sun.co.kr');
 INSERT INTO PROFESSORS
 VALUES('P90401','organs','이박사','C904','010-6633-8016','organs@sun.co.kr');
+
+COMMIT;
