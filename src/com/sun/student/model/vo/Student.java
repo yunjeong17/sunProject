@@ -1,4 +1,4 @@
-package com.student.model.vo;
+package com.sun.student.model.vo;
 
 import java.sql.Date;
 
