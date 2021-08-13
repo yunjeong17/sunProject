@@ -117,30 +117,22 @@
 			</tr>
 		</thead>
 		<tbody>
+			<% if(list.isEmpty()){ %>
 			<tr>
-				<td>1</td>
-				<td>1</td>
-				<td>1</td>
-				<td>1</td>
-				<td>1</td>
-				<td>1</td>
+				<td colspan="6">존재하는 학생이 없습니다.</td>
 			</tr>
+			<% }else{  %>
+				<% for(Student st : list){ %>
 			<tr>
-				<td>2</td>
-				<td>2</td>
-				<td>2</td>
-				<td>2</td>
-				<td>2</td>
-				<td>2</td>
+				<td><%= st.getsId() %></td>
+				<td><%= st.getsName() %></td>
+				<td><%= st.getsLevel() %></td>
+				<td><%= st.getcName() %></td>
+				<td><%= st.getdName() %></td>
+				<td><%= st.getpName() %></td>
 			</tr>
-			<tr>
-				<td>3</td>
-				<td>3</td>
-				<td>3</td>
-				<td>3</td>
-				<td>3</td>
-				<td>3</td>
-			</tr>
+				<% } %>
+			<% } %>
 		</tbody>
 	</table>
  </div>
