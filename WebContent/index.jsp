@@ -1,13 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%
+	String name=(String)request.getParameter("name");
+	String job=(String)request.getParameter("job");
+%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
-
+<style>
+	#logo{display:block-inline;}
+</style>
 </head>
 <body>
-
+	<header>
+	<a id='logo' href='/'><img src="resources/images/logo/sunLogo1.png" width="240px" height="120px"></a>
+	<a id='logout' href=''><%=name %>[<%=job %>]님</a>
+	<a id='logout' href=''>로그아웃</a>
+	</header>
+	<section class='main-contents'>
+		<h1>ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ</h1>
+	</section>
 </body>
 </html>

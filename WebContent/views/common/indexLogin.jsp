@@ -12,6 +12,6 @@
 </style>
 </head>
 <body>
-	<img src="resources/images/logo/sunLogo1.png" width="300px" height="150px" >
+	
 </body>
 </html>

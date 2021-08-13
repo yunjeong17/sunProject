@@ -9,12 +9,12 @@ loginUser = (String) session.getAttribute("loginUser");
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <style>
-
+a.#logo{display:block-inline;}
+	
 @media (max-width: 600px) {
-<!--세로-->
+	<!--세로-->
 	ul {list-style-type: none;margin: 0;padding: 0;width: 200px;background-color: #00205b;}
 	li a {display: block;color: #000;padding: 8px 16px;text-decoration: none;}
 	li a.active {background-color: #4CAF50;color: white;}
@@ -22,26 +22,28 @@ loginUser = (String) session.getAttribute("loginUser");
 }
 
 @media () {
-<!--가로-->
-ul {list-style-type: none;margin: 0;padding: 0;background-color: #00205b;}
-ul:after{content:'';display: block;clear:both;}
-li {float: left;}
-li a {display: block;color: white;text-align: center;padding: 14px 16px;text-decoration: none;}
-li a:hover:not(.active) {background-color: #111;}
-.active {background-color: #4CAF50;}
+	<!--가로-->
+	ul {list-style-type: none;margin: 0;padding: 0;background-color: #00205b;}
+	ul:after{content:'';display: block;clear:both;}
+	li {float: left;}
+	li a {display: block;color: white;text-align: center;padding: 14px 16px;text-decoration: none;}
+	li a:hover:not(.active) {background-color: #111;}
+	.active {background-color: #4CAF50;}
 }
 
 </style>
 </head>
 <body>
-	<img src="resources/images/logo/sunLogo1.png" width="300px" height="150px">
+	<a id='logo'>
+		<img src="resources/images/logo/sunLogo1.png" width="300px" height="150px">
+	</a>
 	<% if (loginUser.charAt(0) == 'A') { //관리자 %>
 		<ul>
 			<li>학생 관리</li>
 			<li>교수 관리</li>
 			<li>강의 관리</li>
 		</ul>
-	<%} else if (loginUser.charAt(0) == 'P') { //교수%>
+	<%} else if (loginUser.charAt(0) == 'P') { //교수 %>
 		<ul>
 			<li>강의</li>
 			<li>성적</li>
