@@ -35,13 +35,12 @@
 	}
 	
 	th{
-	background :  rgb(3,33,89)
+	background :  rgb(224,224,224)
 	}
 
     th{
-        color: white;
+        color:black;
     }
-
 
         nav{height:5%;}
 
@@ -73,12 +72,30 @@
         }
 
         caption{
-            text-align: center;
+            text-align:left;
         }
+        
+        header>section{
+            height:100%;
+            float:left;
+        }
+        
+        #header_1{width:20%; position:relative;}
+        
+       header{height:15%;}
+
 </style>
 </head>
 <body>
     <div class="wrap">
+     <header>
+            <section id="header_1">
+                <a href="">
+                	<!--왜 에러나요?ㅜㅜ -->
+                    <img src='/Users/wangsubin/Backend/sunProject/WebContent/resources/images/logo/sunLogo1.png'>
+                </a>
+            </section>
+        </header>
         <nav>
             <ul>
                 <li><a href="#">학생 관리</a></li>
@@ -124,10 +141,8 @@
 				<td>3</td>
 				<td>3</td>
 			</tr>
-			
 		</tbody>
-        
-    </div>
 	</table>
+ </div>
 </body>
 </html>
