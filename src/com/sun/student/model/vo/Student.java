@@ -27,9 +27,10 @@ public class Student {
 	
 
 	
-	public Student(String sId, int sLevel, String cName, String dName, String pName) {
+	public Student(String sId,String sName, int sLevel, String cName, String dName, String pName) {
 		super();
 		this.sId = sId;
+		this.sName = sName;
 		this.sLevel = sLevel;
 		this.cName = cName;
 		this.dName = dName;
