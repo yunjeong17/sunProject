@@ -4,23 +4,39 @@ import java.sql.Date;
 
 public class Student {
 	
-	private String sId; //ÇĞ¹ø  
-	private String pId; //Àü´ã±³¼ö¹øÈ£  
-	private String sPwd; //ºñ¹Ğ¹øÈ£  
-	private String cNo; //ÇĞ°ú¹øÈ£
-	private String sName; //ÀÌ¸§  
-	private Date sEDate; //ÀÔÇĞÀÏ
-	private String sPhone; //ÇÚµåÆù¹øÈ£
-	private String sEmail; //ÀÌ¸ŞÀÏ  
-	private String sImg; //ÇĞ»ı »çÁø °æ·Î  
-	private String flChange; //ÇĞÀû»óÅÂ   
+	private String sId; //ï¿½Ğ¹ï¿½  
+	private String pId; //ï¿½ï¿½ï¿½ã±³ï¿½ï¿½ï¿½ï¿½È£  
+	private String sPwd; //ï¿½ï¿½Ğ¹ï¿½È£  
+	private String cNo; //ï¿½Ğ°ï¿½ï¿½ï¿½È£
+	private String sName; //ï¿½Ì¸ï¿½  
+	private Date sEDate; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	private String sPhone; //ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½È£
+	private String sEmail; //ï¿½Ì¸ï¿½ï¿½ï¿½  
+	private int sLevel; //í•™ë…„
+	private String sImg; //ï¿½Ğ»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½  
+	private String flChange; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  
+	
+	private String cName; //í•™ê³¼ì´ë¦„
+	private String dName; //í•™ë¶€ì´ë¦„
+	private String pName; //êµìˆ˜ì´ë¦„
 	
 	public Student() {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 
 	
+	public Student(String sId, int sLevel, String cName, String dName, String pName) {
+		super();
+		this.sId = sId;
+		this.sLevel = sLevel;
+		this.cName = cName;
+		this.dName = dName;
+		this.pName = pName;
+	} //ê´€ë¦¬ì-í•™ìƒëª©ë¡ í˜ì´ì§€ë¥¼ ìœ„í•œ ìƒì„±ì
+
+
 	public Student(String sId, String sPwd) {
 		super();
 		this.sId = sId;
@@ -133,5 +149,62 @@ public class Student {
 	public void setFlChange(String flChange) {
 		this.flChange = flChange;
 	}
+
+
+
+
+	public int getsLevel() {
+		return sLevel;
+	}
+
+
+
+
+	public void setsLevel(int sLevel) {
+		this.sLevel = sLevel;
+	}
+
+
+
+
+	public String getcName() {
+		return cName;
+	}
+
+
+
+
+	public void setcName(String cName) {
+		this.cName = cName;
+	}
+
+
+
+
+	public String getdName() {
+		return dName;
+	}
+
+
+
+
+	public void setdName(String dName) {
+		this.dName = dName;
+	}
+
+
+
+
+	public String getpName() {
+		return pName;
+	}
+
+
+
+
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+	
 	
 }
