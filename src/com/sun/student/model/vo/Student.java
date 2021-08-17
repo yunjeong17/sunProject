@@ -16,6 +16,11 @@ public class Student extends User{
 	private String sEmail; 
 	private String sImg; 
 	private String flChange; 
+	private int sLevel;
+	private String deptName;
+	private int deptNo;
+	private String cName;
+	private String pName;
 	
 	public Student() {
 		// TODO Auto-generated constructor stub
@@ -118,6 +123,85 @@ public class Student extends User{
 		this.flChange = flChange;
 	}
 
+	public int getsLevel() {
+		return sLevel;
+	}
+
+	public void setsLevel(int sLevel) {
+		this.sLevel = sLevel;
+	}
+
+	public String getDeptName() {
+		return deptName;
+	}
+
+	public void setDeptName(String deptName) {
+		this.deptName = deptName;
+	}
+
+	public String getcName() {
+		return cName;
+	}
+
+	public void setcName(String cName) {
+		this.cName = cName;
+	}
+
+	public String getpName() {
+		return pName;
+	}
+
+	public void setpName(String pName) {
+		this.pName = pName;
+	}
+	
+	public int getDeptNo() {
+		return deptNo;
+	}
+
+	public void setDeptNo(int deptNo) {
+		this.deptNo = deptNo;
+	}
+
 	
 
+	public Student(String userId, String userName, int sLevel, String deptName, String cName, String pName) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.sLevel = sLevel;
+		this.deptName = deptName;
+		this.cName = cName;
+		this.pName = pName;
+	} //관리자-학생 목록
+	
+	public Student(String userId, String userPwd, String userName, String pId, String cNo) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.pId = pId;
+		this.cNo = cNo;
+	}//관리자-학생 추가
+
+	public Student(String pId, String pName) {
+		super();
+		this.pId = pId;
+		this.pName = pName;
+	}//교수 드롭다운
+
+	public Student(String cNo, String cName, int deptNo) {
+		super();
+		this.cNo = cNo;
+		this.deptNo = deptNo;
+		this.cName = cName;
+	}//카테고리 드롭다운
+	
+	
+	
+	
+
+
 }
+
+	
