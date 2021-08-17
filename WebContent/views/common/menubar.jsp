@@ -210,7 +210,7 @@ span{
 	%>
 	
 	<ul>
-		<li><div class="menuLink" onclick="goManageStudent();">학생 관리</div></li>
+		<li><div class="menuLink" onclick="location='<%=contextPath%>/list.st'">학생 관리</div></li>
 		<li><div class="menuLink" onclick="goManageProfessors();">교수 관리</div></li>
 		<li><div class="menuLink" onclick="goManageClass();">강의 관리</div></li>
 	</ul>
@@ -234,5 +234,21 @@ span{
 	</ul>
 	<%}}%>
 	</nav>
+	
+	<script>
+	function goProfessorsClass(){
+		location.href="<%=request.getContextPath()%>/classList.pr";
+	}
+
+	function goProfessorsGrade(){
+		location.href="<%=request.getContextPath()%>/gradeList.pr";
+	}
+	
+	function goProfessorsConsulting(){
+		location.href="<%=request.getContextPath()%>/consultingList.pr";
+	}
+	
+
+	</script>
 </body>
 </html>

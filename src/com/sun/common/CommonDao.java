@@ -7,7 +7,6 @@ import java.util.Properties;
 
 public class CommonDao {
 	
-	// query 파일 끌고오는거 귀찮으니까 한번에.... 처리합시다... ㅎㅎ
 	public Properties propLoad(String name, String fileName) {
 		Properties prop = new Properties();
 
