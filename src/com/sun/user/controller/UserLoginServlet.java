@@ -1,4 +1,4 @@
-package com.sun.loginUser.controller;
+package com.sun.user.controller;
 
 import java.io.IOException;
 
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.sun.loginUser.model.service.LoginUserService;
-import com.sun.loginUser.model.vo.LoginUser;
+import com.sun.user.model.service.UserService;
+import com.sun.user.model.vo.User;
 
 /**
  * Servlet implementation class UserLoginServlet
@@ -35,7 +35,7 @@ public class UserLoginServlet extends HttpServlet {
 		String userId=request.getParameter("userId");
 		String userPwd=request.getParameter("userPwd");
 		
-		LoginUser loginUser= new LoginUserService().loginUser(userId, userPwd);
+		User loginUser= new UserService().loginUser(userId, userPwd);
 		
 		if(loginUser!=null) { //로그인 성공
 			HttpSession session = request.getSession();
