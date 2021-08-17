@@ -1,9 +1,11 @@
 package com.sun.professors.model.vo;
 
-public class Professors {
-	private String pId;
-	private String pPwd;
-	private String pName;
+import com.sun.user.model.vo.User;
+
+public class Professors extends User {
+	private String userId;
+	private String userPwd;
+	private String userName;
 	private String cNo;
 	private String pPhone;
 	private String pEmail;
@@ -12,51 +14,40 @@ public class Professors {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Professors(String pId, String pPwd, String pName) {
-		super();
-		this.pId = pId;
-		this.pPwd = pPwd;
-		this.pName = pName;
-	}
-
-	public Professors(String pPhone, String pEmail) {
-		super();
-		this.pPhone = pPhone;
-		this.pEmail = pEmail;
-	}
-
-	public Professors(String pId, String pPwd, String pName, String cNo, String pPhone, String pEmail) {
-		super();
-		this.pId = pId;
-		this.pPwd = pPwd;
-		this.pName = pName;
+	public Professors(String userId, String userPwd, String userName, String cNo, String pPhone, String pEmail) {
+		super(userId,userPwd,userName);
 		this.cNo = cNo;
 		this.pPhone = pPhone;
 		this.pEmail = pEmail;
 	}
-
-	public String getpId() {
-		return pId;
+	
+	@Override
+	public String toString() {
+		return "professors["+super.toString()+" cNo"+cNo+" pPhone"+pPhone+" pEmail"+pEmail+"]";
+	}
+	
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setpId(String pId) {
-		this.pId = pId;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public String getpPwd() {
-		return pPwd;
+	public String getUserPwd() {
+		return userPwd;
 	}
 
-	public void setpPwd(String pPwd) {
-		this.pPwd = pPwd;
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
 	}
 
-	public String getpName() {
-		return pName;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setpName(String pName) {
-		this.pName = pName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public String getcNo() {
@@ -82,7 +73,9 @@ public class Professors {
 	public void setpEmail(String pEmail) {
 		this.pEmail = pEmail;
 	}
+
 	
+
 	
 	
 }

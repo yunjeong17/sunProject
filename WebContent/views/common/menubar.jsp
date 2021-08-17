@@ -201,12 +201,12 @@ span{
 		%>
 		<a id='logo'> <img src="resources/images/sunLogo1.png" width="140px"
 			height="70px">
-		</a> <span id="login-user-name"> <%=loginUser.getLoginName() %>님
+		</a> <span id="login-user-name"> <%=loginUser.getUserName() %>님
 			<a href = "<%=request.getContextPath()%>/logout">로그아웃</a> <span>
 	</header>
 	<nav id="topMenu">
 	<%
-	if (Character.toUpperCase(loginUser.getLoginId().charAt(0)) == 'A') { //관리자
+	if (Character.toUpperCase(loginUser.getUserId().charAt(0)) == 'A') { //관리자
 	%>
 	
 	<ul>
@@ -215,7 +215,7 @@ span{
 		<li><div class="menuLink" onclick="goManageClass();">강의 관리</div></li>
 	</ul>
 	<%
-	} else if (Character.toUpperCase(loginUser.getLoginId().charAt(0)) == 'P') { //교수
+	} else if (Character.toUpperCase(loginUser.getUserId().charAt(0)) == 'P') { //교수
 	%>
 	<ul>
 		<li><div class="menuLink" onclick="goProfessorsClass();">강의</div></li>

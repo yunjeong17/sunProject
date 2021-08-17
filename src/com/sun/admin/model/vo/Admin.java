@@ -1,44 +1,52 @@
 package com.sun.admin.model.vo;
 
-public class Admin {
-	private String aId;
-	private String aPwd;
-	private String aName;
+import com.sun.user.model.vo.User;
+
+public class Admin extends User{
+	private String userId;
+	private String userPwd;
+	private String userName;
 	
 	public Admin() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Admin(String aId, String aPwd, String aName) {
-		super();
-		this.aId = aId;
-		this.aPwd = aPwd;
-		this.aName = aName;
-	}
-
-	public String getaId() {
-		return aId;
-	}
-
-	public void setaId(String aId) {
-		this.aId = aId;
-	}
-
-	public String getaPwd() {
-		return aPwd;
-	}
-
-	public void setaPwd(String aPwd) {
-		this.aPwd = aPwd;
-	}
-
-	public String getaName() {
-		return aName;
-	}
-
-	public void setaName(String aName) {
-		this.aName = aName;
+	public Admin(String userId, String userPwd, String userName) {
+		super(userId,userPwd,userName);
 	}
 	
+	@Override
+	public String toString() {
+		return "Admin["+super.toString()+"]";
+	}
+	
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserPwd() {
+		return userPwd;
+	}
+
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	
+
+
+
 	
 }

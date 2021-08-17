@@ -1,35 +1,42 @@
 package com.sun.user.model.vo;
 
 public class User {
-	private String loginId;
-	private String loginPwd;
-	private String loginName;
+	private String userId;
+	private String userPwd;
+	private String userName;
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
-	public User(String loginId, String loginPwd, String loginName) {
+	public User(String userId, String userPwd, String userName) {
 		super();
-		this.loginId = loginId;
-		this.loginPwd = loginPwd;
-		this.loginName = loginName;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
 	}
-	public String getLoginId() {
-		return loginId;
+	
+	@Override
+	public String toString() {
+		return "userId="+userId+", userPwd"+userPwd+", userName"+userName;
+		
 	}
-	public void setLoginId(String loginId) {
-		this.loginId = loginId;
+	
+	public String getUserId() {
+		return userId;
 	}
-	public String getLoginPwd() {
-		return loginPwd;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public void setLoginPwd(String loginPwd) {
-		this.loginPwd = loginPwd;
+	public String getUserPwd() {
+		return userPwd;
 	}
-	public String getLoginName() {
-		return loginName;
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
 	}
-	public void setLoginName(String loginName) {
-		this.loginName = loginName;
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 }
