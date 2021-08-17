@@ -162,8 +162,35 @@ public class StudentDao {
 	}
 
 	public Student searchStudent(Connection conn, String search) {
-		// TODO Auto-generated method stub
-		return null;
+		Student st = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("searchStudent");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				st = new Student(rset.getString("S_ID")
+						,rset.getString("S_NAME")
+						,rset.getInt("S_LEVEL")
+						,rset.getString("DEPT_NAME")
+						,rset.getString("C_NAME")
+						,rset.getString("P_NAME")
+						);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		return st;
 	}
 
 	
