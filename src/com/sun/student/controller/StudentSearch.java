@@ -33,6 +33,9 @@ public class StudentSearch extends HttpServlet {
 		String search= request.getParameter("search");
 		
 		Student st = new StudentService().searchStudent(search);
+		request.setAttribute("st", st);
+		
+		request.getRequestDispatcher("views/admin/student/stSearch.jsp").forward(request, response);
 	}
 
 	/**

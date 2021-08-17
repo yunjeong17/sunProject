@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="java.util.*, com.sun.student.model.vo.*"%>
 <%
-	ArrayList<Student> list = (ArrayList<Student>)request.getAttribute("list");	
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	
-	int listCount = pi.getListCount();
-	int currentPage= pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage=pi.getStartPage();
-	int endPage=pi.getEndPage();
+ArrayList<Student> list = (ArrayList<Student>) request.getAttribute("list");
+PageInfo pi = (PageInfo) request.getAttribute("pi");
+
+int listCount = pi.getListCount();
+int currentPage = pi.getCurrentPage();
+int maxPage = pi.getMaxPage();
+int startPage = pi.getStartPage();
+int endPage = pi.getEndPage();
 %>
 <!DOCTYPE html>
 <html>
@@ -62,7 +62,7 @@ nav li {
 }
 
 table, .head, td {
-	border: 1px black solid
+	border: 1px rgb(2, 34, 89) solid
 }
 
 table {
@@ -70,16 +70,35 @@ table {
 }
 
 .head {
-	background: rgb(224, 224, 224)
+	background: rgb(2, 34, 89);
+	color: white;
 }
 
 caption {
 	padding: 0;
-	text-align: left;
 }
 
 td {
 	text-align: center;
+	color: rgb(2, 34, 89);
+}
+
+button {
+	/*color: white;*/
+	border-style: groove;
+	border-radius: 10px;
+	background: white;
+	margin : left;
+}
+
+button:hover {
+	background: rgb(224, 224, 224);
+	border-style: groove;
+	border-radius: 10px;
+}
+
+label, input {
+	color: rgb(2, 34, 89);
 }
 </style>
 </head>
@@ -87,8 +106,17 @@ td {
 	<%@ include file="/views/common/menubar.jsp"%>
 	<br>
 	<div class="wrap" align="center">
+		<h4 align="center">학생 목록</h6>
 		<table>
-			<caption>학생 목록</caption>
+		<div align = "left">
+		<form id="searchForm" action="<%=contextPath%>/search.st" method="post">
+			<label for="search">학번으로 검색 &nbsp;&nbsp; : &nbsp;&nbsp;</label>
+			<input type="text" maxlength="10" name="search"></input>
+			<button id = "search" onclick="location.href='search.st'">검색하기</button>
+		</form>
+		<br><br>
+		</div>
+		<!-- <caption>학생 목록</caption> -->
 			<thead>
 				<tr>
 					<td class="head">학번</td>
@@ -100,24 +128,34 @@ td {
 				</tr>
 			</thead>
 			<tbody>
-				<% if(list.isEmpty()){ %>
+				<%
+				if (list.isEmpty()) {
+				%>
 
 				<tr>
 					<td colspan="6">존재하는 학생이 없습니다.</td>
 				</tr>
 
-				<% }else{  %>
-				<% for(Student st : list){ %>
+				<%
+				} else {
+				%>
+				<%
+				for (Student st : list) {
+				%>
 				<tr>
-					<td><%=st.getUserId() %></td>
-					<td><%=st.getUserName() %></td>
-					<td><%=st.getsLevel() %>학년</td>
-					<td><%=st.getcName() %></td>
-					<td><%=st.getDeptName() %></td>
-					<td><%=st.getpName() %></td>
+					<td><%=st.getUserId()%></td>
+					<td><%=st.getUserName()%></td>
+					<td><%=st.getsLevel()%>학년</td>
+					<td><%=st.getcName()%></td>
+					<td><%=st.getDeptName()%></td>
+					<td><%=st.getpName()%></td>
 				</tr>
-				<% } %>
-				<% } %>
+				<%
+				}
+				%>
+				<%
+				}
+				%>
 			</tbody>
 		</table>
 	</div>
@@ -132,67 +170,87 @@ td {
 			&lt;&lt;</button>
 
 		<!-- 이전페이지로(<) -->
-		<%if(currentPage == 1){ %>
+		<%
+		if (currentPage == 1) {
+		%>
 		<button disabled>&lt;</button>
-		<%}else{ %>
+		<%
+		} else {
+		%>
 		<button
-			onclick="location.href='<%= contextPath %>/list.st?currentPage=<%= currentPage-1 %>'">
+			onclick="location.href='<%=contextPath%>/list.st?currentPage=<%=currentPage - 1%>'">
 			&lt;</button>
-		<%} %>
+		<%
+		}
+		%>
 
 		<!-- 페이지 목록 -->
-		<%for(int p=startPage; p<=endPage; p++){ %>
+		<%
+		for (int p = startPage; p <= endPage; p++) {
+		%>
 
-		<%if(p == currentPage){ %>
+		<%
+		if (p == currentPage) {
+		%>
 		<button disabled>
-			<%= p %>
+			<%=p%>
 		</button>
-		<%}else{ %>
+		<%
+		} else {
+		%>
 		<button
-			onclick="location.href='<%=contextPath %>/list.st?currentPage=<%= p %>'">
-			<%= p %>
+			onclick="location.href='<%=contextPath%>/list.st?currentPage=<%=p%>'">
+			<%=p%>
 		</button>
-		<%} %>
+		<%
+		}
+		%>
 
-		<%} %>
+		<%
+		}
+		%>
 
 		<!-- 다음페이지로(>) -->
-		<%if(currentPage == maxPage){ %>
+		<%
+		if (currentPage == maxPage) {
+		%>
 		<button disabled>&gt;</button>
-		<%}else { %>
+		<%
+		} else {
+		%>
 		<button
-			onclick="location.href='<%= contextPath %>/list.st?currentPage=<%= currentPage+1 %>'">
+			onclick="location.href='<%=contextPath%>/list.st?currentPage=<%=currentPage + 1%>'">
 			&gt;</button>
-		<%} %>
+		<%
+		}
+		%>
 
 		<!-- 맨 끝으로 (>>) -->
 		<button
 			onclick="location.href='<%=contextPath%>/list.st?currentPage=<%=maxPage%>'">
 			&gt;&gt;</button>
-	</div>
-	<br>
-	<br>
-	<div align="center">
-		<%-- if(loginUser != null){ --%>
+	
+	<br><br>
 		<button onclick="location.href='insert.st'">학생 추가</button>
-		<button onclick="search();">학번으로 검색</button>
-		<%-- } --%>
+		<button onclick="location.href='update.st'">학생 정보 수정</button>
+		
 	</div>
 	<script type="text/javascript">
-		<%if(! list.isEmpty()){%>
-			$(function(){
-				$(".listArea>tbody>tr").click(function(){
-					var bno = $(this).children().eq(0).text();
-				})
-			});
-		<%}%>
-	
+		
+	<%if (!list.isEmpty()) {%>
+		$(function() {
+			$(".listArea>tbody>tr").click(function() {
+				var bno = $(this).children().eq(0).text();
+			})
+		});
+	<%}%>
+		
 	</script>
 	
 	<script>
-		function search(){
-			var search = prompt("검색하실 학번을 입력하세요.");
-		}
+		$("#search").onclick(function(){
+			$("label").text("");
+		})
 	</script>
 </body>
 </html>
