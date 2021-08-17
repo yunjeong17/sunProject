@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.sun.loginUser.model.vo.LoginUser"%>
+	pageEncoding="UTF-8" import="com.sun.user.model.vo.User"%>
 
 <%
-LoginUser loginUser = (LoginUser) session.getAttribute("loginUser");
+User loginUser = (User) session.getAttribute("loginUser");
 String msg = (String) session.getAttribute("msg");
 String contextPath = request.getContextPath();
 %>

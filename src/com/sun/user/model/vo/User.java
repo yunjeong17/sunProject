@@ -1,13 +1,13 @@
-package com.sun.loginUser.model.vo;
+package com.sun.user.model.vo;
 
-public class LoginUser {
+public class User {
 	private String loginId;
 	private String loginPwd;
 	private String loginName;
-	public LoginUser() {
+	public User() {
 		// TODO Auto-generated constructor stub
 	}
-	public LoginUser(String loginId, String loginPwd, String loginName) {
+	public User(String loginId, String loginPwd, String loginName) {
 		super();
 		this.loginId = loginId;
 		this.loginPwd = loginPwd;
