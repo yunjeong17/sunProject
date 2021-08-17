@@ -2,127 +2,111 @@ package com.sun.student.model.vo;
 
 import java.sql.Date;
 
-public class Student {
+import com.sun.user.model.vo.User;
+
+public class Student extends User{
 	
-	private String sId; //학번  
-	private String pId; //전담교수번호  
-	private String sPwd; //비밀번호  
-	private String cNo; //학과번호
-	private String sName; //이름  
-	private Date sEDate; //입학일
-	private String sPhone; //핸드폰번호
-	private String sEmail; //이메일  
-	private String sImg; //학생 사진 경로  
-	private String flChange; //학적상태   
+	private String userId; 
+	private String userPwd; 
+	private String userName; 
+	private String pId; 
+	private String cNo; 
+	private Date sEDate; 
+	private String sPhone; 
+	private String sEmail; 
+	private String sImg; 
+	private String flChange; 
 	
 	public Student() {
 		// TODO Auto-generated constructor stub
 	}
 
-
-	
-	public Student(String sId, String sPwd) {
-		super();
-		this.sId = sId;
-		this.sPwd = sPwd;
-	}
-
-
-
-	public Student(String sName, String sPhone, String sEmail, String sImg) {
-		super();
-		this.sName = sName;
-		this.sPhone = sPhone;
-		this.sEmail = sEmail;
-		this.sImg = sImg;
-	}
-
-	public Student(String sId, String pId, String sPwd, String cNo, String sName, Date sEDate, String sPhone,
+	public Student(String userId, String userPwd, String userName, String pId, String cNo, Date sEDate, String sPhone,
 			String sEmail, String sImg, String flChange) {
-		super();
-		this.sId = sId;
+		super(userId,userPwd,userName);
 		this.pId = pId;
-		this.sPwd = sPwd;
 		this.cNo = cNo;
-		this.sName = sName;
 		this.sEDate = sEDate;
 		this.sPhone = sPhone;
 		this.sEmail = sEmail;
 		this.sImg = sImg;
 		this.flChange = flChange;
 	}
-
-
-
-	public String getcNo() {
-		return cNo;
+	
+	@Override
+	public String toString() {
+		return "student["+super.toString()+" pId="+pId+", cNo"+cNo+", sEDate"+sEDate+", sPhone"+sPhone+", sImg "+sImg +", flChange"+flChange+"]";
+		
+	}
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setcNo(String cNo) {
-		this.cNo = cNo;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public String getsPhone() {
-		return sPhone;
+	public String getUserPwd() {
+		return userPwd;
 	}
 
-	public void setsPhone(String sPhone) {
-		this.sPhone = sPhone;
+	public void setUserPwd(String userPwd) {
+		this.userPwd = userPwd;
 	}
 
-	public String getsId() {
-		return sId;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setsId(String sId) {
-		this.sId = sId;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getpId() {
+	public String getPId() {
 		return pId;
 	}
 
-	public void setpId(String pId) {
+	public void setPId(String pId) {
 		this.pId = pId;
 	}
 
-	public String getsPwd() {
-		return sPwd;
+	public String getCNo() {
+		return cNo;
 	}
 
-	public void setsPwd(String sPwd) {
-		this.sPwd = sPwd;
+	public void setCNo(String cNo) {
+		this.cNo = cNo;
 	}
 
-	public String getsName() {
-		return sName;
-	}
-
-	public void setsName(String sName) {
-		this.sName = sName;
-	}
-
-	public Date getsEDate() {
+	public Date getSEDate() {
 		return sEDate;
 	}
 
-	public void setsEDate(Date sEDate) {
+	public void setSEDate(Date sEDate) {
 		this.sEDate = sEDate;
 	}
 
-	public String getsEmail() {
+	public String getSPhone() {
+		return sPhone;
+	}
+
+	public void setSPhone(String sPhone) {
+		this.sPhone = sPhone;
+	}
+
+	public String getSEmail() {
 		return sEmail;
 	}
 
-	public void setsEmail(String sEmail) {
+	public void setSEmail(String sEmail) {
 		this.sEmail = sEmail;
 	}
 
-	public String getsImg() {
+	public String getSImg() {
 		return sImg;
 	}
 
-	public void setsImg(String sImg) {
+	public void setSImg(String sImg) {
 		this.sImg = sImg;
 	}
 
@@ -133,5 +117,7 @@ public class Student {
 	public void setFlChange(String flChange) {
 		this.flChange = flChange;
 	}
+
 	
+
 }
