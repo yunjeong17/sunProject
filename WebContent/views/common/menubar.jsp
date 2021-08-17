@@ -210,7 +210,7 @@ span{
 	%>
 	
 	<ul>
-		<li><div class="menuLink" onclick="goManageStudent();">학생 관리</div></li>
+		<li><div class="menuLink" onclick="location='<%=contextPath%>/list.st'">학생 관리</div></li>
 		<li><div class="menuLink" onclick="goManageProfessors();">교수 관리</div></li>
 		<li><div class="menuLink" onclick="goManageClass();">강의 관리</div></li>
 	</ul>
