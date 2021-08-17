@@ -234,5 +234,21 @@ span{
 	</ul>
 	<%}}%>
 	</nav>
+	
+	<script>
+	function goProfessorsClass(){
+		location.href="<%=request.getContextPath()%>/classList.pr";
+	}
+
+	function goProfessorsGrade(){
+		location.href="<%=request.getContextPath()%>/gradeList.pr";
+	}
+	
+	function goProfessorsConsulting(){
+		location.href="<%=request.getContextPath()%>/consultingList.pr";
+	}
+	
+
+	</script>
 </body>
 </html>

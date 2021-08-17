@@ -1,25 +1,29 @@
-package com.sun.user.controller;
+package com.sun.classes.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import com.sun.user.model.service.UserService;
+
+import com.sun.classes.model.service.ClassService;
+import com.sun.classes.model.vo.Classes;
 import com.sun.user.model.vo.User;
 
-@WebServlet("/login")
-public class UserLoginServlet extends HttpServlet {
+/**
+ * Servlet implementation class ProfessorsClassList
+ */
+@WebServlet("/classList.pr")
+public class ProfessorsClassList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserLoginServlet() {
+    public ProfessorsClassList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,22 +32,12 @@ public class UserLoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId=request.getParameter("userId");
-		String userPwd=request.getParameter("userPwd");
+		User user=(User)request.getSession().getAttribute("loginUser");
 		
-		User loginUser= new UserService().loginUser(userId, userPwd);
+		ArrayList<Classes> list = new ClassService().selectClass(user.getUserId());
+		request.setAttribute("list", list);
 		
-		if(loginUser!=null) { //로그인 성공
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			response.sendRedirect(request.getContextPath());
-
-		}
-		else {
-			request.setAttribute("msg", "로그인에 실패했습니다.");
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
-		}
+		request.getRequestDispatcher("views/professors/class/professorsClassListView.jsp").forward(request, response);
 	}
 
 	/**
