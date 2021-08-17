@@ -202,7 +202,7 @@ span{
 		<a id='logo'> <img src="resources/images/sunLogo1.png" width="140px"
 			height="70px">
 		</a> <span id="login-user-name"> <%=loginUser.getUserName() %>님
-			<a href = "<%=request.getContextPath()%>/logout">로그아웃</a> <span>
+			<a href = "<%=contextPath%>/logout">로그아웃</a> <span>
 	</header>
 	<nav id="topMenu">
 	<%
