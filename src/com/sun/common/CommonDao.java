@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class CommonDao {
 	
-	public Properties propLoad(String name, String fileName) {
+	public Properties propLoad(String fileName) {
 		Properties prop = new Properties();
 
 		System.out.println("fileName   " + fileName);

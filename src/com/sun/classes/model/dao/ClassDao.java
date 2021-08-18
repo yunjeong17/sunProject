@@ -18,7 +18,7 @@ public class ClassDao {
 	public ClassDao() {
 		// TODO Auto-generated constructor stub
 		String fileName = Classes.class.getResource("/sql/classes/professorsClass-query.properties").getPath();
-		prop= new CommonDao().propLoad("Classes",fileName);
+		prop= new CommonDao().propLoad(fileName);
 	}
 	public ArrayList<Classes> selectClass(Connection conn, String pId) {
 		ArrayList<Classes> list=new ArrayList<Classes>();

@@ -9,7 +9,7 @@ public class AdminDao {
 	
 	public AdminDao() {
 		String fileName = Student.class.getResource("/sql/admin/admin-query.properties").getPath();
-		Properties prop= new CommonDao().propLoad("Admin",fileName);
+		Properties prop= new CommonDao().propLoad(fileName);
 	}
 	
 	
