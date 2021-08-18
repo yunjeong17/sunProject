@@ -37,19 +37,20 @@ public class StudentInsert extends HttpServlet {
 		String userName= request.getParameter("userName");
 		String pId= request.getParameter("pId");
 		String cNo= request.getParameter("cNo");
+		int sLevel=Integer.parseInt(request.getParameter("sLevel"));
 		
 		ArrayList<Student> pList = new StudentService().getPList();
 		ArrayList<Student> cList = new StudentService().getCList();
 		request.setAttribute("pList", pList);
 		request.setAttribute("cList", cList);
 		
-		Student st = new Student(userId,userPwd,userName,pId,cNo);
+		Student st = new Student(userId,userPwd,userName,pId,cNo,sLevel);
 		
 		int result = new StudentService().insertStudent(st);
 		
 		if(result>0) {
 			request.getSession().setAttribute("msg", "학생 등록 성공");
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect("form.st");
 		}
 		else {
 			request.setAttribute("msg", "학생 등록 실패");

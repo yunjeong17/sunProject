@@ -159,6 +159,23 @@ label, input {
 			</tbody>
 		</table>
 	</div>
+	<script>
+         $(function(){
+                $('tr').click(function(){
+                    $('td,th').css('background', ''); //백그라운드 초기화
+                });
+            });
+    </script>
+	<script>
+        $(document).ready(function(){
+            $("tr").click(function(){
+                var td = $(this).children();
+                td.css('background','rgb(224,224,224)');
+                td.click("location.href='<%=contextPath%>/update.st'");
+                
+            });
+        });
+    </script>
 
 	<br>
 
@@ -232,7 +249,7 @@ label, input {
 	
 	<br><br>
 		<button onclick="location.href='insert.st'">학생 추가</button>
-		<button onclick="location.href='update.st'">학생 정보 수정</button>
+		<button onclick="location.href='update.st'" disabled>학생 정보 수정</button>
 		
 	</div>
 	<script type="text/javascript">
@@ -246,11 +263,5 @@ label, input {
 	<%}%>
 		
 	</script>
-	
-	<script>
-		$("#search").onclick(function(){
-			$("label").text("");
-		})
-	</script>
-</body>
+	</body>
 </html>

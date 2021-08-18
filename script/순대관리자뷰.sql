@@ -1,0 +1,15 @@
+
+--관리자-학생-조회 뷰 ST_INFO
+CREATE OR REPLACE VIEW VIEW_ST_INFO AS
+SELECT A.S_ID,
+                A.S_NAME,
+                A.S_LEVEL,
+                B.DEPT_NAME,
+                C.C_NAME,
+                D.P_NAME
+FROM STUDENT A
+JOIN CATEGORY C ON A.C_NO=C.C_NO
+JOIN DEPARTMENT B ON C.DEPT_NO=B.DEPT_NO
+JOIN PROFESSORS D ON A.P_ID = D.P_ID;
+
+--DROP VIEW ST_INFO;

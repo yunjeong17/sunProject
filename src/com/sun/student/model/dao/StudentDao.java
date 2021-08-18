@@ -95,6 +95,7 @@ public class StudentDao {
 			pstmt.setString(3, st.getCNo());
 			pstmt.setString(4, st.getUserPwd());
 			pstmt.setString(5, st.getUserName());
+			pstmt.setInt(6, st.getsLevel());
 
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {

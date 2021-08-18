@@ -2,8 +2,8 @@
 	pageEncoding="UTF-8" import="java.util.*, com.sun.student.model.vo.*"%>
 
 <%
-	ArrayList<Student> pList = (ArrayList<Student>)request.getAttribute("list");	
-	ArrayList<Student> cList = (ArrayList<Student>)request.getAttribute("list");	
+	ArrayList<Student> pList = (ArrayList<Student>)request.getAttribute("pList");	
+	ArrayList<Student> cList = (ArrayList<Student>)request.getAttribute("cList");	
 
 %>
 <!DOCTYPE html>
@@ -50,6 +50,15 @@
 						</td>
 					</tr>
 					<tr>
+						<td>비밀번호</td>
+						<td><input type="text" maxlength="10" name="userPwd" required></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>학생이름</td>
+						<td><input type="text" name="userName"></td>
+					</tr>
+					<tr>
 						<td>담당교원</td>
 						<% if(pList.isEmpty()){ %>
 							<td>존재하는 교원이 없습니다.</td>
@@ -77,20 +86,15 @@
 						</td>
 						<% } %>
 					</tr>
-					<tr>
-						<td>비밀번호</td>
-						<td><input type="text" maxlength="10" name="userPwd" required></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>학생이름</td>
-						<td><input type="text" name="userName"></td>
-					</tr>
+					<!-- <tr>
+						<td>학년</td>
+						<td><input type="text" name="sLevel"></td>
+					</tr> -->
 				</table>
 				<br>
 
 				<div class="btns" align="center">
-					<button type="button" id="goMain" onclick="history.go(-1)">메인으로</button>
+					<button type="button" id="goMain" onclick="history.go(-1)">뒤로가기</button>
 					<button type="submit" id="joinBtn" disabled>가입하기</button>
 
 				</div>
