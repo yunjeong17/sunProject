@@ -175,13 +175,14 @@ public class Student extends User{
 		this.pName = pName;
 	} //관리자-학생 목록
 	
-	public Student(String userId, String userPwd, String userName, String pId, String cNo) {
+	public Student(String userId, String userPwd, String userName, String pId, String cNo, int sLevel) {
 		super();
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.userName = userName;
 		this.pId = pId;
 		this.cNo = cNo;
+		this.sLevel = sLevel;
 	}//관리자-학생 추가
 
 	public Student(String pId, String pName) {
