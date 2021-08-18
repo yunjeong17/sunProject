@@ -21,7 +21,7 @@ public class StudentDao {
 	public StudentDao() {
 		// TODO Auto-generated constructor stub
 		String fileName = Student.class.getResource("/sql/student/student-query.properties").getPath();
-		prop= new CommonDao().propLoad("Student",fileName);
+		prop= new CommonDao().propLoad(fileName);
 	}
 	
 	public int getListCount(Connection conn) {
