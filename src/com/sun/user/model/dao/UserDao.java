@@ -16,7 +16,7 @@ public class UserDao {
 	public UserDao() {
 		// TODO Auto-generated constructor stub
 		String fileName = UserDao.class.getResource("/sql/user/user-qeury.properties").getPath();
-		prop= new CommonDao().propLoad("User",fileName);
+		prop= new CommonDao().propLoad(fileName);
 	}
 
 
