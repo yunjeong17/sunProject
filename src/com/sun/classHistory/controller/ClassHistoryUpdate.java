@@ -1,6 +1,7 @@
 package com.sun.classHistory.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -9,21 +10,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.sun.classHistory.model.service.ClassHistoryService;
 import com.sun.classHistory.model.vo.ClassHistory;
 
 /**
- * Servlet implementation class ClassHistoryList
+ * Servlet implementation class ClassHistoryUpdate
  */
-@WebServlet("/chList.pr")
-public class ClassHistoryList extends HttpServlet {
+@WebServlet("/updatechList.pr")
+public class ClassHistoryUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClassHistoryList() {
+    public ClassHistoryUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,11 +32,31 @@ public class ClassHistoryList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String cId = request.getParameter("cId");
-		ArrayList<ClassHistory> list = new ClassHistoryService().selectchList(cId);
-		response.setContentType("application/json; charset=utf-8");
+		String[] temp1 = null;
+		ArrayList<ClassHistory> chList=new ArrayList<ClassHistory>();
+		temp1=request.getParameterValues("chList[]");
+		if(temp1!=null) {
+			for(int i=0; i<temp1.length;i++) {
+				System.out.println(temp1[i]);
+				String[] temp2 = temp1[i].split(",");
+				
+				ClassHistory ch= new ClassHistory(temp2[0],Float.parseFloat( temp2[1]));
+				chList.add(ch);
+			}
+		}
 		
-		new Gson().toJson(list, response.getWriter());
+		int result = new ClassHistoryService().updateCh(chList);
+		PrintWriter out = response.getWriter();
+		if(result>0) {
+			out.print("success");
+			
+		}else {
+			out.print("fail");
+			
+		}
+		out.flush();
+		out.close();
+		
 	}
 
 	/**

@@ -129,6 +129,7 @@ span{
 	color: #092d70;
 	background-color: white;
 }
+
 </style>
 
 
@@ -159,7 +160,6 @@ span{
 </script>
 </head>
 <body>
-	<header>
 		<%
 		if (loginUser == null) {
 		%>
@@ -199,11 +199,12 @@ span{
 		<%
 		} else {
 		%>
+		<div id="top">
 		<a id='logo'> <img src="resources/images/sunLogo1.png" width="140px"
 			height="70px">
 		</a> <span id="login-user-name"> <%=loginUser.getUserName() %>님
 			<a href = "<%=contextPath%>/logout">로그아웃</a> <span>
-	</header>
+			
 	<nav id="topMenu">
 	<%
 	if (Character.toUpperCase(loginUser.getUserId().charAt(0)) == 'A') { //관리자
@@ -214,6 +215,7 @@ span{
 		<li><div class="menuLink" onclick="goManageProfessors();">교수 관리</div></li>
 		<li><div class="menuLink" onclick="goManageClass();">강의 관리</div></li>
 	</ul>
+	
 	<%
 	} else if (Character.toUpperCase(loginUser.getUserId().charAt(0)) == 'P') { //교수
 	%>
@@ -232,7 +234,9 @@ span{
 		<li><div class="menuLink" onclick="goStudentGrade();">성적</div></li>
 		<li><div class="menuLink" onclick="goCertificate();">증명서발급</div></li>
 	</ul>
-	<%}}%>
+	<%}%>
+	</div>
+	<%} %>
 	</nav>
 	
 	<script>

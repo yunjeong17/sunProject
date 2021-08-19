@@ -22,6 +22,14 @@ public class ClassHistory {
 
 
 
+	public ClassHistory(String sId, float cgPoint) {
+		super();
+		this.sId = sId;
+		this.cgPoint = cgPoint;
+	}
+
+
+
 	public String getsId() {
 		return sId;
 	}
