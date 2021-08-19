@@ -1,6 +1,20 @@
 -- 강의 INSERT
 --delete from class;
 
+-- 계절학기 (+)
+INSERT INTO CLASS
+VALUES('L1106','인문학개론2','인문학관 201호 ',4,'P10101',2021,0);
+INSERT INTO CLASS
+VALUES('L1107','한국어의 이해','인문학관 408호',4,'P10101',2021,0);
+INSERT INTO CLASS
+VALUES('L1108','한국어학사 2','인문학관 238호',1,'P10101',2021,0);
+INSERT INTO CLASS
+VALUES('L1109','세계 속의 한국문학의 이해','인문학관 301호',4,'P10101',2021,0);
+INSERT INTO CLASS
+VALUES('L1110','인문학개론','인문학관 301호',4,'P10101',2021,0);
+
+
+
 -- 인문대학 100
 --'P10101 왕대한교수강의
 INSERT INTO CLASS

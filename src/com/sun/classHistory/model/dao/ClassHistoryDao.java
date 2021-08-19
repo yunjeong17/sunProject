@@ -25,7 +25,6 @@ public class ClassHistoryDao {
 		ResultSet rset = null;
 
 		String sql = prop.getProperty("selectchList");
-		System.out.println("sql:::"+sql);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, cNo);
@@ -37,7 +36,6 @@ public class ClassHistoryDao {
 									rset.getFloat("CG_POINT"),
 									rset.getString("C_NAME")
 									));
-				System.out.println("rset!!:"+rset.getString("S_NAME"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -48,6 +46,28 @@ public class ClassHistoryDao {
 		}
 
 		return list;
+	}
+	public int updateCh(Connection conn, ClassHistory ch) {
+			PreparedStatement pstmt = null;
+			int result = 0;
+			String sql = prop.getProperty("updatechList");
+			
+			
+			try {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setFloat(1,ch.getCgPoint());
+				pstmt.setString(2,ch.getsId());
+				result = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(pstmt);
+			}
+
+			return result;
+
+		
 	}
 	
 }
