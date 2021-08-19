@@ -44,6 +44,8 @@ td{
 				<th>이수구분</th>
 				<th>강의실</th>
 			</tr>
+		</thead>
+		<tbody>
 			<%if(list.isEmpty()){ %>
 				<tr>
 					<td colspan="6">조회된 강의가 없습니다.</td>
@@ -59,9 +61,7 @@ td{
 						<td><%= c.getClassPlace() %></td>
 					</tr>
 					<%} %>
-				<%} %>
-		</thead>
-		<tbody>
+				<%} %>	
 		</tbody>
 	</table>
 </body>

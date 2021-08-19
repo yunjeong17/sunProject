@@ -7,11 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Properties;
 
 import com.sun.classes.model.vo.Classes;
 import com.sun.common.CommonDao;
-import com.sun.user.model.vo.User;
 
 public class ClassDao {
 	Properties prop;
@@ -20,15 +20,19 @@ public class ClassDao {
 		String fileName = Classes.class.getResource("/sql/classes/professorsClass-query.properties").getPath();
 		prop= new CommonDao().propLoad(fileName);
 	}
-	public ArrayList<Classes> selectClass(Connection conn, String pId) {
+	
+	//userId
+	public ArrayList<Classes> selectClassList(Connection conn, String userId) {
 		ArrayList<Classes> list=new ArrayList<Classes>();
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
 		String sql=prop.getProperty("selectClass");
 		System.out.println(sql);
+		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, pId);
+			pstmt.setString(1, userId);
+
 			
 			rset= pstmt.executeQuery();
 			
@@ -56,6 +60,40 @@ public class ClassDao {
 			
 		}
 
+		return list;
+	}
+	
+	//	userId와 현재 연도, 학기에 따른 클래스
+	public ArrayList<Classes> selectClassByYearAndSemester(Connection conn, String userId,int year, int semester) {
+		ArrayList<Classes> list=new ArrayList<Classes>();
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		String sql=prop.getProperty("selectClassListYearAndSemester");
+		System.out.println(sql);
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2,year);
+			pstmt.setInt(3, semester);
+			
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Classes c = new Classes();
+				c.setClassNo(rset.getString("CLASS_NO"));
+				c.setClassName(rset.getString("CLASS_NAME"));
+				list.add(c);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
 		return list;
 	}
 	
