@@ -1,4 +1,4 @@
-package com.sun.classes.controller;
+package com.sun.classHistory.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.classes.model.service.ClassService;
-import com.sun.classes.model.vo.Classes;
-import com.sun.user.model.vo.User;
+import com.google.gson.Gson;
+import com.sun.classHistory.model.service.ClassHistoryService;
+import com.sun.classHistory.model.vo.ClassHistory;
 
 /**
- * Servlet implementation class ProfessorsClassList
+ * Servlet implementation class ClassHistoryList
  */
-@WebServlet("/classList.pr")
-public class ProfessorsClassList extends HttpServlet {
+@WebServlet("/chList.pr")
+public class ClassHistoryList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProfessorsClassList() {
+    public ClassHistoryList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +32,13 @@ public class ProfessorsClassList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user=(User)request.getSession().getAttribute("loginUser");
+		String cId = request.getParameter("cId");
+		ArrayList<ClassHistory> list = new ClassHistoryService().selectchList(cId);
+		System.out.println("*****cId:"+cId);
+		System.out.println("*****list:"+list);
+		response.setContentType("application/json; charset=utf-8");
 		
-		ArrayList<Classes> list = new ClassService().selectClassList(user.getUserId());
-		request.setAttribute("list", list);
-		
-		request.getRequestDispatcher("views/professors/class/professorsClassListView.jsp").forward(request, response);
+		new Gson().toJson(list, response.getWriter());
 	}
 
 	/**

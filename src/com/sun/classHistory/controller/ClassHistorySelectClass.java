@@ -1,4 +1,4 @@
-package com.sun.classes.controller;
+package com.sun.classHistory.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.classHistory.model.vo.ClassHistory;
 import com.sun.classes.model.service.ClassService;
 import com.sun.classes.model.vo.Classes;
 import com.sun.user.model.vo.User;
 
-/**
- * Servlet implementation class ProfessorsClassList
- */
-@WebServlet("/classList.pr")
-public class ProfessorsClassList extends HttpServlet {
+
+@WebServlet("/gradeList.pr")
+public class ClassHistorySelectClass extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProfessorsClassList() {
+    public ClassHistorySelectClass() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,12 +31,10 @@ public class ProfessorsClassList extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user=(User)request.getSession().getAttribute("loginUser");
-		
-		ArrayList<Classes> list = new ClassService().selectClassList(user.getUserId());
-		request.setAttribute("list", list);
-		
-		request.getRequestDispatcher("views/professors/class/professorsClassListView.jsp").forward(request, response);
+		User user= (User)request.getSession().getAttribute("loginUser");
+		ArrayList<Classes> classList = new ClassService().selectClassByUserIdAndYearAndSemester(user.getUserId());
+		request.setAttribute("classList", classList);
+		request.getRequestDispatcher("views/professors/class/professorsGradeView.jsp").forward(request, response);
 	}
 
 	/**
