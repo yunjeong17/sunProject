@@ -53,7 +53,7 @@ nav li {
 }
 
 .wrap {
-	width: 1000px;
+	width: 1200px;
 	margin: auto;
 }
 
@@ -88,7 +88,7 @@ button {
 	border-style: groove;
 	border-radius: 10px;
 	background: white;
-	margin : left;
+	margin: left;
 }
 
 button:hover {
@@ -100,82 +100,79 @@ button:hover {
 label, input {
 	color: rgb(2, 34, 89);
 }
+
 </style>
 </head>
 <body>
 	<%@ include file="/views/common/menubar.jsp"%>
 	<br>
 	<div class="wrap" align="center">
-		<h4 align="center">학생 목록</h6>
-		<table>
-		<div align = "left">
-		<form id="searchForm" action="<%=contextPath%>/search.st" method="post">
-			<label for="search">학번으로 검색 &nbsp;&nbsp; : &nbsp;&nbsp;</label>
-			<input type="text" maxlength="10" name="search"></input>
-			<button id = "search" onclick="location.href='search.st'">검색하기</button>
-		</form>
-		<br><br>
-		</div>
-		<!-- <caption>학생 목록</caption> -->
-			<thead>
-				<tr>
-					<td class="head">학번</td>
-					<td class="head">이름</td>
-					<td class="head">학년</td>
-					<td class="head">학과</td>
-					<td class="head">학부</td>
-					<td class="head">지도교수</td>
-				</tr>
-			</thead>
-			<tbody>
-				<%
-				if (list.isEmpty()) {
-				%>
+		<h4 align="center">학생 목록</h4>
+		<h5 align="center">수정하고자 하는 학생을 선택하면 학적 정보 수정이 가능합니다.</h5>
+			<table>
+				<div align="left">
+					<form id="searchForm" action="<%=contextPath%>/search.st"
+						method="post">
+						<label for="search">학번으로 검색 &nbsp;&nbsp; : &nbsp;&nbsp;</label> <input
+							type="text" maxlength="10" name="search"></input>
+						<button id="search" onclick="location.href='search.st'">검색하기</button>
+					</form>
+					<br>
+					<br>
+				</div>
+				<!-- <caption>학생 목록</caption> -->
+				<thead>
+					<tr>
+						<td class="head">학번</td>
+						<td class="head">이름</td>
+						<td class="head">학년</td>
+						<td class="head">학과</td>
+						<td class="head">학부</td>
+						<td class="head">지도교수</td>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+					if (list.isEmpty()) {
+					%>
 
-				<tr>
-					<td colspan="6">존재하는 학생이 없습니다.</td>
-				</tr>
+					<tr>
+						<td colspan="6">존재하는 학생이 없습니다.</td>
+					</tr>
 
-				<%
-				} else {
-				%>
-				<%
-				for (Student st : list) {
-				%>
-				<tr>
-					<td><%=st.getUserId()%></td>
-					<td><%=st.getUserName()%></td>
-					<td><%=st.getsLevel()%>학년</td>
-					<td><%=st.getcName()%></td>
-					<td><%=st.getDeptName()%></td>
-					<td><%=st.getpName()%></td>
-				</tr>
-				<%
-				}
-				%>
-				<%
-				}
-				%>
-			</tbody>
-		</table>
+					<%
+					} else {
+					%>
+					<%
+					for (Student st : list) {
+					%>
+					<tr>
+						<td><%=st.getUserId()%></td>
+						<td><%=st.getUserName()%></td>
+						<td><%=st.getsLevel()%>학년</td>
+						<td><%=st.getcName()%></td>
+						<td><%=st.getDeptName()%></td>
+						<td><%=st.getpName()%></td>
+					</tr>
+					<%
+					}
+					%>
+					<%
+					}
+					%>
+				</tbody>
+			</table>
 	</div>
 	<script>
-         $(function(){
-                $('tr').click(function(){
-                    $('td,th').css('background', ''); //백그라운드 초기화
-                });
-            });
-    </script>
-	<script>
-        $(document).ready(function(){
-            $("tr").click(function(){
-                var td = $(this).children();
-                td.css('background','rgb(224,224,224)');
-                td.click("location.href='<%=contextPath%>/update.st'");
-                
-            });
-        });
-    </script>
+		$(document).ready(function() {
+			$(function() {
+				$("tbody>tr").click(function() {
+					var userId = $(this).children().eq(0).text();
+					location.href="<%=contextPath%>/detail.st?userId="+userId;
+				})
+			})
+		});
+	</script>
 
 	<br>
 
@@ -246,22 +243,17 @@ label, input {
 		<button
 			onclick="location.href='<%=contextPath%>/list.st?currentPage=<%=maxPage%>'">
 			&gt;&gt;</button>
-	
-	<br><br>
-		<button onclick="location.href='insert.st'">학생 추가</button>
-		<button onclick="location.href='update.st'" disabled>학생 정보 수정</button>
-		
+
+		<br>
+		<br>
+		<button onclick="location.href='form.st'">학생 추가</button>
 	</div>
 	<script type="text/javascript">
-		
-	<%if (!list.isEmpty()) {%>
-		$(function() {
-			$(".listArea>tbody>tr").click(function() {
+		$(function(){
+			$(".listArea>tbody>tr").click(function(){
 				var bno = $(this).children().eq(0).text();
 			})
 		});
-	<%}%>
-		
 	</script>
-	</body>
+</body>
 </html>

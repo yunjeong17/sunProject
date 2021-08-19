@@ -12,119 +12,124 @@
 <meta charset="UTF-8">
 <title>Insert Student</title>
 <style>
-	.outer{
-		background:white;
-		width:600px;
-		height:500px;
-		margin-top:50px;
-		margin-left:auto;
-		margin-right:auto;
-		color:black;
-	}
-	#enrollForm{
-		/* border:1px solid white; */
-		width:100%;
-		margin-left:auto;
-		margin-right:auto;
-	}
-	#enrollForm td:nth-child(1){text-align:right;}
-	#enrollForm input{margin:3px;}
-	
-	#joinBtn{background:#63718b; color:white;}
-	#goMain{background:#63718b; color:white;}
+button {
+	/*color: white;*/
+	border-style: groove;
+	border-radius: 10px;
+	background: white;
+	margin: left;
+}
+
+button:hover {
+	background: rgb(224, 224, 224);
+	border-style: groove;
+	border-radius: 10px;
+}
+
+.outer {
+	background: white;
+	width: 600px;
+	height: 500px;
+	margin-top: 50px;
+	margin-left: auto;
+	margin-right: auto;
+	color: black;
+}
+
+#enrollForm {
+	/* border:1px solid white; */
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#enrollForm td:nth-child(1) {
+	text-align: right;
+}
+
+#enrollForm input {
+	margin: 3px;
+}
+
+#joinBtn {
+	background: #63718b;
+	color: white;
+}
+
+#goMain {
+	background: #63718b;
+	color: white;
+}
 </style>
 </head>
 <body>
 	<%@ include file="/views/common/menubar.jsp"%>
-	
-	<form id="enrollForm"
-				action="<%=request.getContextPath()%>/insert.st" method="post"
-				onsubmit="return joinValidate();">
-				<table>
-				<caption>학생추가</caption>
-					<tr>
-						<td width="200px">학생번호</td>
-						<td><input type="text" maxlength="10" name="userId" required></td>
-						<td width="200px">
-							<button type="button" id="idCheckBtn" onclick="checkId();">중복확인</button>
-						</td>
-					</tr>
-					<tr>
-						<td>비밀번호</td>
-						<td><input type="text" maxlength="10" name="userPwd" required></td>
-						<td></td>
-					</tr>
-					<tr>
-						<td>학생이름</td>
-						<td><input type="text" name="userName"></td>
-					</tr>
+	<br><br>
+	<h4 align="center">학생추가</h4>
+	<div align="center">
+		<form id="enrollForm" action="<%=request.getContextPath()%>/insert.st"
+			method="post">
+			<table>
+				<tr>
+					<td width="200px">학생번호</td>
+					<td><input type="text" maxlength="10" name="userId" required></td>
+					<td width="200px">
+						<button type="button" id="idCheckBtn" onclick="checkId();">중복확인</button>
+					</td>
+				</tr>
+				<tr>
+					<td>비밀번호</td>
+					<td><input type="text" maxlength="10" name="userPwd" required></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>학생이름</td>
+					<td><input type="text" name="userName"></td>
+				</tr>
 					<tr>
 						<td>담당교원</td>
 						<% if(pList.isEmpty()){ %>
 							<td>존재하는 교원이 없습니다.</td>
 						<% }else{  %>
-						<td>
+						
 							<% for(Student st : pList){ %>
+							<td><%=st.getPId()%></td>
+							<td><%=st.getpName()%></td>
+							<%--
 						<select name="pId">
 						 <option value="<%=st.getPId() %>" selected><%=st.getpName()%></option>
-						 </select>
+						 </select> --%>
 							<% } %>
-						</td>
+						
 						<% } %>
 					</tr>
 					<tr>
 						<td>학과번호</td>
 						<% if(cList.isEmpty()){ %>
-							<td>존재하는 교원이 없습니다.</td>
+							<td>존재하는 학번이 없습니다.</td>
 						<% }else{  %>
-						<td>
 							<% for(Student st : cList){ %>
+							<td><%=st.getCNo()%></td>
+							<td><%=st.getcName()%></td>
+							<%--
 						<select name="cNo">
 						 <option value="<%=st.getCNo() %>" selected><%=st.getcName()%></option>
-						 </select>
+						 </select> --%>
 							<% } %>
-						</td>
 						<% } %>
 					</tr>
-					<!-- <tr>
-						<td>학년</td>
-						<td><input type="text" name="sLevel"></td>
-					</tr> -->
-				</table>
-				<br>
+				<tr>
+					<td>학년</td>
+					<td><input type="text" name="sSLevel"></td>
+				</tr>
+			</table>
+			<br>
 
-				<div class="btns" align="center">
-					<button type="button" id="goMain" onclick="history.go(-1)">뒤로가기</button>
-					<button type="submit" id="joinBtn" disabled>가입하기</button>
-
-				</div>
-			</form>
-			
-			<script>
-			function joinValidate() {
-
-				if (!(/^[a-z][a-z\d]{3,11}$/i.test($(
-						"#enrollForm input[name=userId]").val()))) {
-					$("#enrollForm input[name=userId]").focus();
-					return false;
-				}
-
-				if ($("#enrollForm input[name=userPwd]").val() != $(
-						"#enrollForm input[name=checkPwd]").val()) {
-					$("#pwdResult").text("비밀번호 불일치").css("color", "red");
-					return false;
-				}
-
-				if (!(/^[가-힣]{2,}$/.test($("#enrollForm input[name=userName]")
-						.val()))) {
-					$("#enrollForm input[name=userName]").focus();
-					return false;
-				}
-
-				return true;
-
-			}
-
+			<button type="button" id="goMain" onclick="history.go(-1)">학생목록</button>
+			<button type="submit" id="joinBtn" disabled>추가하기</button>
+		</form>
+	</div>
+	<script>
 			function checkId() {
 				var userId = $("#enrollForm input[name=userId]");
 				if (userId.val() == "") {

@@ -1,7 +1,6 @@
 package com.sun.student.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,19 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.sun.student.model.service.StudentService;
-import com.sun.student.model.vo.Student;
+import com.sun.student.model.vo.Fluctuation;
 
 /**
- * Servlet implementation class StInsert
+ * Servlet implementation class FluctuationUpdate
  */
-@WebServlet("/insert.st")
-public class StudentInsert extends HttpServlet {
+@WebServlet("/update.fl")
+public class FluctuationUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StudentInsert() {
+    public FluctuationUpdate() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,38 +31,30 @@ public class StudentInsert extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId= request.getParameter("userId");
-		String userPwd= request.getParameter("userPwd");
-		String userName= request.getParameter("userName");
-		String pId= request.getParameter("pId");
-		String cNo= request.getParameter("cNo");
-		String sSLevel=request.getParameter("sSLevel");
-		int sLevel = 0;
-		if(sSLevel != null) {
-			sLevel=Integer.parseInt(sSLevel);
+		request.setCharacterEncoding("UTF-8");
+		 
+		String flChange= request.getParameter("flChange");
+		String flReason= request.getParameter("flReason");
+		String userId=request.getParameter("sId");
+		String no=request.getParameter("flNo");
+		int flNo=0;
+		if(no!=null) {
+			flNo=Integer.parseInt(no);
 		}
+		Fluctuation fl = new Fluctuation();
+		fl.setFlChange(flChange);
+		fl.setFlReason(flReason);
+		fl.setsId(userId);
+		fl.setFlNo(flNo);
+
+		int updatefl = new StudentService().updateFluctutation(fl);
 		
-		ArrayList<Student> pList = new StudentService().getPList();
-		ArrayList<Student> cList = new StudentService().getCList();
-		request.setAttribute("pList", pList);
-		request.setAttribute("cList", cList);
-			
-		Student st = new Student();
-		st.setUserId(userId);
-		st.setUserPwd(userPwd);
-		st.setUserName(userName);
-		st.setPId(pId);
-		st.setCNo(cNo);
-		st.setsLevel(sLevel);
-		
-		int result = new StudentService().insertStudent(st);
-		
-		if(result>0) {
-			request.getSession().setAttribute("msg", "학생 등록 성공");
+		if(updatefl > 0) {
+			request.getSession().setAttribute("msg", "학적 수정을 성공했습니다.");
 			response.sendRedirect("list.st");
-		}
-		else {
-			request.setAttribute("msg", "학생 등록 실패");
+			
+		}else {
+			request.setAttribute("msg", "학적 수정을 실패했습니다.");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}
