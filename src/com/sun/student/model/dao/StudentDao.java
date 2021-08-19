@@ -1,5 +1,6 @@
 package com.sun.student.model.dao;
 
+
 import static com.sun.common.JDBCTemplate.close;
 
 import java.sql.Connection;
@@ -12,18 +13,19 @@ import java.util.Properties;
 
 import com.sun.common.CommonDao;
 import com.sun.student.model.vo.Student;
+import com.sun.student.model.vo.Fluctuation;
 import com.sun.student.model.vo.PageInfo;
 
 public class StudentDao {
-	
+
 	private Properties prop;
-	
+
 	public StudentDao() {
 		// TODO Auto-generated constructor stub
 		String fileName = Student.class.getResource("/sql/student/student-query.properties").getPath();
-		prop= new CommonDao().propLoad(fileName);
+		prop = new CommonDao().propLoad(fileName);
 	}
-	
+
 	public int getListCount(Connection conn) {
 		int listCount = 0;
 
@@ -52,32 +54,26 @@ public class StudentDao {
 		ArrayList<Student> list = new ArrayList<Student>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+
 		String sql = prop.getProperty("studentList");
-		
+
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
-			
-			rset=pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new Student(rset.getString("S_ID")
-						,rset.getString("S_NAME")
-						,rset.getInt("S_LEVEL")
-						,rset.getString("DEPT_NAME")
-						,rset.getString("C_NAME")
-						,rset.getString("P_NAME")
-						));
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new Student(rset.getString("S_ID"), rset.getString("S_NAME"), rset.getInt("S_LEVEL"),
+						rset.getString("DEPT_NAME"), rset.getString("C_NAME"), rset.getString("P_NAME")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
@@ -85,11 +81,12 @@ public class StudentDao {
 	}
 
 	public int insertStudent(Connection conn, Student st) {
-		int result=0;
-		PreparedStatement pstmt= null;
+		int result = 0;
+		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertStudent");
 		try {
-			pstmt= conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
+
 			pstmt.setString(1, st.getUserId());
 			pstmt.setString(2, st.getPId());
 			pstmt.setString(3, st.getCNo());
@@ -97,11 +94,11 @@ public class StudentDao {
 			pstmt.setString(5, st.getUserName());
 			pstmt.setInt(6, st.getsLevel());
 
-			result=pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(pstmt);
 		}
 		return result;
@@ -111,23 +108,19 @@ public class StudentDao {
 		ArrayList<Student> pList = new ArrayList<Student>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		
+
 		String sql = prop.getProperty("getPList");
-		
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
-			rset=pstmt.executeQuery();
-			
-			while(rset.next()) {
-				pList.add(new Student(rset.getString("P_ID")
-						,rset.getString("P_NAME")));
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				pList.add(new Student(rset.getString("P_ID"), rset.getString("P_NAME")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
@@ -138,24 +131,19 @@ public class StudentDao {
 		ArrayList<Student> cList = new ArrayList<Student>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		
+
 		String sql = prop.getProperty("getCList");
-		
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
-			rset=pstmt.executeQuery();
-			
-			while(rset.next()) {
-				cList.add(new Student(rset.getString("C_NO")
-						,rset.getString("C_NAME")
-						,rset.getInt("DEPT_NO")));
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				cList.add(new Student(rset.getString("C_NO"), rset.getString("C_NAME")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
@@ -166,33 +154,75 @@ public class StudentDao {
 		Student st = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+
 		String sql = prop.getProperty("searchStudent");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, search);
-			
-			rset=pstmt.executeQuery();
-			
-			while(rset.next()) {
-				st = new Student(rset.getString("S_ID")
-						,rset.getString("S_NAME")
-						,rset.getInt("S_LEVEL")
-						,rset.getString("DEPT_NAME")
-						,rset.getString("C_NAME")
-						,rset.getString("P_NAME")
-						);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				st = new Student(rset.getString("S_ID"), rset.getString("S_NAME"), rset.getInt("S_LEVEL"),
+						rset.getString("DEPT_NAME"), rset.getString("C_NAME"), rset.getString("P_NAME"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
+		} finally {
 			close(rset);
 			close(pstmt);
 		}
 		return st;
 	}
 
+	public ArrayList<Fluctuation> fluctuationDetail(Connection conn, String userId) {
+		ArrayList<Fluctuation> fl = new ArrayList<Fluctuation>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("fluctuationDetail");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				fl.add(new Fluctuation(rset.getInt("FL_NO"), rset.getString("S_ID"), rset.getString("FL_CHANGE"),
+						rset.getString("FL_REASON"), rset.getInt("FL_YEAR"), rset.getInt("FL_SEMESTER"),
+						rset.getDate("FL_DATE")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return fl;
+	}
 	
+	public int updateFluctutation(Connection conn, Fluctuation fl) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateFluctutation");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, fl.getFlChange());
+			pstmt.setString(2, fl.getFlReason());
+			pstmt.setString(3, fl.getsId());
+			pstmt.setInt(4, fl.getFlNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
 }

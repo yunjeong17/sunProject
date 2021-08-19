@@ -46,7 +46,7 @@ nav li {
 }
 
 .wrap {
-	width: 1000px;
+	width: 1200px;
 	margin: auto;
 }
 
@@ -134,8 +134,7 @@ label, input{
 		<br>
 		<div align="center">
 		<button onclick="history.go(-1)">학생 목록</button>
-		<button onclick="location.href='insert.st'">학생 추가</button>
-		<button onclick="location.href='update.st'">학생 정보 수정</button>
+		<button onclick="location.href='form.st'">학생 추가</button>
 		</div>
 	</div>
 	

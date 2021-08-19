@@ -18,7 +18,7 @@ public class Student extends User{
 	private String flChange; 
 	private int sLevel;
 	private String deptName;
-	private int deptNo;
+	private String deptNo;
 	private String cName;
 	private String pName;
 	
@@ -43,6 +43,7 @@ public class Student extends User{
 		return "student["+super.toString()+" pId="+pId+", cNo"+cNo+", sEDate"+sEDate+", sPhone"+sPhone+", sImg "+sImg +", flChange"+flChange+"]";
 		
 	}
+	
 	public String getUserId() {
 		return userId;
 	}
@@ -155,11 +156,11 @@ public class Student extends User{
 		this.pName = pName;
 	}
 	
-	public int getDeptNo() {
+	public String getDeptNo() {
 		return deptNo;
 	}
 
-	public void setDeptNo(int deptNo) {
+	public void setDeptNo(String deptNo) {
 		this.deptNo = deptNo;
 	}
 
@@ -175,27 +176,17 @@ public class Student extends User{
 		this.pName = pName;
 	} //관리자-학생 목록
 	
-	public Student(String userId, String userPwd, String userName, String pId, String cNo, int sLevel) {
-		super();
-		this.userId = userId;
-		this.userPwd = userPwd;
-		this.userName = userName;
-		this.pId = pId;
-		this.cNo = cNo;
-		this.sLevel = sLevel;
-	}//관리자-학생 추가
-
 	public Student(String pId, String pName) {
 		super();
 		this.pId = pId;
 		this.pName = pName;
 	}//교수 드롭다운
 
-	public Student(String cNo, String cName, int deptNo) {
+	public Student(String cNo, String cName, String deptNo) {
 		super();
 		this.cNo = cNo;
-		this.deptNo = deptNo;
 		this.cName = cName;
+		this.deptNo = deptNo;
 	}//카테고리 드롭다운
 	
 	

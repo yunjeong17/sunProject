@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import com.sun.student.model.dao.StudentDao;
 import com.sun.student.model.vo.Student;
+import com.sun.student.model.vo.Fluctuation;
 import com.sun.student.model.vo.PageInfo;
 
 public class StudentService {
@@ -77,5 +78,39 @@ public class StudentService {
 		close(conn);
 		
 		return st;
+	}
+
+	public Student studentDetail(String userId) {
+		Connection conn = getConnection();
+
+		Student st = new StudentDao().searchStudent(conn,userId);
+		
+		close(conn);
+		
+		return st;
+	}
+
+	public ArrayList<Fluctuation> fluctuationDetail(String userId) {
+		Connection conn = getConnection();
+
+		ArrayList<Fluctuation> fl = new StudentDao().fluctuationDetail(conn,userId);
+		
+		close(conn);
+		
+		return fl;
+	}
+	
+	public int updateFluctutation(Fluctuation fl) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().updateFluctutation(conn,fl);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
 	}	
 }
