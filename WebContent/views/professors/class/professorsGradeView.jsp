@@ -104,6 +104,7 @@ input:focus{
 		<button id="save-btn">저장</button>
 	</div>
 	<script>
+	let originMap= new Map();
 	$(function(){
 		
 		/*저장버튼 눌렀을때*/
@@ -114,10 +115,18 @@ input:focus{
 			for(let i=1; i<=trLength;i++){
 				let sId = $('#student-table>tbody>tr:nth-child('+i+')>td').eq(0).text();
 				let cgPoint = $('#student-table>tbody>tr:nth-child('+i+')>td>.point-input').val();
-				cgPoint= cgPoint!=""? cgPoint:"0";
-				chList.push(sId+","+cgPoint);
+				
+				console.log(originMap.get(sId)!=cgPoint);
+				console.log(originMap.get(sId)+"        "+cgPoint);
+				
+				if(originMap.get(sId)!=cgPoint){
+					cgPoint= cgPoint!=""? cgPoint:"0";
+					chList.push(sId+","+cgPoint);
+				}
 			}
-			console.log(chList);
+			
+			console.log("chList"+chList);
+			
 			$.ajax({
 				url:"updatechList.pr",
 				data:{
@@ -126,6 +135,7 @@ input:focus{
 				type:"post",
 				success:function(){
 					selectchList();
+					alert("저장이 완료되었습니다.");
 				},
 				error:function(){
 					console.log("ajax 통신 실패");
@@ -152,7 +162,6 @@ input:focus{
 			},
 			type:"get",
 			success:function(list){
-				console.log(list);
 				var value="";
 				
 				$.each(list, function(index, obj){
@@ -161,7 +170,7 @@ input:focus{
 					const cateName = $("<td>").text(obj.cateName);
 					const cgPoint= $("<td>").append($("<input type='text'class='point-input'>").val(obj.cgPoint!=0?obj.cgPoint:""));
 					const tr = $("<tr class='student-tr'>").append(sId, sName, cateName, cgPoint);
-					
+					originMap.set(obj.sId,obj.cgPoint);
 					$("#classHistoryListArea").append(tr);
 					
 				});
