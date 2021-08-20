@@ -389,6 +389,9 @@ public class StudentDao {
 			close(pstmt);
 		}
 		return SList;
+		
+	}
+	
 	public int idCheck(Connection conn, String userId) {
 		int result=0;
 		PreparedStatement pstmt=null;
