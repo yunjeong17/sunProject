@@ -13,16 +13,16 @@ import com.sun.student.model.service.StudentService;
 import com.sun.student.model.vo.Fluctuation;
 
 /**
- * Servlet implementation class FluctuationUpdate
+ * Servlet implementation class FluctuationInsert
  */
-@WebServlet("/update.fl")
-public class FluctuationUpdate extends HttpServlet {
+@WebServlet("/insert.fl")
+public class FluctuationInsert extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FluctuationUpdate() {
+    public FluctuationInsert() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,29 +32,40 @@ public class FluctuationUpdate extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		 
+		
+		String sId= request.getParameter("sId");
+		String no= request.getParameter("flNo");
 		String flChange= request.getParameter("flChange");
 		String flReason= request.getParameter("flReason");
-		String userId=request.getParameter("getsId");
-		String no=request.getParameter("flNo");
-		int flNo=0;
-		if(no!=null) {
-			flNo=Integer.parseInt(no);
+		String year= request.getParameter("flYear");
+		String semester=request.getParameter("flSemester");
+		
+		int flNo = 0;
+		int flYear = 0;
+		int flSemester = 0;
+		
+		if(no!=null && year!=null && semester!=null) {
+			flNo = Integer.parseInt(no);
+			flYear= Integer.parseInt(year);
+			flSemester= Integer.parseInt(semester);
 		}
+		
 		Fluctuation fl = new Fluctuation();
+		fl.setsId(sId);
+		fl.setFlNo(flNo);
 		fl.setFlChange(flChange);
 		fl.setFlReason(flReason);
-		fl.setsId(userId);
-		fl.setFlNo(flNo);
-
-		int updatefl = new StudentService().updateFluctutation(fl);
+		fl.setFlYear(flYear);
+		fl.setFlSemester(flSemester);
 		
-		if(updatefl > 0) {
-			request.getSession().setAttribute("msg", "학적 수정을 성공했습니다.");
+		int result = new StudentService().insertFluctuation(fl);
+		
+		if(result>0) {
+			request.getSession().setAttribute("msg", "학적 등록 성공");
 			response.sendRedirect("list.st");
-			
-		}else {
-			request.setAttribute("msg", "학적 수정을 실패했습니다.");
+		}
+		else {
+			request.setAttribute("msg", "학적 등록 실패");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}

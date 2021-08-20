@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.sun.common.CommonDao;
+import com.sun.student.model.vo.DropDown;
 import com.sun.student.model.vo.Fluctuation;
 import com.sun.student.model.vo.PageInfo;
 import com.sun.student.model.vo.Student;
@@ -91,11 +92,11 @@ public class StudentDao {
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, st.getUserId());
-			pstmt.setString(2, st.getPId());
-			pstmt.setString(3, st.getCNo());
-			pstmt.setString(4, st.getUserPwd());
-			pstmt.setString(5, st.getUserName());
-			pstmt.setInt(6, st.getsLevel());
+			//pstmt.setString(2, st.getPId());
+			pstmt.setString(2, st.getCNo());
+			pstmt.setString(3, st.getUserPwd());
+			pstmt.setString(4, st.getUserName());
+			pstmt.setInt(5, st.getsLevel());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -106,20 +107,21 @@ public class StudentDao {
 		}
 		return result;
 	}
-
-	public ArrayList<Student> getPList(Connection conn) {
-		ArrayList<Student> pList = new ArrayList<Student>();
+	
+	public ArrayList<DropDown> getDList(Connection conn) {
+		ArrayList<DropDown> dList = new ArrayList<DropDown>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String sql = prop.getProperty("getPList");
+		String sql = prop.getProperty("getdList");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				pList.add(new Student(rset.getString("P_ID"), rset.getString("P_NAME")));
+				dList.add(new DropDown(rset.getString("P_ID"),
+									 rset.getString("P_Name")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -127,7 +129,7 @@ public class StudentDao {
 			close(rset);
 			close(pstmt);
 		}
-		return pList;
+		return dList;
 	}
 
 	public ArrayList<Student> getCList(Connection conn) {
@@ -142,7 +144,8 @@ public class StudentDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				cList.add(new Student(rset.getString("C_NO"), rset.getString("C_NAME")));
+				cList.add(new Student(rset.getString("C_NO"),
+						rset.getString("C_NAME")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -386,5 +389,110 @@ public class StudentDao {
 			close(pstmt);
 		}
 		return SList;
+	public int idCheck(Connection conn, String userId) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		
+		String sql=prop.getProperty("idCheck");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result=rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+				
+		return result;
+	}
+
+	public int updateStudent(Connection conn, Student st) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateStudent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, st.getPId());
+			pstmt.setString(2, st.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int pIdCheck(Connection conn, String pId) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		
+		String sql=prop.getProperty("pIdCheck");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pId);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result=rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+				
+		return result;
+	}
+
+	public int insertFluctuation(Connection conn, Fluctuation fl) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFluctuation");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, fl.getFlNo());
+			pstmt.setString(2, fl.getsId());
+			pstmt.setString(3, fl.getFlChange());
+			pstmt.setString(4, fl.getFlReason());
+			pstmt.setInt(5, fl.getFlYear());
+			pstmt.setInt(6, fl.getFlSemester());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 }
