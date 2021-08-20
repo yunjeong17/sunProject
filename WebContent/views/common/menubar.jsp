@@ -232,11 +232,9 @@ span{
 		<li><div class="menuLink" onclick="goStudentRegister();">학적</div></li>
 		<li><div class="menuLink" onclick="goStudentConsulting();">상담</div></li>
 		<li><div class="menuLink" onclick="goStudentGrade();">성적</div></li>
-		<li><div class="menuLink" onclick="goCertificate();">증명서발급</div></li>
+		<li><div class="menuLink" onclick="goCertification('https://www.webminwon.com/#reload');">증명서발급</div></li>
 	</ul>
-	<%}%>
-	</div>
-	<%} %>
+	<%}}%>
 	</nav>
 	
 	<script>
@@ -252,7 +250,22 @@ span{
 		location.href="<%=request.getContextPath()%>/consultingList.pr";
 	}
 	
-
+	function goStudentRegister(){
+		location.href="<%=request.getContextPath()%>/";
+	}
+	
+	function goStudentConsulting(){
+		location.href="<%=request.getContextPath()%>/student.consult";
+	}
+	
+	function goStudentGrade(){
+		location.href="<%=request.getContextPath()%>/student.grade";
+	}
+	
+	function goCertification(url) {
+        var win = window.open(url, '_blank');
+        win.focus();
+    }
 	</script>
 </body>
 </html>
