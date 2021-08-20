@@ -1,6 +1,5 @@
 package com.sun.student.model.dao;
 
-
 import static com.sun.common.JDBCTemplate.close;
 
 import java.sql.Connection;
@@ -92,7 +91,7 @@ public class StudentDao {
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, st.getUserId());
-			//pstmt.setString(2, st.getPId());
+			// pstmt.setString(2, st.getPId());
 			pstmt.setString(2, st.getCNo());
 			pstmt.setString(3, st.getUserPwd());
 			pstmt.setString(4, st.getUserName());
@@ -107,7 +106,7 @@ public class StudentDao {
 		}
 		return result;
 	}
-	
+
 	public ArrayList<DropDown> getDList(Connection conn) {
 		ArrayList<DropDown> dList = new ArrayList<DropDown>();
 		PreparedStatement pstmt = null;
@@ -120,8 +119,7 @@ public class StudentDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				dList.add(new DropDown(rset.getString("P_ID"),
-									 rset.getString("P_Name")));
+				dList.add(new DropDown(rset.getString("P_ID"), rset.getString("P_Name")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -144,8 +142,7 @@ public class StudentDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				cList.add(new Student(rset.getString("C_NO"),
-						rset.getString("C_NAME")));
+				cList.add(new Student(rset.getString("C_NO"), rset.getString("C_NAME")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -208,19 +205,19 @@ public class StudentDao {
 		}
 		return fl;
 	}
-	
+
 	public int updateFluctutation(Connection conn, Fluctuation fl) {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("updateFluctutation");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, fl.getFlChange());
 			pstmt.setString(2, fl.getFlReason());
 			pstmt.setString(3, fl.getsId());
 			pstmt.setInt(4, fl.getFlNo());
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -231,28 +228,25 @@ public class StudentDao {
 
 		return result;
 	}
-	
+
 	public ArrayList<StudentConsulting> student_consultingList(Connection conn, String userId) {
 		ArrayList<StudentConsulting> list = new ArrayList<StudentConsulting>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		
+
 		String sql = prop.getProperty("student_consultingList");
-		//student_consultingList=SELECT CS_NO, CS_CONTENTS, CS_DATE, CS_TIME, CS_WAY, CS_TYPE FROM CONSULTING WHERE S_ID = ?
-		
+		// student_consultingList=SELECT CS_NO, CS_CONTENTS, CS_DATE, CS_TIME, CS_WAY,
+		// CS_TYPE FROM CONSULTING WHERE S_ID = ?
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
-			rset=pstmt.executeQuery();
-			
-			while(rset.next()) {
-				list.add(new StudentConsulting(rset.getInt("CS_NO")
-						,rset.getString("CS_CONTENTS")
-						,rset.getDate("CS_DATE")
-						,rset.getString("CS_TIME")
-						,rset.getString("CS_WAY")
-						,rset.getString("CS_TYPE")));
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new StudentConsulting(rset.getInt("CS_NO"), rset.getString("CS_CONTENTS"),
+						rset.getDate("CS_DATE"), rset.getString("CS_TIME"), rset.getString("CS_WAY"),
+						rset.getString("CS_TYPE")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -267,18 +261,19 @@ public class StudentDao {
 		String advisor = "";
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
+
 		String sql = prop.getProperty("searchAdvisor");
-		/*  SELECT P_NAME FROM PROFESSORS
-			LEFT JOIN STUDENT ON PROFESSORS.P_ID = STUDENT.P_ID
-			WHERE STUDENT.S_ID =?*/
-		
+		/*
+		 * SELECT P_NAME FROM PROFESSORS LEFT JOIN STUDENT ON PROFESSORS.P_ID =
+		 * STUDENT.P_ID WHERE STUDENT.S_ID =?
+		 */
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
-			rset=pstmt.executeQuery();
-			
-			if(rset.next()) {
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
 				advisor = rset.getString("P_NAME");
 			}
 		} catch (SQLException e) {
@@ -296,23 +291,20 @@ public class StudentDao {
 		ArrayList<StudentDivisionGrade> list = new ArrayList<StudentDivisionGrade>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		
+
 		String sql = prop.getProperty("student_divisionGrade");
 		/*
-			SELECT CLASS.CLASS_TYPE_NO, SUM(CLASS.CREDIT) 
-			FROM CLASS
-			LEFT JOIN CLASS_HISTORY ON CLASS_HISTORY.CLASS_NO=CLASS.CLASS_NO
-			WHERE CLASS_HISTORY.S_ID=?
-			GROUP BY CLASS.CLASS_TYPE_NO;
-		*/
-		
+		 * SELECT CLASS.CLASS_TYPE_NO, SUM(CLASS.CREDIT) FROM CLASS LEFT JOIN
+		 * CLASS_HISTORY ON CLASS_HISTORY.CLASS_NO=CLASS.CLASS_NO WHERE
+		 * CLASS_HISTORY.S_ID=? GROUP BY CLASS.CLASS_TYPE_NO;
+		 */
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
-			rset=pstmt.executeQuery();
-			
-			while(rset.next()) {
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
 				list.add(new StudentDivisionGrade(rset.getInt("TYPENO"), rset.getInt("CREDIT")));
 			}
 		} catch (Exception e) {
@@ -328,23 +320,20 @@ public class StudentDao {
 		ArrayList<StudentSemeterGrade> SList = new ArrayList<StudentSemeterGrade>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		
+
 		String sql = prop.getProperty("student_semesterGrade");
 		/*
-			SELECT GRADE_NO, YEAR, SEMESTER, PUTGRADE FROM GRADE WHERE S_ID=?
-		*/
-		
+		 * SELECT GRADE_NO, YEAR, SEMESTER, PUTGRADE FROM GRADE WHERE S_ID=?
+		 */
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
-			rset=pstmt.executeQuery();
-			
-			while(rset.next()) {
-				SList.add(new StudentSemeterGrade(rset.getInt("GRADE_NO")
-												  ,rset.getInt("YEAR")
-												  ,rset.getInt("SEMESTER")
-												  ,rset.getInt("PUTGRADE")));
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				SList.add(new StudentSemeterGrade(rset.getInt("GRADE_NO"), rset.getInt("YEAR"), rset.getInt("SEMESTER"),
+						rset.getInt("PUTGRADE")));
 				System.out.println(SList);
 			}
 		} catch (Exception e) {
@@ -361,25 +350,22 @@ public class StudentDao {
 		ArrayList<StudentSemeterGrade> SList = new ArrayList<StudentSemeterGrade>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		
-		
+
 		String sql = prop.getProperty("student_semesterGrade");
 		/*
-			SELECT GRADE_NO, YEAR, SEMESTER, PUTGRADE FROM GRADE WHERE S_ID=?
-		*/
+		 * SELECT GRADE_NO, YEAR, SEMESTER, PUTGRADE FROM GRADE WHERE S_ID=?
+		 */
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
 			pstmt.setInt(2, year);
 			pstmt.setInt(3, semester);
-			
-			rset=pstmt.executeQuery();
-			
-			while(rset.next()) {
-				SList.add(new StudentSemeterGrade(rset.getInt("GRADE_NO")
-												  ,rset.getInt("YEAR")
-												  ,rset.getInt("SEMESTER")
-												  ,rset.getInt("PUTGRADE")));
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				SList.add(new StudentSemeterGrade(rset.getInt("GRADE_NO"), rset.getInt("YEAR"), rset.getInt("SEMESTER"),
+						rset.getInt("PUTGRADE")));
 				System.out.println(SList);
 			}
 		} catch (Exception e) {
@@ -389,34 +375,35 @@ public class StudentDao {
 			close(pstmt);
 		}
 		return SList;
+	}
+
 	public int idCheck(Connection conn, String userId) {
-		int result=0;
-		PreparedStatement pstmt=null;
-		ResultSet rset=null;
-		
-		String sql=prop.getProperty("idCheck");
-		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("idCheck");
+
 		try {
-			pstmt=conn.prepareStatement(sql);
-			
+			pstmt = conn.prepareStatement(sql);
+
 			pstmt.setString(1, userId);
-			
-			rset= pstmt.executeQuery();
-			
-			if(rset.next()) {
-				result=rset.getInt(1);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				result = rset.getInt(1);
 			}
-			
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rset);
 			close(pstmt);
-			
+
 		}
-				
+
 		return result;
 	}
 
@@ -424,12 +411,12 @@ public class StudentDao {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("updateStudent");
-		
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, st.getPId());
 			pstmt.setString(2, st.getUserId());
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -442,33 +429,32 @@ public class StudentDao {
 	}
 
 	public int pIdCheck(Connection conn, String pId) {
-		int result=0;
-		PreparedStatement pstmt=null;
-		ResultSet rset=null;
-		
-		String sql=prop.getProperty("pIdCheck");
-		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("pIdCheck");
+
 		try {
-			pstmt=conn.prepareStatement(sql);
-			
+			pstmt = conn.prepareStatement(sql);
+
 			pstmt.setString(1, pId);
-			
-			rset= pstmt.executeQuery();
-			
-			if(rset.next()) {
-				result=rset.getInt(1);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				result = rset.getInt(1);
 			}
-			
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}finally {
+		} finally {
 			close(rset);
 			close(pstmt);
-			
+
 		}
-				
+
 		return result;
 	}
 
@@ -478,14 +464,14 @@ public class StudentDao {
 		String sql = prop.getProperty("insertFluctuation");
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setInt(1, fl.getFlNo());
 			pstmt.setString(2, fl.getsId());
 			pstmt.setString(3, fl.getFlChange());
 			pstmt.setString(4, fl.getFlReason());
 			pstmt.setInt(5, fl.getFlYear());
 			pstmt.setInt(6, fl.getFlSemester());
-			
+
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
