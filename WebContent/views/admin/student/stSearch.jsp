@@ -100,8 +100,9 @@ label, input{
 	<%@ include file="/views/common/menubar.jsp"%>
 	<br>
 	<div class="wrap" align="center">
+	<h4 align="center">검색 결과</h4>
+		<h5 align="center">학생을 선택하면 학적 정보 수정이 가능합니다.</h5>
 		<table>
-			<caption>검색 결과</caption>
 			<thead>
 				<tr>
 					<td class="head">학번</td>
@@ -133,10 +134,20 @@ label, input{
 		</table>
 		<br>
 		<div align="center">
-		<button onclick="history.go(-1)">학생 목록</button>
+		<button onclick="location.href='list.st'">학생 목록</button>
 		<button onclick="location.href='form.st'">학생 추가</button>
 		</div>
 	</div>
+	<script>
+		$(document).ready(function() {
+			$(function() {
+				$("tbody>tr").click(function() {
+					var userId = $(this).children().eq(0).text();
+					location.href="<%=contextPath%>/detail.st?userId="+userId;
+				})
+			})
+		});
+	</script>
 	
 
 </body>

@@ -10,9 +10,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.sun.student.model.dao.StudentDao;
-import com.sun.student.model.vo.Student;
+import com.sun.student.model.vo.DropDown;
 import com.sun.student.model.vo.Fluctuation;
 import com.sun.student.model.vo.PageInfo;
+import com.sun.student.model.vo.Student;
 
 public class StudentService {
 	public int getListCount() {
@@ -50,24 +51,25 @@ public class StudentService {
 		return result;
 	}
 
-	public ArrayList<Student> getPList() {
+	
+	public ArrayList<DropDown> getDList() {
 		Connection conn = getConnection();
 
-		ArrayList<Student> pList = new StudentDao().getPList(conn);
+		ArrayList<DropDown> dList = new StudentDao().getDList(conn);
 		
 		close(conn);
 		
-		return pList;
+		return dList;
 	}
 
 	public ArrayList<Student> getCList() {
 		Connection conn = getConnection();
 
-		ArrayList<Student> pList = new StudentDao().getCList(conn);
+		ArrayList<Student> cList = new StudentDao().getCList(conn);
 		
 		close(conn);
 		
-		return pList;
+		return cList;
 	}
 
 	public Student searchStudent(String search) {
@@ -110,6 +112,56 @@ public class StudentService {
 		}else {
 			rollback(conn);
 		}
+		
+		return result;
+	}
+
+	public int idCheck(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().idCheck(conn,userId);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int updateStudent(Student st) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().updateStudent(conn,st);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int pIdCheck(String pId) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().pIdCheck(conn,pId);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int insertFluctuation(Fluctuation fl) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().insertFluctuation(conn, fl);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
 		
 		return result;
 	}	
