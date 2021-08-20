@@ -12,9 +12,12 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.sun.common.CommonDao;
-import com.sun.student.model.vo.Student;
 import com.sun.student.model.vo.Fluctuation;
 import com.sun.student.model.vo.PageInfo;
+import com.sun.student.model.vo.Student;
+import com.sun.student.model.vo.StudentConsulting;
+import com.sun.student.model.vo.StudentDivisionGrade;
+import com.sun.student.model.vo.StudentSemeterGrade;
 
 public class StudentDao {
 
@@ -224,5 +227,164 @@ public class StudentDao {
 		}
 
 		return result;
+	}
+	
+	public ArrayList<StudentConsulting> student_consultingList(Connection conn, String userId) {
+		ArrayList<StudentConsulting> list = new ArrayList<StudentConsulting>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		String sql = prop.getProperty("student_consultingList");
+		//student_consultingList=SELECT CS_NO, CS_CONTENTS, CS_DATE, CS_TIME, CS_WAY, CS_TYPE FROM CONSULTING WHERE S_ID = ?
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new StudentConsulting(rset.getInt("CS_NO")
+						,rset.getString("CS_CONTENTS")
+						,rset.getDate("CS_DATE")
+						,rset.getString("CS_TIME")
+						,rset.getString("CS_WAY")
+						,rset.getString("CS_TYPE")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public String searchAdvisor(Connection conn, String userId) {
+		String advisor = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("searchAdvisor");
+		/*  SELECT P_NAME FROM PROFESSORS
+			LEFT JOIN STUDENT ON PROFESSORS.P_ID = STUDENT.P_ID
+			WHERE STUDENT.S_ID =?*/
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset=pstmt.executeQuery();
+			
+			if(rset.next()) {
+				advisor = rset.getString("P_NAME");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return advisor;
+	}
+
+	public ArrayList<StudentDivisionGrade> student_divisionGrade(Connection conn, String userId) {
+		ArrayList<StudentDivisionGrade> list = new ArrayList<StudentDivisionGrade>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		String sql = prop.getProperty("student_divisionGrade");
+		/*
+			SELECT CLASS.CLASS_TYPE_NO, SUM(CLASS.CREDIT) 
+			FROM CLASS
+			LEFT JOIN CLASS_HISTORY ON CLASS_HISTORY.CLASS_NO=CLASS.CLASS_NO
+			WHERE CLASS_HISTORY.S_ID=?
+			GROUP BY CLASS.CLASS_TYPE_NO;
+		*/
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new StudentDivisionGrade(rset.getInt("TYPENO"), rset.getInt("CREDIT")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<StudentSemeterGrade> student_semesterGrade(Connection conn, String userId) {
+		ArrayList<StudentSemeterGrade> SList = new ArrayList<StudentSemeterGrade>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		String sql = prop.getProperty("student_semesterGrade");
+		/*
+			SELECT GRADE_NO, YEAR, SEMESTER, PUTGRADE FROM GRADE WHERE S_ID=?
+		*/
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				SList.add(new StudentSemeterGrade(rset.getInt("GRADE_NO")
+												  ,rset.getInt("YEAR")
+												  ,rset.getInt("SEMESTER")
+												  ,rset.getInt("PUTGRADE")));
+				System.out.println(SList);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return SList;
+	}
+
+	public ArrayList<StudentSemeterGrade> student_semesterGrade(Connection conn, String userId, int year,
+			int semester) {
+		ArrayList<StudentSemeterGrade> SList = new ArrayList<StudentSemeterGrade>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		String sql = prop.getProperty("student_semesterGrade");
+		/*
+			SELECT GRADE_NO, YEAR, SEMESTER, PUTGRADE FROM GRADE WHERE S_ID=?
+		*/
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, year);
+			pstmt.setInt(3, semester);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				SList.add(new StudentSemeterGrade(rset.getInt("GRADE_NO")
+												  ,rset.getInt("YEAR")
+												  ,rset.getInt("SEMESTER")
+												  ,rset.getInt("PUTGRADE")));
+				System.out.println(SList);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return SList;
 	}
 }

@@ -8,11 +8,15 @@ import static com.sun.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.sun.student.model.dao.StudentDao;
-import com.sun.student.model.vo.Student;
 import com.sun.student.model.vo.Fluctuation;
 import com.sun.student.model.vo.PageInfo;
+import com.sun.student.model.vo.Student;
+import com.sun.student.model.vo.StudentConsulting;
+import com.sun.student.model.vo.StudentDivisionGrade;
+import com.sun.student.model.vo.StudentSemeterGrade;
 
 public class StudentService {
 	public int getListCount() {
@@ -112,5 +116,51 @@ public class StudentService {
 		}
 		
 		return result;
-	}	
+	}
+	
+	public ArrayList<StudentConsulting> student_consultingList(String userId) {
+		Connection conn = getConnection();
+
+		ArrayList<StudentConsulting> list = new StudentDao().student_consultingList(conn,userId);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public String searchAdvisor(String userId) {
+		Connection conn = getConnection();
+		
+		String advisor = new StudentDao().searchAdvisor(conn, userId);
+		close(conn);
+		return advisor;
+	}
+
+	public ArrayList<StudentDivisionGrade> student_divisionGrade(String userId) {
+		Connection conn = getConnection();
+		
+		ArrayList<StudentDivisionGrade> list = new StudentDao().student_divisionGrade(conn, userId);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<StudentSemeterGrade> student_semesterGrade(String userId) {
+		Connection conn = getConnection();
+		
+		Calendar calendar = Calendar.getInstance();
+		int year=calendar.get(Calendar.YEAR);
+		int month=calendar.get(Calendar.MONTH)+1;
+		int semester=0; //0학기는 계절학기
+		
+		if(month>=2 && month<=6) { //1학기
+			semester=1;
+		}
+		else if(month>=9 && month<=12) { //2학기
+			semester=2;
+		}
+		
+		ArrayList<StudentSemeterGrade> SList = new StudentDao().student_semesterGrade(conn, userId, year, semester);
+		close(conn);
+		return SList;
+	}
 }
