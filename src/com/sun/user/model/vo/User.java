@@ -4,6 +4,7 @@ public class User {
 	private String userId;
 	private String userPwd;
 	private String userName;
+	private String userEmail;
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
@@ -14,12 +15,27 @@ public class User {
 		this.userName = userName;
 	}
 	
+	public User(String userId, String userPwd, String userName, String userEmail) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userEmail = userEmail;
+	}
 	@Override
 	public String toString() {
 		return "userId="+userId+", userPwd"+userPwd+", userName"+userName;
 		
 	}
 	
+	
+	
+	public String getUserEmail() {
+		return userEmail;
+	}
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
+	}
 	public String getUserId() {
 		return userId;
 	}

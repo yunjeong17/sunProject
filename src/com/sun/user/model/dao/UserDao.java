@@ -55,4 +55,41 @@ public class UserDao {
 
 		return loginUser;
 	}
+
+
+
+	public User selectFindUser(Connection conn, String userName, String userEmail,String tableName) {
+		User findUser=null;
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		String sql=prop.getProperty("selectFind"+tableName);
+		System.out.println(sql);
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userEmail);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				findUser= new User(
+							rset.getString(tableName.charAt(0)+"_ID"),
+							rset.getString(tableName.charAt(0)+"_PWD"),
+							rset.getString(tableName.charAt(0)+"_NAME"),
+							rset.getString(tableName.charAt(0)+"_EMAIL")
+						);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+
+		return findUser;
+	}
 }
