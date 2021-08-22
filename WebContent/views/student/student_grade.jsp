@@ -1,9 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.sun.student.model.vo.StudentDivisionGrade, com.sun.student.model.vo.StudentSemeterGrade"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.sun.student.model.vo.StudentDivisionGrade, com.sun.student.model.vo.StudentSemeterGrade, com.sun.student.model.vo.StudentEarnCredit"%>
 <%
 	ArrayList<StudentDivisionGrade> list = (ArrayList<StudentDivisionGrade>)request.getAttribute("list");
 	ArrayList<StudentSemeterGrade> SList = (ArrayList<StudentSemeterGrade>)request.getAttribute("SList");
-
+	ArrayList<StudentEarnCredit> EList = (ArrayList<StudentEarnCredit>)request.getAttribute("EList");
+	ArrayList rank = (ArrayList)request.getAttribute("rank");
+	
+	ArrayList<StudentSemeterGrade> Sarr = (ArrayList<StudentSemeterGrade>) session.getAttribute("SList");
+	
 	int totalSum = 0;
 	int preSum = 0;
 	int eleSum = 0;
@@ -14,7 +18,9 @@
 	int industry = 0;
 	int free = 0;
 	
-	int no = 0;
+	int no = 1;
+	int earnCredit = 0;
+	int ranking = 0;
 	
 %>
 <!DOCTYPE html>
@@ -64,14 +70,26 @@
 					<%if(SList.isEmpty()){ %>
 						<td colspan="8" style="text-align:center;">존재하는 성적 내역이 없습니다.</td>
 					<%}else{ %>
-					<tr>
-						<%for(StudentSemeterGrade ssg:SList){ %>
+						<%for(int i=0;i<SList.size();i++){ %>
+						<tr>
 							<td style="text-align: center"><%=no++ %></td>
-							<td style="text-align: center"><%=ssg.getYear() %></td>
-							<td style="text-align: center"><%=ssg.getSemester() %></td>
-							<td style="text-align: center"><%=ssg.getPutGrade() %></td>
+							<td style="text-align: center"><%=SList.get(i).getYear() %></td>
+							<td style="text-align: center"><%=SList.get(i).getSemester() %></td>
+							<td style="text-align: center"><%=SList.get(i).getAppliCredit() %></td>
+							<%if(EList.get(i)!=null){ %>
+								<%earnCredit=EList.get(i).getEarnCredit(); %>
+							<%} %>
+							<td style="text-align: center"><%=earnCredit%></td>
+							<td style="text-align: center"><%=SList.get(i).getAvgCredit() %></td>
+							<td style="text-align: center"><%=SList.get(i).getPercent() %></td>
+							<%if(rank.get(i)!=null){ %>
+								<%ranking=(int)rank.get(i); %>
+							<%} %>
+							<td style="text-align: center"><%=ranking %></td>
 						<%} %>
-					</tr>
+								
+						</tr>
+						
 					<%} %>
 				</tbody>
 				

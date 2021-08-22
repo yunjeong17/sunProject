@@ -1,3 +1,4 @@
+
 package com.sun.student.model.dao;
 
 import static com.sun.common.JDBCTemplate.close;
@@ -316,56 +317,29 @@ public class StudentDao {
 		return list;
 	}
 
-	public ArrayList<StudentSemeterGrade> student_semesterGrade(Connection conn, String userId) {
-		ArrayList<StudentSemeterGrade> SList = new ArrayList<StudentSemeterGrade>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		String sql = prop.getProperty("student_semesterGrade");
-		/*
-		 * SELECT GRADE_NO, YEAR, SEMESTER, PUTGRADE FROM GRADE WHERE S_ID=?
-		 */
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			rset = pstmt.executeQuery();
-
-			while (rset.next()) {
-				SList.add(new StudentSemeterGrade(rset.getInt("GRADE_NO"), rset.getInt("YEAR"), rset.getInt("SEMESTER"),
-						rset.getInt("PUTGRADE")));
-				System.out.println(SList);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return SList;
-	}
-
 	public ArrayList<StudentSemeterGrade> student_semesterGrade(Connection conn, String userId, int year,
 			int semester) {
 		ArrayList<StudentSemeterGrade> SList = new ArrayList<StudentSemeterGrade>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String sql = prop.getProperty("student_semesterGrade");
-		/*
-		 * SELECT GRADE_NO, YEAR, SEMESTER, PUTGRADE FROM GRADE WHERE S_ID=?
+		String sql1 = prop.getProperty("student_semesterGrade");
+		/*			
+			SELECT YEAR, SEMESTER, CREDIT, CG_POINT, PERCENT FROM VIEW_ST_APPLI WHERE S_ID=?
+			int year, int semester, int appliCredit, double avgCredit, double percent
 		 */
 		try {
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql1);
 			pstmt.setString(1, userId);
-			pstmt.setInt(2, year);
-			pstmt.setInt(3, semester);
 
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				SList.add(new StudentSemeterGrade(rset.getInt("GRADE_NO"), rset.getInt("YEAR"), rset.getInt("SEMESTER"),
-						rset.getInt("PUTGRADE")));
+				SList.add(new StudentSemeterGrade(rset.getInt("YEAR"),
+												  rset.getInt("SEMESTER"),
+												  rset.getInt("CREDIT"),
+												  rset.getDouble("CG_POINT"),
+												  rset.getDouble("PERCENT")));
 				System.out.println(SList);
 			}
 		} catch (Exception e) {
@@ -375,7 +349,9 @@ public class StudentDao {
 			close(pstmt);
 		}
 		return SList;
-  }
+	
+	}
+	
   
 	public int idCheck(Connection conn, String userId) {
 		int result = 0;
@@ -482,3 +458,4 @@ public class StudentDao {
 		return result;
 	}
 }
+
