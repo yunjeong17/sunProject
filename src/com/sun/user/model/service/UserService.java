@@ -35,4 +35,22 @@ public class UserService {
 		return findUser;
 	}
 
+	public User selectUpdateUser(User user, String tableName) {
+Connection conn = getConnection();
+		
+		User resetUser = new UserDao().selectUpdateUser(conn, user, tableName);
+		close(conn);
+		return resetUser;
+	}
+	
+	public int updateUserPwd(User user,String tableName) {
+		Connection conn = getConnection();
+		
+		int result = new UserDao().updateUserPwd(conn, user,tableName);
+		close(conn);
+		return result;
+	}
+
+
+
 }

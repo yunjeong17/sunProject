@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UserRestPwdForm
+ * Servlet implementation class UserResetPwdForm
  */
 @WebServlet("/resetPwdForm.us")
-public class UserRestPwdForm extends HttpServlet {
+public class UserResetPwdForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserRestPwdForm() {
+    public UserResetPwdForm() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,7 +28,8 @@ public class UserRestPwdForm extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		RequestDispatcher view = request.getRequestDispatcher("views/user/resetPwdForm.jsp");
+		view.forward(request, response);
 	}
 
 	/**
