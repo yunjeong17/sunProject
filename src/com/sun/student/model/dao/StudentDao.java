@@ -1,3 +1,4 @@
+
 package com.sun.student.model.dao;
 
 import static com.sun.common.JDBCTemplate.close;
@@ -17,7 +18,6 @@ import com.sun.student.model.vo.PageInfo;
 import com.sun.student.model.vo.Student;
 import com.sun.student.model.vo.StudentConsulting;
 import com.sun.student.model.vo.StudentDivisionGrade;
-import com.sun.student.model.vo.StudentEarnCredit;
 import com.sun.student.model.vo.StudentSemeterGrade;
 
 public class StudentDao {
@@ -299,6 +299,7 @@ public class StudentDao {
 		 * CLASS_HISTORY ON CLASS_HISTORY.CLASS_NO=CLASS.CLASS_NO WHERE
 		 * CLASS_HISTORY.S_ID=? GROUP BY CLASS.CLASS_TYPE_NO;
 		 */
+
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
@@ -316,7 +317,8 @@ public class StudentDao {
 		return list;
 	}
 
-	public ArrayList<StudentSemeterGrade> student_semesterGrade(Connection conn, String userId) {
+	public ArrayList<StudentSemeterGrade> student_semesterGrade(Connection conn, String userId, int year,
+			int semester) {
 		ArrayList<StudentSemeterGrade> SList = new ArrayList<StudentSemeterGrade>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -347,8 +349,10 @@ public class StudentDao {
 			close(pstmt);
 		}
 		return SList;
+	
 	}
-
+	
+  
 	public int idCheck(Connection conn, String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -453,70 +457,5 @@ public class StudentDao {
 		}
 		return result;
 	}
-
-	public ArrayList<StudentEarnCredit> student_earnCredit(Connection conn, String userId) {
-		ArrayList<StudentEarnCredit> EList = new ArrayList<StudentEarnCredit>();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		String sql1 = prop.getProperty("student_earnCredit");
-		/*			
-			SELECT SUM(C.CREDIT) FROM CLASS C JOIN CLASS_HISTORY H ON C.CLASS_NO=H.CLASS_NO WHERE H.S_ID=? AND H.CG_POINT IS NOT NULL GROUP BY C.CLASS_YEAR,C.CLASS_SEMESTER
-			SELECT CREDIT FROM VIEW_ST_EARN WHERE S_ID=?
-		 */
-		try {
-			pstmt = conn.prepareStatement(sql1);
-			pstmt.setString(1, userId);
-
-			rset = pstmt.executeQuery();
-
-			while (rset.next()) {
-				EList.add(new StudentEarnCredit(rset.getInt("CREDIT")));
-				System.out.println(EList);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return EList;
-	}
-
-	public ArrayList student_rank(Connection conn, String userId, int year, int semester) {
-		ArrayList rank = new ArrayList();
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		
-		String sql = prop.getProperty("student_rank");
-		/*
-		 	SELECT DENSE_RANK()OVER(ORDER BY NVL(C.AVG,0)) "RANK"
-			FROM STUDENT S
-			LEFT JOIN VIEW_ST_COUNT C ON S.S_ID = C.S_ID
-			WHERE C.YEAR=? AND C.SEMESTER=? AND S.C_NO =(SELECT C_NO
-		                                                 FROM STUDENT
-		                                                 WHERE S_ID=?
-		 */
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(3, userId);
-			pstmt.setInt(1, year);
-			pstmt.setInt(2, semester);
-
-			rset = pstmt.executeQuery();
-
-			while (rset.next()) {
-				rank.add(new ArrayList(rset.getInt("RANK")));
-				System.out.println(rank);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return rank;
-	}
-
-
 }
+

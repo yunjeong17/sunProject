@@ -1,7 +1,7 @@
-package com.sun.classHistory.controller;
+package com.sun.professors.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.professors.model.service.ProfessorsService;
 
-import com.sun.classes.model.service.ClassService;
-import com.sun.classes.model.vo.Classes;
-import com.sun.user.model.vo.User;
-
-
-@WebServlet("/gradeList.pr")
-public class ClassHistorySelectClass extends HttpServlet {
+/**
+ * Servlet implementation class ProfessorsDeleteConsulting
+ */
+@WebServlet("/deleteConsulting.pr")
+public class ProfessorsDeleteConsulting extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ClassHistorySelectClass() {
+    public ProfessorsDeleteConsulting() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,11 +30,20 @@ public class ClassHistorySelectClass extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user= (User)request.getSession().getAttribute("loginUser");
-		ArrayList<Classes> classList = new ClassService().selectClassByUserIdAndYearAndSemester(user.getUserId());
-		request.setAttribute("classList", classList);
-		request.getRequestDispatcher("views/professors/class/professorsGradeView.jsp").forward(request, response);
+		String csNo = request.getParameter("csNo");
+		System.out.println("delete!!!!!!");
+		int result = new ProfessorsService().deleteConsulting(Integer.parseInt(csNo));
 		
+		PrintWriter out = response.getWriter();
+		if(result>0) {
+			out.print("success");
+			
+		}else {
+			out.print("fail");
+			
+		}
+		out.flush();
+		out.close();
 	}
 
 	/**
