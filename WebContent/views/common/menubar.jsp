@@ -272,6 +272,9 @@ span{
 	function findId(){
 		window.open("<%=contextPath%>/findIdForm.us","아이디 찾기","width=500, height=300");
 	}
+	function resetPwd(){
+		window.open("<%=contextPath%>/resetPwdForm.us","비밀번호 초기화","width=500, height=300");
+	}
 	</script>
 </body>
 </html>

@@ -72,12 +72,10 @@ public class UserDao {
 			rset= pstmt.executeQuery();
 			
 			if(rset.next()) {
-				findUser= new User(
-							rset.getString(tableName.charAt(0)+"_ID"),
-							rset.getString(tableName.charAt(0)+"_PWD"),
-							rset.getString(tableName.charAt(0)+"_NAME"),
-							rset.getString(tableName.charAt(0)+"_EMAIL")
-						);
+				findUser= new User();
+				findUser.setUserEmail(rset.getString(tableName.charAt(0)+"_EMAIL"));
+				findUser.setUserId(rset.getString(tableName.charAt(0)+"_ID"));
+				findUser.setUserName(rset.getString(tableName.charAt(0)+"_NAME"));
 			}
 			
 			
@@ -91,5 +89,63 @@ public class UserDao {
 		}
 
 		return findUser;
+	}
+
+
+
+	public int updateUserPwd(Connection conn, User user,String tableName) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updatePwd"+tableName);
+//		updatePwdStudent=UPDATE STUDENT SET S_PWD=? WHERE S_ID=?
+//		updatePwdStudent=UPDATE PROFESSORS SET P_PWD=? WHERE P_ID=?
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,user.getUserId());
+			pstmt.setString(2,user.getUserId());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+
+
+	public User selectUpdateUser(Connection conn, User user, String tableName) {
+		User resetUser=null;
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		String sql=prop.getProperty("selectResetPwd"+tableName);
+		System.out.println(sql);
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, user.getUserId());
+			pstmt.setString(2, user.getUserName());
+			pstmt.setString(3, user.getUserEmail());
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				resetUser= new User();
+				resetUser.setUserEmail(rset.getString(tableName.charAt(0)+"_EMAIL"));
+				resetUser.setUserId(rset.getString(tableName.charAt(0)+"_ID"));
+				resetUser.setUserName(rset.getString(tableName.charAt(0)+"_NAME"));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+
+		return resetUser;
 	}
 }

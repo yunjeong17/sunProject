@@ -13,16 +13,16 @@ import com.sun.user.model.service.UserService;
 import com.sun.user.model.vo.User;
 
 /**
- * Servlet implementation class UserFindId
+ * Servlet implementation class UserRestPwd
  */
-@WebServlet("/findId.us")
-public class UserFindId extends HttpServlet {
+@WebServlet("/resetPwd.us")
+public class UserResetPwd extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserFindId() {
+    public UserResetPwd() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,25 +32,40 @@ public class UserFindId extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+
+		String userId= request.getParameter("userId");
 		String userName= request.getParameter("userName");
 		String userEmail= request.getParameter("userEmail");
 		String tableName= request.getParameter("tableName");
-		System.out.println(userName+"    "+ userEmail+"  "+ tableName);
-		User user= new UserService().selectFindUser(userName,userEmail,tableName);
 		
+		User user = new User();
+		user.setUserId(userId);
+		user.setUserName(userName);
+		user.setUserEmail(userEmail);
 		
-		RequestDispatcher view = request.getRequestDispatcher("views/user/findIdForm.jsp");
-		
-		if( user!=null) {
+		System.out.println(userName+"    "+ userEmail+"  "+ tableName+"  "+userId);
+		User resetUser = new UserService().selectUpdateUser(user,tableName);
+		if( resetUser!=null) {
+			int result = new UserService().updateUserPwd(resetUser,tableName);
 			System.out.println(user.getUserId());
-			request.setAttribute("userId",user.getUserId());
-			request.setAttribute("flag","Y");
-		}else {
-			request.setAttribute("userId",null);
+			if(result>0) {
+				request.setAttribute("flag","Y");
+				request.setAttribute("msg","비밀번호가 초기화 되었습니다. 초기화된 비밀번호는 아이디입니다.");
+			}
+			else {
+				request.setAttribute("flag","N");
+				request.setAttribute("msg","비밀번호를 초기화하지 못했습니다.");
+			}
+		}
+		
+		else {
+			request.setAttribute("msg","존재하지 않는 유저입니다.");
 			request.setAttribute("flag","N");
 		}
+		
+		RequestDispatcher view = request.getRequestDispatcher("views/user/resetPwdForm.jsp");
 		view.forward(request, response);
+
 	}
 
 	/**
