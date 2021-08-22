@@ -27,4 +27,12 @@ public class UserService {
 		return loginUser;
 	}
 
+	public User selectFindUser(String userName, String userEmail,String tableName) {
+		Connection conn = getConnection();
+		
+		User findUser = new UserDao().selectFindUser(conn, userName,userEmail, tableName);
+		close(conn);
+		return findUser;
+	}
+
 }
