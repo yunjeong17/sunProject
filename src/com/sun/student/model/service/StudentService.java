@@ -17,6 +17,7 @@ import com.sun.student.model.vo.PageInfo;
 import com.sun.student.model.vo.Student;
 import com.sun.student.model.vo.StudentConsulting;
 import com.sun.student.model.vo.StudentDivisionGrade;
+import com.sun.student.model.vo.StudentEarnCredit;
 import com.sun.student.model.vo.StudentSemeterGrade;
 
 public class StudentService {
@@ -149,19 +150,7 @@ public class StudentService {
 	public ArrayList<StudentSemeterGrade> student_semesterGrade(String userId) {
 		Connection conn = getConnection();
 		
-		Calendar calendar = Calendar.getInstance();
-		int year=calendar.get(Calendar.YEAR);
-		int month=calendar.get(Calendar.MONTH)+1;
-		int semester=0; //0학기는 계절학기
-		
-		if(month>=2 && month<=6) { //1학기
-			semester=1;
-		}
-		else if(month>=9 && month<=12) { //2학기
-			semester=2;
-		}
-		
-		ArrayList<StudentSemeterGrade> SList = new StudentDao().student_semesterGrade(conn, userId, year, semester);
+		ArrayList<StudentSemeterGrade> SList = new StudentDao().student_semesterGrade(conn, userId);
 		close(conn);
 		return SList;
 	}
@@ -214,5 +203,22 @@ public class StudentService {
 		close(conn);
 		
 		return result;
-	}	
+	}
+
+	public ArrayList<StudentEarnCredit> student_earnCredit(String userId) {
+		Connection conn = getConnection();
+		
+		ArrayList<StudentEarnCredit> SList = new StudentDao().student_earnCredit(conn, userId);
+		close(conn);
+		return SList;
+	}
+
+	public ArrayList student_rank(String userId, int year, int semester) {
+		Connection conn = getConnection();
+		
+		ArrayList rank = new StudentDao().student_rank(conn, userId, year, semester);
+		close(conn);
+		return rank;
+	}
+	
 }

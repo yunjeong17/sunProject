@@ -260,6 +260,7 @@ span{
 	
 	function goStudentGrade(){
 		location.href="<%=request.getContextPath()%>/student.grade";
+		
 	}
 	
 	function goCertification(url) {
