@@ -41,9 +41,9 @@ public class StudentGradeServlet extends HttpServlet {
 		ArrayList<StudentSemeterGrade> SList = new StudentService().student_semesterGrade(user.getUserId());
 		ArrayList<StudentEarnCredit> EList = new StudentService().student_earnCredit(user.getUserId());
 		ArrayList rank = null;
-		for(StudentSemeterGrade syc:Sarr) {
-			rank = new StudentService().student_rank(user.getUserId(), syc.getYear(), syc.getSemester());
-		}
+//		for(StudentSemeterGrade syc:Sarr) {
+//			rank = new StudentService().student_rank(user.getUserId(), syc.getYear(), syc.getSemester());
+//		}
 		
 		request.setAttribute("list", list);
 		request.setAttribute("SList", SList);
