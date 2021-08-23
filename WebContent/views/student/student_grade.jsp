@@ -4,9 +4,9 @@
 	ArrayList<StudentDivisionGrade> list = (ArrayList<StudentDivisionGrade>)request.getAttribute("list");
 	ArrayList<StudentSemeterGrade> SList = (ArrayList<StudentSemeterGrade>)request.getAttribute("SList");
 	ArrayList<StudentEarnCredit> EList = (ArrayList<StudentEarnCredit>)request.getAttribute("EList");
-	//ArrayList rank = (ArrayList)request.getAttribute("rank");
 	
-	//ArrayList<StudentSemeterGrade> Sarr = (ArrayList<StudentSemeterGrade>) session.getAttribute("SList");
+	
+	ArrayList<StudentSemeterGrade> rank = (ArrayList<StudentSemeterGrade>)request.getAttribute("rank");
 	
 	int totalSum = 0;
 	int preSum = 0;
@@ -82,7 +82,9 @@
 							<td style="text-align: center"><%=earnCredit%></td>
 							<td style="text-align: center"><%=SList.get(i).getAvgCredit() %></td>
 							<td style="text-align: center"><%=SList.get(i).getPercent() %></td>
-							
+						 	<%if(rank.get(i)!=null){ %>
+								<%ranking=rank.get(i).getRank(); %>
+							<%} %>
 							<td style="text-align: center"><%=ranking %></td>
 						<%} %>
 								
