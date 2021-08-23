@@ -229,7 +229,7 @@ span{
 	} else { // 학생
 	%>
 	<ul>
-		<li><div class="menuLink" onclick="goStudentRegister();">학적</div></li>
+		<li><div class="menuLink" onclick="location='<%=contextPath%>/ct.st'">학적</div></li>
 		<li><div class="menuLink" onclick="goStudentConsulting();">상담</div></li>
 		<li><div class="menuLink" onclick="goStudentGrade();">성적</div></li>
 		<li><div class="menuLink" onclick="goCertification('https://www.webminwon.com/#reload');">증명서발급</div></li>
@@ -238,6 +238,7 @@ span{
 	</nav>
 	
 	<script>
+	
 	function goProfessorsClass(){
 		location.href="<%=request.getContextPath()%>/classList.pr";
 	}

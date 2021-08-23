@@ -1,28 +1,29 @@
 package com.sun.student.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import com.sun.student.model.service.StudentService;
+import com.sun.student.model.vo.Certificate;
+import com.sun.user.model.vo.User;
 
 /**
- * Servlet implementation class StudentDelete
+ * Servlet implementation class CertificateList
  */
-@WebServlet("/delete.st")
-public class StudentDelete extends HttpServlet {
+@WebServlet("/ct.st")
+public class CertificateList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StudentDelete() {
+    public CertificateList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,19 +32,12 @@ public class StudentDelete extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId=request.getParameter("userId");
+		User user=(User)request.getSession().getAttribute("loginUser");
+
+		ArrayList<Certificate> list = new StudentService().CertificateList(user.getUserId());
+		request.setAttribute("list", list);
 		
-		int result = new StudentService().deleteStudent(userId);
-		
-		if(result>0) {
-			HttpSession session= request.getSession();
-			session.setAttribute("msg", "학생 삭제를 완료했습니다.");
-			response.sendRedirect("list.st");
-		}else {
-			request.setAttribute("msg", "학생 삭제를 실패했습니다.");
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
-		}	
+		request.getRequestDispatcher("views/certificate/ctList.jsp").forward(request, response);
 	}
 
 	/**

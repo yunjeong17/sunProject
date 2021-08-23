@@ -1,9 +1,9 @@
 package com.sun.student.model.dao;
 
-
 import static com.sun.common.JDBCTemplate.close;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.sun.common.CommonDao;
+import com.sun.student.model.vo.Attachment;
+import com.sun.student.model.vo.Certificate;
 import com.sun.student.model.vo.DropDown;
 import com.sun.student.model.vo.Fluctuation;
 import com.sun.student.model.vo.PageInfo;
@@ -72,8 +74,14 @@ public class StudentDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				list.add(new Student(rset.getString("S_ID"), rset.getString("S_NAME"), rset.getInt("S_LEVEL"),
-						rset.getString("DEPT_NAME"), rset.getString("C_NAME"), rset.getString("P_NAME")));
+				Student st = new Student();
+				st.setUserId(rset.getString("S_ID"));
+				st.setUserName(rset.getString("S_NAME"));
+				st.setsLevel(rset.getInt("S_LEVEL"));
+				st.setDeptName(rset.getString("DEPT_NAME"));
+				st.setcName(rset.getString("C_NAME"));
+				st.setpName(rset.getString("P_NAME"));
+				list.add(st);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,11 +100,11 @@ public class StudentDao {
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, st.getUserId());
-			//pstmt.setString(2, st.getPId());
-			pstmt.setString(2, st.getCNo());
-			pstmt.setString(3, st.getUserPwd());
-			pstmt.setString(4, st.getUserName());
-			pstmt.setInt(5, st.getsLevel());
+			pstmt.setString(2, st.getPId());
+			pstmt.setString(3, st.getCNo());
+			pstmt.setString(4, st.getUserPwd());
+			pstmt.setString(5, st.getUserName());
+			pstmt.setInt(6, st.getsLevel());
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -498,4 +506,138 @@ public class StudentDao {
 		}
 		return result;
 	}
+
+	public int deleteStudent(Connection conn, String userId) {
+		int result=0;
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("deleteStudent");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Student searchName(Connection conn, String name) {
+		Student st = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("searchName");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				st = new Student(rset.getString("S_ID"), rset.getString("S_NAME"), rset.getInt("S_LEVEL"),
+						rset.getString("DEPT_NAME"), rset.getString("C_NAME"), rset.getString("P_NAME"));
+				System.out.println(st);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return st;
+	}
+
+	public ArrayList<Certificate> CertificateList(Connection conn, String userId) {
+		ArrayList<Certificate> list = new ArrayList<Certificate>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("CertificateList");
+		/*
+		 * CF_NO
+			S_ID
+			CF_NAME
+			CF_ISSUE
+			CF_DATE
+			CF_ATTCHMENT
+			CF_ID
+		 */
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Certificate(rset.getInt("CF_NO"),
+										rset.getString("S_ID"),
+										rset.getString("CF_NAME"),
+										rset.getString("CF_ISSUE"),
+										rset.getDate("CF_DATE"),
+										rset.getString("CF_ATTCHMENT"),
+										rset.getString("CF_ID")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int addCertificate(Connection conn, Certificate ct) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("addCertificate");
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, ct.getCfNo());
+			pstmt.setString(2, ct.getsId());
+			pstmt.setString(3, ct.getCfName());
+			pstmt.setString(4, ct.getCfIssue());
+			pstmt.setDate(5, (Date) ct.getCfDate());
+			pstmt.setString(6, ct.getCfAttachment());
+			pstmt.setString(7, ct.getCfId());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/*
+	public int addAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAttachment");
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	*/
 }

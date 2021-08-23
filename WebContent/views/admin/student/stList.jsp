@@ -3,7 +3,6 @@
 <%
 ArrayList<Student> list = (ArrayList<Student>) request.getAttribute("list");
 PageInfo pi = (PageInfo) request.getAttribute("pi");
-
 int listCount = pi.getListCount();
 int currentPage = pi.getCurrentPage();
 int maxPage = pi.getMaxPage();
@@ -21,27 +20,22 @@ div {
 	box-sizing: border-box;
 	display: block;
 }
-
 header {
 	align: left;
 }
-
 nav {
 	height: 5%;
 }
-
 nav {
 	background-color: rgb(3, 33, 89);
 	margin: 5px 0px;
 }
-
 nav>ul {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	height: 100%;
 }
-
 nav li {
 	/*float: left;*/
 	width: 20%;
@@ -51,38 +45,30 @@ nav li {
 	line-height: 35px;
 	margin: left;
 }
-
 .wrap {
 	width: 1200px;
 	margin: auto;
 }
-
 .wrap>* {
 	width: 100%;
 }
-
 table, .head, td {
 	border: 1px rgb(2, 34, 89) solid
 }
-
 table {
 	width: max-content height= max-content margin= auto
 }
-
 .head {
 	background: rgb(2, 34, 89);
 	color: white;
 }
-
 caption {
 	padding: 0;
 }
-
 td {
 	text-align: center;
 	color: rgb(2, 34, 89);
 }
-
 button {
 	/*color: white;*/
 	border-style: groove;
@@ -90,17 +76,14 @@ button {
 	background: white;
 	margin: left;
 }
-
 button:hover {
 	background: rgb(224, 224, 224);
 	border-style: groove;
 	border-radius: 10px;
 }
-
 label, input {
 	color: rgb(2, 34, 89);
 }
-
 </style>
 </head>
 <body>
@@ -114,7 +97,7 @@ label, input {
 					<form id="searchForm" action="<%=contextPath%>/search.st"
 						method="post">
 						<label for="search">학번으로 검색 &nbsp;&nbsp; : &nbsp;&nbsp;</label> <input
-							type="text" maxlength="10" name="search"></input>
+							type="text" maxlength="10" name="search" placeholder="2021101001"></input>
 						<button id="search" onclick="location.href='search.st'">검색하기</button>
 					</form>
 					<br>
@@ -248,12 +231,13 @@ label, input {
 		<br>
 		<button onclick="location.href='form.st'">학생 추가</button>
 	</div>
+	<!-- 
 	<script type="text/javascript">
 		$(function(){
 			$(".listArea>tbody>tr").click(function(){
 				var bno = $(this).children().eq(0).text();
 			})
 		});
-	</script>
+	</script> -->
 </body>
 </html>

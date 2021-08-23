@@ -37,7 +37,7 @@ public class StudentInsert extends HttpServlet {
 		String userId= request.getParameter("userId");
 		String userPwd= request.getParameter("userPwd");
 		String userName= request.getParameter("userName");
-		//String pId= request.getParameter("pId");
+		String pId= request.getParameter("pId");
 		String cNo= request.getParameter("cNo");
 		String sSLevel=request.getParameter("sSLevel");
 		int sLevel = 0;
@@ -47,9 +47,10 @@ public class StudentInsert extends HttpServlet {
 		
 		Student st = new Student();
 		st.setUserId(userId);
+		st.setPId(pId);
 		st.setUserPwd(userPwd);
 		st.setUserName(userName);
-		//st.setPId(pId);
+		st.setPId(pId);
 		st.setCNo(cNo);
 		st.setsLevel(sLevel);
 		
