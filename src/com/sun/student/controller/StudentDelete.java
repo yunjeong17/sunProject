@@ -37,8 +37,9 @@ public class StudentDelete extends HttpServlet {
 		
 		if(result>0) {
 			HttpSession session= request.getSession();
-			session.setAttribute("msg", "학생 삭제를 완료했습니다.");
+			session.setAttribute("msg", "회원탈퇴를 완료했습니다.");
 			response.sendRedirect("list.st");
+	
 		}else {
 			request.setAttribute("msg", "학생 삭제를 실패했습니다.");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
