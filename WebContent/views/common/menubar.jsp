@@ -212,6 +212,7 @@ span{
 		<li><div class="menuLink" onclick="goManageProfessors();">교수 관리</div></li>
 		<li><div class="menuLink" onclick="goManageClass();">강의 관리</div></li>
 	</ul>
+	<%@ include file="../common/index.jsp" %>
 	
 	<%
 	} else if (Character.toUpperCase(loginUser.getUserId().charAt(0)) == 'P') { //교수
@@ -221,7 +222,7 @@ span{
 		<li><div class="menuLink" onclick="goProfessorsGrade();">성적</div></li>
 		<li><div class="menuLink" onclick="goProfessorsConsulting();">상담</div></li>
 	</ul>
-
+	<%@ include file="../common/index.jsp" %>
 	<%
 	} else { // 학생
 	%>
@@ -231,6 +232,7 @@ span{
 		<li><div class="menuLink" onclick="goStudentGrade();">성적</div></li>
 		<li><div class="menuLink" onclick="goCertification('https://www.webminwon.com/#reload');">증명서발급</div></li>
 	</ul>
+	<%@ include file="../common/index.jsp" %>
 	<%}}%>
 	</nav>
 	
