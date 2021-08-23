@@ -241,7 +241,7 @@ public class StudentService {
 		return list;
 	}
 
-	public int addCertificate(Certificate ct, Attachment at) {
+	public int addCertificate(Certificate ct /*, Attachment at*/) {
 		Connection conn = getConnection();
 	
 		int result1 = new StudentDao().addCertificate(conn,ct);
@@ -276,5 +276,22 @@ public class StudentService {
 		close(conn);
 		return rank;
 	}
+
+	public int deleteCertificate(String sId, int cfNo) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().deleteCertificate(conn, sId, cfNo);
+		
+		if(result>0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	
 	
 }

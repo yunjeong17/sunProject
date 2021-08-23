@@ -1,10 +1,9 @@
 package com.sun.student.controller;
 
-import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,12 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-
-import com.oreilly.servlet.MultipartRequest;
-import com.sun.common.MyFileRenamePolicy;
 import com.sun.student.model.service.StudentService;
-import com.sun.student.model.vo.Attachment;
 import com.sun.student.model.vo.Certificate;
 import com.sun.user.model.vo.User;
 
@@ -41,7 +35,9 @@ public class AddCetificate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 파일 업로드를 위한 라이브러리 : cos.jar (http://www.servlets.com/cos/)
+		
+		
+		/*// 파일 업로드를 위한 라이브러리 : cos.jar (http://www.servlets.com/cos/)
 
 				if (ServletFileUpload.isMultipartContent(request)) {
 					// enctype이 multipart/form-data로 잘 전송된 경우 (true)
@@ -66,7 +62,7 @@ public class AddCetificate extends HttpServlet {
 					MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
 							new MyFileRenamePolicy());
 					// new DefaultFileRenamePolicy() 자동으로 이름 재설정해줌
-
+					
 					String no = multiRequest.getParameter("cfNo");
 					int cfNo=0;
 					if(no!=null) {
@@ -131,7 +127,48 @@ public class AddCetificate extends HttpServlet {
 						RequestDispatcher view= request.getRequestDispatcher("views/common/errorPage.jsp");
 						view.forward(request, response);
 					}
-				}
+				}*/
+		request.setCharacterEncoding("UTF-8");
+		/*
+		 * String d=request.getParameter("date");
+        java.sql.Date date=java.sql.Date.valueOf(d); //sql date로 형변환
+		 */
+		int cfNo= Integer.parseInt(request.getParameter("cfNo"));
+		String sId = ((User)request.getSession().getAttribute("loginUser")).getUserId();
+		String cfName= request.getParameter("cfName");
+		String cfIssue= request.getParameter("cfIssue");
+		String date= request.getParameter("cfDate");
+		java.sql.Date cfDate = java.sql.Date.valueOf(date);
+		/*try {
+			cfDate = new SimpleDateFormat("yyyy/MM/dd").parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+			System.out.println("date : " + date + ", cfDate : " + cfDate);
+		String cfAttachment=request.getParameter("cfAttachment");
+		String cfId=request.getParameter("cfId");
+		
+		Certificate ct = new Certificate();
+		ct.setCfNo(cfNo);
+		ct.setsId(sId); //@
+		ct.setCfName(cfName);
+		ct.setCfIssue(cfIssue);
+		ct.setCfDate(cfDate);
+		ct.setCfAttachment(cfAttachment);
+		ct.setCfId(cfId);
+		
+		int result = new StudentService().addCertificate(ct);
+		
+		if(result>0) {
+			request.getSession().setAttribute("msg", "자격증 등록 성공");
+			response.sendRedirect("ct.st");
+		}
+		else {
+			request.setAttribute("msg", "자격증 등록 실패");
+			RequestDispatcher view= request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
+		}
 	}
 
 	/**

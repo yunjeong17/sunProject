@@ -56,12 +56,12 @@ button:hover {
 	<h4 align="center">자격증 추가</h4>
 	<hr>
 	<div align="center">
-		<form id="enrollForm" action="<%=request.getContextPath()%>/add.ct"
-			method="post">
+		<form id="enrollForm" action="<%=request.getContextPath()%>/add.ct" method="post">
 			<table>
 				<tr>
 					<td width="200px">식별번호</td>
 					<td><input type="text" name="cfNo" required></td>
+					<td><input type="text" name="sId" value="<%=loginUser.getUserId() %>" hidden="true"></td>
 				</tr>
 				<tr>
 					<td width="200px">자격명</td>
@@ -88,10 +88,11 @@ button:hover {
 			<br>
 	<div align="center">
 			<button type="button" id="goMain" onclick="history.go(-1)">뒤로가기</button>
-			<button type="submit" id="joinBtn" disabled>추가하기</button>
+			<button type="submit" id="joinBtn">추가하기</button>
 	</div>
 		</form>
 	</div>
+<%--
 	<script>
 		function joinValidate(){
 				
@@ -143,6 +144,6 @@ button:hover {
 			}
 			
 		</script>
-		
+	 --%>
 </body>
 </html>
