@@ -604,7 +604,7 @@ public class StudentDao {
 		return rank;
 	}
   	
-public ArrayList<StudentConsulting> student_consultingList(Connection conn, String userId) {
+	public ArrayList<StudentConsulting> student_consultingList(Connection conn, String userId) {
 		ArrayList<StudentConsulting> list = new ArrayList<StudentConsulting>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -660,6 +660,24 @@ public ArrayList<StudentConsulting> student_consultingList(Connection conn, Stri
 		}
 
 		return advisor;
+	}
+
+	public int deleteCertificate(Connection conn, String sId, int cfNo) {
+		int result=0;
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("deleteCertificate");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, sId);
+			pstmt.setInt(2, cfNo);
+
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
 	}
 	
 }

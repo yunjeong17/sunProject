@@ -2,15 +2,13 @@
 	pageEncoding="UTF-8" import="java.util.*, com.sun.student.model.vo.*"%>
 
 <%
-
 	ArrayList<Certificate> list = (ArrayList<Certificate>) request.getAttribute("list");
-
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Certificate</title>
+<title>Certificate List</title>
 <style>
 div {
 	/*border: 1px solid red;*/
@@ -74,6 +72,7 @@ tbody>td:hover{
 	<%--<%@ include file="/views/common/studentMenubar.jsp"%> --%>
 	<br>
 	<div class="wrap" align="center">
+	<h5>행을 선택하면 해당 자격증 취득 내역을 삭제할 수 있습니다.</h5>
 			<div align="right">
 				<button id = "add "onclick="location.href='form.ct'"> + </button>
 			</div>
@@ -126,8 +125,8 @@ tbody>td:hover{
 		$(document).ready(function() {
 			$(function() {
 				$("tbody>tr").click(function() {
-					var userId = $(this).children().eq(0).text();
-					location.href="<%=contextPath%>/remove.ct?userId="+userId;
+					var cfNo = $(this).children().eq(0).text();
+					location.href="<%=contextPath%>/remove.ct?cfNo="+cfNo;
 				})
 			})
 		});
