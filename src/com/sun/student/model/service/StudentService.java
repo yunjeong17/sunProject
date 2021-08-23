@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.sun.student.model.dao.StudentDao;
+import com.sun.student.model.vo.Attachment;
+import com.sun.student.model.vo.Certificate;
 import com.sun.student.model.vo.DropDown;
 import com.sun.student.model.vo.Fluctuation;
 import com.sun.student.model.vo.PageInfo;
@@ -204,6 +206,61 @@ public class StudentService {
 		return result;
 	}
 
+  public int deleteStudent(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().deleteStudent(conn, userId);
+		
+		if(result>0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public Student searchName(String name) {
+		Connection conn = getConnection();
+
+		Student st = new StudentDao().searchName(conn,name);
+		
+		close(conn);
+		
+		return st;
+	}
+
+	public ArrayList<Certificate> CertificateList(String userId) {
+		Connection conn = getConnection();
+		
+		ArrayList<Certificate> list = new StudentDao().CertificateList(conn, userId);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int addCertificate(Certificate ct, Attachment at) {
+		Connection conn = getConnection();
+	
+		int result1 = new StudentDao().addCertificate(conn,ct);
+		/*
+		int result2 = 1;
+		
+		if(at != null) {
+			result2 = new StudentDao().addAttachment(conn,at);
+		}
+		*/
+		if(result1/** result2*/ >0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1/** result2*/;
+	}	
 	public ArrayList<StudentEarnCredit> student_earnCredit(String userId) {
 		Connection conn = getConnection();
 		

@@ -149,9 +149,6 @@ form{
 		<br>
 		<div class="stUpdate" align="left">
 			<h4>학생 정보 수정하기</h4>
-			<h5>
-				학생 정보 삭제를 원하시면 <b id="oppositeSt"><mark>여기</mark></b>를 클릭하세요.
-			</h5>
 				<form  id="update" action="<%=contextPath%>/update.st" method="post">
 					<input type="text" name="userId" value="<%=st.getUserId()%>" hidden="true"></input>
 					<label for="pId">&nbsp;&nbsp; 지도교수 &nbsp;&nbsp; : &nbsp;&nbsp;</label><input
@@ -161,8 +158,15 @@ form{
 						&nbsp;&nbsp;&nbsp;
 					<button type="submit">수정하기</button>
 				</form>
+		<br>
+			<h4>학생 정보 삭제</h4>
+				<form  id="delete" action="<%=contextPath%>/delete.st" method="delete">
+					<input type="text" name="userId" value="<%=st.getUserId()%>" hidden="true"></input>
+					&nbsp;&nbsp; 위 학생 정보를 삭제하시려면 <button type="submit">삭제하기</button> 를 눌러주세요.
+				</form>
+				</div>
 				<br><br>
-			</div>
+			
 		<script>
 		function checkId() {
 				var pId = $("#update input[name=pId]");

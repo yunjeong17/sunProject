@@ -59,7 +59,7 @@ button:hover {
 			<table>
 				<tr>	
 					<td width="200px">학번 </td>
-					<td width="200px"><input type="text" name="sId" required></input></td>
+					<td width="200px"><input type="text" name="sId" placeholder="2021101001" required></input></td>
 					<td  width="200px"><button type="button" id="idCheckBtn" onclick="checkId();">학생확인</button>
 					</td>
 				</tr>
@@ -91,7 +91,7 @@ button:hover {
 			</table>
 			<br>
 			<div align="center">
-				<button type="button" id="goMain" onclick="location.href='list.st'">학생목록</button>
+				<button type="button" id="goMain" onclick="history.back()">뒤로가기</button>
 				<button type="submit" id="joinBtn" disabled>추가하기</button>
 			</div>
 		</form>
@@ -100,7 +100,7 @@ button:hover {
 	function checkId() {
 				var userId = $("#enrollForm input[name=sId]");
 				if (userId.val() == "") {
-					alert("아이디를 입력해주세요.");
+					alert("학번을 입력해주세요.");
 					return false;
 				}
 				$.ajax({
@@ -111,14 +111,14 @@ button:hover {
 					},
 					success : function(result) {
 						if (result == "fail") {
-							if (confirm("존재하는 아이디입니다. 이 아이디에 학적을 추가하시겠습니까?")) {
+							if (confirm("존재하는 학번입니다. 이 학번에 학적을 추가하시겠습니까?")) {
 								userId.attr("readonly", "true");
 								$("#joinBtn").removeAttr("disabled");
 							} else {
 								userId.focus();
 							}
 						} else {
-							alert("존재하지 않는 아이디입니다.");
+							alert("존재하지 않는 학번입니다.");
 							userId.focus();
 							userId.val("");
 						}
