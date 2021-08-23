@@ -51,8 +51,8 @@ public class FluctuationUpdate extends HttpServlet {
 		
 		if(updatefl > 0) {
 			request.getSession().setAttribute("msg", "학적 수정을 성공했습니다.");
+			RequestDispatcher view = request.getRequestDispatcher("views/admin/student/stDetail.jsp");
 			response.sendRedirect("list.st");
-			
 		}else {
 			request.setAttribute("msg", "학적 수정을 실패했습니다.");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");

@@ -160,12 +160,24 @@ form{
 				</form>
 		<br>
 			<h4>학생 정보 삭제</h4>
-				<form  id="delete" action="<%=contextPath%>/delete.st" method="delete">
+				<form id="delete" action="<%=contextPath%>/delete.st" method="post">
 					<input type="text" name="userId" value="<%=st.getUserId()%>" hidden="true"></input>
-					&nbsp;&nbsp; 위 학생 정보를 삭제하시려면 <button type="submit">삭제하기</button> 를 눌러주세요.
+					&nbsp;&nbsp; 위 학생 정보를 삭제하시려면 <button type="button" id="deleteBtn" onclick="deleteStudent();">삭제하기</button> 를 눌러주세요.
 				</form>
 				</div>
 				<br><br>
+		
+		<script type="text/javascript">		
+		function deleteStudent(){
+			
+				var val = confirm("정말 삭제하시겠습니까?");
+				
+				if(val){
+					location.href="<%=request.getContextPath()%>/delete.st";
+				}
+		}
+
+		</script>
 			
 		<script>
 		function checkId() {
