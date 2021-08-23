@@ -477,6 +477,9 @@ public class StudentDao {
 				EList.add(new StudentEarnCredit(rset.getInt("CREDIT")));
 				System.out.println(EList);
 			}
+			if(EList.isEmpty()) {
+				EList.add(new StudentEarnCredit(0));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -486,30 +489,21 @@ public class StudentDao {
 		return EList;
 	}
 
-	public ArrayList student_rank(Connection conn, String userId, int year, int semester) {
-		ArrayList rank = new ArrayList();
+	public ArrayList<StudentSemeterGrade> student_rank(Connection conn, String userId) {
+		ArrayList<StudentSemeterGrade> rank = new ArrayList<StudentSemeterGrade>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
 		String sql = prop.getProperty("student_rank");
-		/*
-		 	SELECT DENSE_RANK()OVER(ORDER BY NVL(C.AVG,0)) "RANK"
-			FROM STUDENT S
-			LEFT JOIN VIEW_ST_COUNT C ON S.S_ID = C.S_ID
-			WHERE C.YEAR=? AND C.SEMESTER=? AND S.C_NO =(SELECT C_NO
-		                                                 FROM STUDENT
-		                                                 WHERE S_ID=?
-		 */
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(3, userId);
-			pstmt.setInt(1, year);
-			pstmt.setInt(2, semester);
+			pstmt.setString(1, userId);
 
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				rank.add(new ArrayList(rset.getInt("RANK")));
+				rank.add(new StudentSemeterGrade(rset.getInt("RANK")));
 				System.out.println(rank);
 			}
 		} catch (Exception e) {

@@ -10,6 +10,7 @@ public class StudentSemeterGrade {
 	private int earnCredit;//취득학점
 	private double avgCredit;//학점평균
 	private double percent;//백분율
+	private int rank;//전공석차
 	
 	
 
@@ -24,10 +25,19 @@ public class StudentSemeterGrade {
 	}
 
 
-	public StudentSemeterGrade(int earnCredit) {
+	public StudentSemeterGrade(int sId, int year, int semester) {
 		super();
-		this.earnCredit = earnCredit;
+		this.sId = sId;
+		this.year = year;
+		this.semester = semester;
 	}
+
+
+	public StudentSemeterGrade(int rank) {
+		super();
+		this.rank = rank;
+	}
+
 
 	public int getsId() {
 		return sId;
@@ -121,6 +131,16 @@ public class StudentSemeterGrade {
 
 	public void setPercent(double percent) {
 		this.percent = percent;
+	}
+
+
+	public int getRank() {
+		return rank;
+	}
+
+
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 
 }

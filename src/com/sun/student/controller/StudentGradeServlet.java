@@ -40,17 +40,16 @@ public class StudentGradeServlet extends HttpServlet {
 		ArrayList<StudentDivisionGrade> list = new StudentService().student_divisionGrade(user.getUserId());
 		ArrayList<StudentSemeterGrade> SList = new StudentService().student_semesterGrade(user.getUserId());
 		ArrayList<StudentEarnCredit> EList = new StudentService().student_earnCredit(user.getUserId());
-		ArrayList rank = null;
-//		for(StudentSemeterGrade syc:Sarr) {
-//			rank = new StudentService().student_rank(user.getUserId(), syc.getYear(), syc.getSemester());
-//		}
+		
+		
+		ArrayList<StudentSemeterGrade> rank =  new StudentService().student_rank(user.getUserId());
+		
 		
 		request.setAttribute("list", list);
 		request.setAttribute("SList", SList);
 		request.setAttribute("EList", EList);
 		request.setAttribute("rank", rank);
 		
-		System.out.println(SList);
 		
 		request.getRequestDispatcher("views/student/student_grade.jsp").forward(request, response);
 	}

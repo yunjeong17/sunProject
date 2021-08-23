@@ -8,7 +8,6 @@ import static com.sun.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import com.sun.student.model.dao.StudentDao;
 import com.sun.student.model.vo.DropDown;
@@ -213,10 +212,10 @@ public class StudentService {
 		return SList;
 	}
 
-	public ArrayList student_rank(String userId, int year, int semester) {
+	public ArrayList<StudentSemeterGrade> student_rank(String userId) {
 		Connection conn = getConnection();
 		
-		ArrayList rank = new StudentDao().student_rank(conn, userId, year, semester);
+		ArrayList<StudentSemeterGrade> rank = new StudentDao().student_rank(conn, userId);
 		close(conn);
 		return rank;
 	}
