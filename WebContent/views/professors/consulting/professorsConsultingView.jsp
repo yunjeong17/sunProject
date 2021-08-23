@@ -9,13 +9,26 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	button {
+		border-style: groove;
+		border-radius: 10px;
+		background: white;
+		margin: left;
+	}
+		
+	table{
+		font-size:14px;
+		width: max-content ;
+		height: max-content ;
+		margin: auto;
+	}
 
-	
 	#insert-table input{
 		height:100%;
 	}
 	
 	#consulting-table{
+		margin-top:50px;
 		margin-left:5%;
 		width:90%;	
 		border: 3px solid #00205b;
@@ -29,22 +42,23 @@
 	div{
 		font-size:14px;
 	}
-	
-	table{
-		font-size:14px;
-	}
-	
+
 	#consulting-table  th {
 	border: 1px solid white;
 	background-color: #00205b;
 	color: white;
 	text-align:center;
+	padding : 10px;
 	}
 	
+	#insert-table #select-student{
+		padding-right : 30px;
+	}
 	#consulting-table  td{
 	border: 1px solid #00205b;
 	background-color: white;
 	color: #00205b;
+	padding : 10px;
 	}
 	
 	#consulting-table  tfoot{
@@ -55,16 +69,24 @@
 		background:darkgrey;
 		cursor:pointer
 	}
+	#insert-div{
+		display:inline-block;
+	}
+	#content-div{
+		text-align:center;
+	}
 	
 	#delete-btn{
 		visibility: hidden;
+		display:none;
 	}
 	#update-btn{
 		visibility: hidden;
+		display:none;
 	}
-	
-
-
+	h3{
+		text-align:center;
+	}
 </style>
 </head>
 <body>
@@ -72,29 +94,34 @@
 	<%@ include file="../../../views/common/menubar.jsp"%>
 
 	<header id="select-div">
+	<h3>상담</h3>
 
-		<label>학생명 : </label>
-		<select id="studentId">
-		<%if( sList.isEmpty() ) {%>
-			<option value="">학생 정보 없음</option>
-		<%} else{%>
-			<%for(Student s : sList){ %>
-				<option value="<%=s.getUserId() %>" > <%=s.getUserName() %> (<%=s.getUserId() %>) </option>
-			<%} %>
-		<%} %>		
-	</select>
-	<button id="select-student-btn">선택</button>
+	
 	</header>
 	
 	<div id="content-div">
 	<div id="insert-div">
 		<table id="insert-table">
 			<tr>
+				<td rowspan="4" id="select-student">
+				
+					<label>학생명 : </label>
+					<select id="studentId">
+						<%if( sList.isEmpty() ) {%>
+							<option value="">학생 정보 없음</option>
+						<%} else{%>
+							<%for(Student s : sList){ %>
+								<option value="<%=s.getUserId() %>" > <%=s.getUserName() %> (<%=s.getUserId() %>) </option>
+							<%} %>
+						<%} %>		
+					</select>
+					<button id="select-student-btn">선택</button>
+			</td>
 				<td><label for="consult-type" >상담 구분</label></td>
 				<td><input type="text" id="consult-type" name="consult-category"  disabled/></td>
-				<td rowspan="3"><label for="consult-content">상담 내용</label></td>
-				<td rowspan="3"><textArea id="consult-content" name="consultContent"  disabled></textArea></td>
-				<td><input type="hidden" id="consult-csNo"/></td>
+				<td rowspan="4"><label for="consult-content">상담 내용</label></td>
+				<td rowspan="4"><textArea id="consult-content" name="consultContent" cols="50" rows="6" style="resize: none;" disabled></textArea></td>
+				<td style="display: none;"><input type="hidden" id="consult-csNo"/></td>
 			</tr>
 			<tr>
 				<td><label for="consult-time">상담 시간</label></td>
@@ -109,12 +136,13 @@
 				<td><input type="text" id="consult-way" name="consult-way"  disabled/></td>
 			</tr>
 		</table>
+		<br>
 		<button id="insert-btn" type="submit">추가</button>
 		<button id="update-btn" type="submit">수정</button>
 		<button id='delete-btn' type='submit'>삭제</button>
-		
+		<br>
 	</div>
-	
+	<br>
 	<table id="consulting-table">
 		<thead>
 			<tr>
@@ -164,7 +192,10 @@
 		/* consulting 테이블의 row를 클릭했을때 이벤트 발생 */
 		$(document).on("click",".consulting-tr",function(){
 			
-		
+			$('#delete-btn').css('display','inline-block');
+			$('#update-btn').css('display','inline-block');
+			$('#insert-btn').css('display','none');
+			
 			$('#delete-btn').css('visibility','visible');
 			$('#update-btn').css('visibility','visible');
 			$('#insert-btn').css('visibility','hidden');
@@ -191,6 +222,10 @@
 		/* 추가하기 버튼 눌렀을 때 */
 		$("#area-reset-btn").click(function(){
 
+			$('#delete-btn').css('display','none');
+			$('#update-btn').css('display','none');
+			$('#insert-btn').css('display','inline-block');
+			
 			$('#delete-btn').css('visibility','hidden');
 			$('#update-btn').css('visibility','hidden');
 			$('#insert-btn').css('visibility','visible');
@@ -304,8 +339,16 @@
 		});
 		
 		
+		
 		/* 학생 선택 후 선택 버튼 클릭 시  */
 		$("#select-student-btn").click(function(){
+			$("#consult-type").val("");
+			$("#consult-content").val("");
+			$("#consult-time").val("");
+			$("#consult-date").val("");
+			$("#consult-way").val("");
+			$("#consult-csNo").val("");
+			
 			$("#consult-type").attr("disabled", false);
 			$("#consult-content").attr("disabled", false);
 			$("#consult-time").attr("disabled", false);
@@ -327,7 +370,7 @@
 			success:function(list){
 				console.log(list);
 				$.each(list, function(index, obj){
-					const csNo= $("<td  class='no-td' style='visibility:hidden;position:absolute;'>").text(obj.csNo);
+					const csNo= $("<td  class='no-td' style='visibility:hidden;display:none;position:absolute;'>").text(obj.csNo);
 					const idx= $("<td  class='index-td'>").text(index+1);
 					const date = $("<td  class='date-td'>").text(obj.csDate);
 					const content = $("<td  class='content-td'>").text(obj.csContent);

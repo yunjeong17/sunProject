@@ -22,6 +22,14 @@ $(function(){
 		}
 })
 </script>
+<style>
+button {
+	border-style: groove;
+	border-radius: 10px;
+	background: white;
+	margin: left;
+}
+</style>
 </head>
 <body>
 <b>비밀번호 초기화</b>
