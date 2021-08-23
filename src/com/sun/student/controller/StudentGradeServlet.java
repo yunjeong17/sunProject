@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sun.student.model.service.StudentService;
 import com.sun.student.model.vo.StudentDivisionGrade;
+import com.sun.student.model.vo.StudentEarnCredit;
 import com.sun.student.model.vo.StudentSemeterGrade;
 import com.sun.user.model.vo.User;
 
@@ -34,12 +35,21 @@ public class StudentGradeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user=(User)request.getSession().getAttribute("loginUser");
+		ArrayList<StudentSemeterGrade> Sarr = (ArrayList<StudentSemeterGrade>)request.getSession().getAttribute("Sarr");
 		
 		ArrayList<StudentDivisionGrade> list = new StudentService().student_divisionGrade(user.getUserId());
 		ArrayList<StudentSemeterGrade> SList = new StudentService().student_semesterGrade(user.getUserId());
+		ArrayList<StudentEarnCredit> EList = new StudentService().student_earnCredit(user.getUserId());
+		
+		
+		ArrayList<StudentSemeterGrade> rank =  new StudentService().student_rank(user.getUserId());
+		
+		
 		request.setAttribute("list", list);
 		request.setAttribute("SList", SList);
-		System.out.println(SList);
+		request.setAttribute("EList", EList);
+		request.setAttribute("rank", rank);
+		
 		
 		request.getRequestDispatcher("views/student/student_grade.jsp").forward(request, response);
 	}

@@ -3,62 +3,144 @@ package com.sun.student.model.vo;
 public class StudentSemeterGrade {
 
 	private int sId;//학번
-	private int gradeNo;//학기별 성적 순번(시퀀스 SEQ_GRADE)
-	private int year;//년도 default sysdate
-	private int semester;//학기 default sysdate 3~7이면 1, 9~12이면 2
-	private int putGrade;//성적
+	private int gradeNo;//학기별 성적 순번
+	private int year;//년도 
+	private int semester;//학기 
+	private int appliCredit;//신청학점
+	private int earnCredit;//취득학점
+	private double avgCredit;//학점평균
+	private double percent;//백분율
+	private int rank;//전공석차
 	
-	public StudentSemeterGrade() {
-		// TODO Auto-generated constructor stub
-	}
+	
 
-	public StudentSemeterGrade(int gradeNo, int year, int semester, int putGrade) {
+	public StudentSemeterGrade(int year, int semester, int appliCredit, double avgCredit, double percent) {
 		super();
-		this.gradeNo = gradeNo;
 		this.year = year;
 		this.semester = semester;
-		this.putGrade = putGrade;
+		this.appliCredit = appliCredit;
+		this.earnCredit = earnCredit;
+		this.avgCredit = avgCredit;
+		this.percent = percent;
 	}
+
+
+	public StudentSemeterGrade(int sId, int year, int semester) {
+		super();
+		this.sId = sId;
+		this.year = year;
+		this.semester = semester;
+	}
+
+
+	public StudentSemeterGrade(int rank) {
+		super();
+		this.rank = rank;
+	}
+
 
 	public int getsId() {
 		return sId;
 	}
 
+
+
 	public void setsId(int sId) {
 		this.sId = sId;
 	}
+
+
 
 	public int getGradeNo() {
 		return gradeNo;
 	}
 
+
+
 	public void setGradeNo(int gradeNo) {
 		this.gradeNo = gradeNo;
 	}
+
+
 
 	public int getYear() {
 		return year;
 	}
 
+
+
 	public void setYear(int year) {
 		this.year = year;
 	}
+
+
 
 	public int getSemester() {
 		return semester;
 	}
 
+
+
 	public void setSemester(int semester) {
 		this.semester = semester;
 	}
 
-	public int getPutGrade() {
-		return putGrade;
+
+
+	public int getAppliCredit() {
+		return appliCredit;
 	}
 
-	public void setPutGrade(int putGrade) {
-		this.putGrade = putGrade;
+
+
+	public void setAppliCredit(int appliCredit) {
+		this.appliCredit = appliCredit;
 	}
-	
-	
+
+
+
+	public int getEarnCredit() {
+		return earnCredit;
+	}
+
+
+
+	public void setEarnCredit(int earnCredit) {
+		this.earnCredit = earnCredit;
+	}
+
+
+
+	public double getAvgCredit() {
+		return avgCredit;
+	}
+
+
+
+	public void setAvgCredit(double avgCredit) {
+		this.avgCredit = avgCredit;
+	}
+
+
+
+	public double getPercent() {
+		return percent;
+	}
+
+
+
+	public void setPercent(double percent) {
+		this.percent = percent;
+	}
+
+
+	public int getRank() {
+		return rank;
+	}
+
+
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+
 }
