@@ -22,6 +22,14 @@ $(function(){
 		}
 })
 </script>
+<style>
+button {
+	border-style: groove;
+	border-radius: 10px;
+	background: white;
+	margin: left;
+}
+</style>
 </head>
 <body>
 <b>학번/교원번호 찾기</b>

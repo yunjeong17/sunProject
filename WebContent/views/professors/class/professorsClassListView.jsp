@@ -9,6 +9,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+button {
+	border-style: groove;
+	border-radius: 10px;
+	background: white;
+	margin: left;
+}
 #class-table {
 	margin-top: 50px;
 	margin-left:5%;
@@ -33,7 +39,7 @@ td{
 </head>
 <body>
 	<%@ include file="../../../views/common/menubar.jsp"%>
-	<h3>강의 목록 조회</h3>
+	<h3>강의</h3>
 	<table id="class-table">
 		<thead>
 			<tr>

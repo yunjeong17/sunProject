@@ -10,7 +10,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-
+button {
+	border-style: groove;
+	border-radius: 10px;
+	background: white;
+	margin: left;
+}
 #student-table {
 	margin-top: 50px;
 	margin-left:5%;
@@ -72,12 +77,13 @@ input:focus{
 <body>
 	<header>
 	<%@ include file="../../../views/common/menubar.jsp"%>
-	<h3>강의 목록 조회</h3>
+	<h3>성적</h3>
 	<div>
+	<label>강의명 : </label>
 	<select id="className" name="className">
 		<%if(!classList.isEmpty()){ %>
 			<%for(Classes c : classList){ %>
-				<option value="<%= c.getClassNo() %>"><%= c.getClassName() %></option>
+				<option value="<%= c.getClassNo() %>"><%= c.getClassName() %>(<%= c.getClassNo() %>)</option>
 			<%} %>
 		<%} else{%>
 			<option value="">조회된 강의가 없습니다.</option>
