@@ -481,7 +481,6 @@ public class StudentDao {
 		return result;
 	}
 	*/
-}
 
 	public ArrayList<StudentDivisionGrade> student_divisionGrade(Connection conn, String userId) {
 		ArrayList<StudentDivisionGrade> list = new ArrayList<StudentDivisionGrade>();
