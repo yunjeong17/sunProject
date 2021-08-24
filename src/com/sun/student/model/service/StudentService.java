@@ -121,7 +121,7 @@ public class StudentService {
 		
 		return result;
 	}
-	
+
 	public ArrayList<StudentConsulting> student_consultingList(String userId) {
 		Connection conn = getConnection();
 
@@ -231,6 +231,8 @@ public class StudentService {
 		return st;
 	}
 
+  
+  
 	public ArrayList<Certificate> CertificateList(String userId) {
 		Connection conn = getConnection();
 		
@@ -261,6 +263,7 @@ public class StudentService {
 		close(conn);
 		return result1/** result2*/;
 	}	
+  
 	public ArrayList<StudentEarnCredit> student_earnCredit(String userId) {
 		Connection conn = getConnection();
 		
@@ -292,6 +295,14 @@ public class StudentService {
 		return result;
 	}
 
+	public Student selectStudent(String userId) {
+		
+		Connection conn = getConnection();
+
+		Student st = new StudentDao().selectStudent(conn,userId);
 	
-	
+	  close(conn);
+    
+		return st;
+  }
 }

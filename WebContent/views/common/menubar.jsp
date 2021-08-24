@@ -255,7 +255,7 @@ span{
 	}
 	
 	function goStudentRegister(){
-		location.href="<%=request.getContextPath()%>/";
+		location.href="<%=request.getContextPath()%>/StudentAcademic";
 	}
 	
 	function goStudentConsulting(){
