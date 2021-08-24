@@ -684,14 +684,20 @@ public class StudentDao {
      	Student st = null;
 	  	PreparedStatement pstmt = null;
 	  	ResultSet rset = null;
-       String sql = prop.getProperty("selectStudent");
+	  	
+	  	String sql = prop.getProperty("selectStudent");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
-      st = new Student(rset.getString("S_ID"), rset.getString("P_ID"), rset.getString("C_NO"),
-						rset.getString("S_NAME"), rset.getDate("S_EDATE"), rset.getString("S_PHONE")
-						, rset.getString("S_EMAIL"), rset.getInt("S_LEVEL"));
+			
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+			st = new Student(rset.getString("S_ID"), rset.getString("P_ID"), rset.getString("C_NO"),
+							rset.getString("S_NAME"), rset.getDate("S_EDATE"), rset.getString("S_PHONE")
+							, rset.getString("S_EMAIL"), rset.getInt("S_LEVEL"));
+			}
       } catch (Exception e) {
 			e.printStackTrace();
 		} finally {

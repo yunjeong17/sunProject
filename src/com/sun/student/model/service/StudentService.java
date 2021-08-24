@@ -301,7 +301,7 @@ public class StudentService {
 
 		Student st = new StudentDao().selectStudent(conn,userId);
 	
-	  close(conn);
+		close(conn);
     
 		return st;
   }
