@@ -208,11 +208,11 @@ span{
 	%>
 	
 	<ul>
-		<li><div class="menuLink" onclick="location='<%=contextPath%>/list.st'">학생 관리</div></li>
+		<li><div class="menuLink" onclick="goStudentRegister();">학생 관리</div></li>
 		<li><div class="menuLink" onclick="goManageProfessors();">교수 관리</div></li>
 		<li><div class="menuLink" onclick="goManageClass();">강의 관리</div></li>
 	</ul>
-	<%@ include file="../common/index.jsp" %>
+	<%--<%@ include file="../common/index.jsp" %> --%>
 	
 	<%
 	} else if (Character.toUpperCase(loginUser.getUserId().charAt(0)) == 'P') { //교수
@@ -222,7 +222,7 @@ span{
 		<li><div class="menuLink" onclick="goProfessorsGrade();">성적</div></li>
 		<li><div class="menuLink" onclick="goProfessorsConsulting();">상담</div></li>
 	</ul>
-	<%@ include file="../common/index.jsp" %>
+	<%--<%@ include file="../common/index.jsp" %> --%>
 	<%
 	} else { // 학생
 	%>
@@ -232,11 +232,14 @@ span{
 		<li><div class="menuLink" onclick="goStudentGrade();">성적</div></li>
 		<li><div class="menuLink" onclick="goCertification('https://www.webminwon.com/#reload');">증명서발급</div></li>
 	</ul>
-	<%@ include file="../common/index.jsp" %>
+	<%--<%@ include file="../common/index.jsp" %> --%>
 	<%}}%>
 	</nav>
 	
 	<script>
+	function goStudentRegister(){
+		location.href="<%=request.getContextPath()%>/list.st";
+	}
     
    function goStudentRegister(){
 		location.href="<%=request.getContextPath()%>/fluctuation.st";
@@ -252,10 +255,6 @@ span{
 	
 	function goProfessorsConsulting(){
 		location.href="<%=request.getContextPath()%>/consultingList.pr";
-	}
-	
-	function goStudentRegister(){
-		location.href="<%=request.getContextPath()%>/";
 	}
 	
 	function goStudentConsulting(){
