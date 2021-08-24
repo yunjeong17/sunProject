@@ -69,6 +69,10 @@ String contextPath = request.getContextPath();
 #logo:visited {text-decoration: none;}
 #logo:hover {text-decoration:  none;}
 
+ul>li{
+align:"center";
+}
+
 </style>
 
 
@@ -113,30 +117,35 @@ String contextPath = request.getContextPath();
 	<%
 	if (Character.toUpperCase(loginUser.getUserId().charAt(0)) == 'A') { //관리자
 	%>
-	
+	<div align="center" >
 	<ul>
 		<li><div class="menuLink" onclick="goStudentManagement();">학생 관리</div></li>
 		<li><div class="menuLink" onclick="goManageProfessors();">교수 관리</div></li>
 		<li><div class="menuLink" onclick="goManageClass();">강의 관리</div></li>
 	</ul>
-	
+	</div>
 	<%
 	} else if (Character.toUpperCase(loginUser.getUserId().charAt(0)) == 'P') { //교수
 	%>
+	<div align="center">
 	<ul>
 		<li><div class="menuLink" onclick="goProfessorsClass();">강의</div></li>
 		<li><div class="menuLink" onclick="goProfessorsGrade();">성적</div></li>
 		<li><div class="menuLink" onclick="goProfessorsConsulting();">상담</div></li>
 	</ul>
+	</div>
 	<%
 	} else { // 학생
 	%>
+	<div align="center">
 	<ul>
 		<li><div class="menuLink" onclick="goStudentRegister();">학적</div></li>
 		<li><div class="menuLink" onclick="goStudentConsulting();">상담</div></li>
 		<li><div class="menuLink" onclick="goStudentGrade();">성적</div></li>
 		<li><div class="menuLink" onclick="goCertification('https://www.webminwon.com/#reload');">증명서발급</div></li>
 	</ul>
+	</div>
+	
 	<%}}%>
 	</nav>
 	</div>
