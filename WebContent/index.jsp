@@ -11,6 +11,7 @@
 <body>
 
 	<%@ include file="views/common/menubar.jsp" %>
+	<%@ include file="views/common/index.jsp" %>
 	
 </body>
 </html>
