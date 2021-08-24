@@ -35,12 +35,16 @@ td{
 	background-color: white;
 	color: #00205b;
 }
+#top-div{
+text-align:center;
+
+}
 </style>
 </head>
 <body>
 	<%@ include file="../../../views/common/menubar.jsp"%>
+	<div id="top-div">
 	<h3>강의</h3>
-	<div align="left">
 		<form id="searchClassForm" action="<%=contextPath%>/classList.pr" method="post">
 			<label for="cName">강의명 : </label>
 			<input type="text" maxlength="10" id="cName" name="cName"></input>

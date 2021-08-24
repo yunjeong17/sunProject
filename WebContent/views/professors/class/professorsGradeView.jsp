@@ -71,14 +71,18 @@ input{
 input:focus{
      outline: none;
 }
+#top-div{
+text-align:center;
 
+}
 </style>
 </head>
 <body>
 	<header>
 	<%@ include file="../../../views/common/menubar.jsp"%>
+	<div id="top-div">
 	<h3>성적</h3>
-	<div>
+
 	<label>강의명 : </label>
 	<select id="className" name="className">
 		<%if(!classList.isEmpty()){ %>
