@@ -34,7 +34,7 @@ public class StudentAcademic extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user=(User)request.getSession().getAttribute("loginUser");
 		Student st = new StudentService().selectStudent(user.getUserId());
-		        request.setAttribute("st", st);
+		request.setAttribute("st", st);
 		request.getRequestDispatcher("views/admin/student/stmenu.jsp").forward(request, response);
 	
 	}	

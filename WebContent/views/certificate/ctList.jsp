@@ -66,13 +66,13 @@ tbody>td:hover{
 </style>
 </head>
 <body>
-	<!-- 학적조회 부분 포함:  -->
-	<!-- 리스트, 수정, 삭제 -->
+	<%--<%@ include file="/views/common/studentMenubar.jsp"%>	 --%>
 	<%@ include file="/views/common/menubar.jsp"%>
-	<%--<%@ include file="/views/common/studentMenubar.jsp"%> --%>
+	<%--<%@ include file="/views/admin/student/stmenu.jsp"%> --%>
 	<br>
 	<div class="wrap" align="center">
 	<h5>행을 선택하면 해당 자격증 취득 내역을 삭제할 수 있습니다.</h5>
+	
 			<div align="right">
 				<button id = "add "onclick="location.href='form.ct'"> + </button>
 			</div>
@@ -120,13 +120,17 @@ tbody>td:hover{
 					%>
 				</tbody>
 		</table>
+		<br>
+		<div align="right">
+			<button type="button" id="goMain" onclick="history.go(-1)">뒤로가기</button>
+		</div>
 		
 		<script>
 		$(document).ready(function() {
 			$(function() {
 				$("tbody>tr").click(function() {
 					var cfNo = $(this).children().eq(0).text();
-					location.href="<%=contextPath%>/remove.ct?cfNo="+cfNo;
+					location.href="<%=contextPath %>/remove.ct?cfNo="+cfNo;
 				})
 			})
 		});

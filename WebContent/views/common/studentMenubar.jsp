@@ -74,20 +74,24 @@
                 <li onclick="certificate();">자격증</li> 
             </ul>
         </nav>
-        <%--
         <script>
-        function idtheft(){
-        	location.href="<%=request.getContextPath()%>/";
-        }
+		function idtheft(){
+			location.href="<%=request.getContextPath()%>/StPersonal";
+		}
+	
 		function flucadjust(){
-			location.href="<%=request.getContextPath()%>/";
-        }
+			location.href="<%=request.getContextPath()%>/StAcademicFluctuations";
+		}
+		
 		function cHistory(){
-			location.href="<%=request.getContextPath()%>/";
-        }
+			location.href="<%=request.getContextPath()%>/StCourseHistory";
+		}
+		
 		function certificate(){
 			location.href="<%=request.getContextPath()%>/ct.st";
-        }
-        </script> --%>
+		}
+	
+		</script>
+		
 </body>
 </html>
