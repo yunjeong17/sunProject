@@ -71,10 +71,13 @@ tbody>td:hover{
 	<%--<%@ include file="/views/admin/student/stmenu.jsp"%> --%>
 	<br>
 	<div class="wrap" align="center">
-	<h5>행을 선택하면 해당 자격증 취득 내역을 삭제할 수 있습니다.</h5>
+	<h4 align="center"><b>자격증 추가 및 삭제</b></h4>
+	<hr>
+	<h6 align="center">행 선택시 해당 자격증 취득 내역 삭제가 가능합니다.</h6>
+	<h6 align="center"><b id = "back" onclick="history.go(-1)"><mark>여기</mark></b>를 클릭하시면 이전 화면으로 돌아갑니다.</h6>
 	
 			<div align="right">
-				<button id = "add "onclick="location.href='form.ct'"> + </button>
+				<button id = "add "onclick="location.href='form.ct'"> 추가 </button>
 			</div>
 		<table>
 			<thead>
@@ -121,10 +124,6 @@ tbody>td:hover{
 				</tbody>
 		</table>
 		<br>
-		<div align="right">
-			<button type="button" id="goMain" onclick="history.go(-1)">뒤로가기</button>
-		</div>
-		
 		<script>
 		$(document).ready(function() {
 			$(function() {
