@@ -46,19 +46,20 @@ header{
     background:white;
 }
 
-th {
+table th {
 	border: 1px solid white;
 	background-color: #00205b;
 	color: white;
 	text-align:center;
+	padding : 10px;
 }
 
-td{
-	padding:0;
+table td{
 	border: 1px solid #00205b;
 	background-color: white;
 	color: #00205b;
-	height:100%;
+	padding : 4px;
+	text-align:center;
 }
 
 input{

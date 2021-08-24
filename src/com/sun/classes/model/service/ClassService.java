@@ -9,12 +9,13 @@ import java.util.Calendar;
 
 import com.sun.classes.model.dao.ClassDao;
 import com.sun.classes.model.vo.Classes;
+import com.sun.student.model.vo.PageInfo;
 
 public class ClassService {
 
-	public ArrayList<Classes> selectClassList(String userId,String cName) {
+	public ArrayList<Classes> selectClassList(String userId,String cName,PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<Classes> list = new ClassDao().selectClassList(conn,userId,cName);
+		ArrayList<Classes> list = new ClassDao().selectClassList(conn,userId,cName,pi);
 		close(conn);
 		return list;
 
@@ -39,6 +40,16 @@ public class ClassService {
 		close(conn);
 		return list;
 	}
+
+
+		public int getListCount(String userId) {
+			Connection conn = getConnection();
+			int listCount = new ClassDao().getListCount(conn,userId);
+			
+			close(conn);
+			return listCount;
+		}
+
 
 
 }
