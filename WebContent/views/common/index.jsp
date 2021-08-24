@@ -27,6 +27,7 @@
 	}
 	.weather{
 		width: 300px;
+		height:220px;
 		display: inline-block;
 		margin-top: 100px;
 		background-color: skyblue;
@@ -37,18 +38,9 @@
 		margin-top:10px;
 		text-align: center;
 	}
-	.time{
-		margin-bottom:20px;
+	.content{
+		height:50px;
 		text-align: center;
-		color:white;
-		font-weight:900;
-		font-size:20px;
-	}
-	.ctemp{
-		margin-bottom:20px;	
-		text-align: center;
-		margin-left:180px;
-		margin-bottom:20px;
 		color:white;
 		font-weight:900;
 		font-size:20px;
@@ -62,10 +54,16 @@
 		background-color: #f0f8ff;
 	}
 	.cal{
+		width:280px;
+		height:340px;
 		margin-top:200px;
-		font-size:20px;
+		margin-left:10px;
+		font-size:25px;
+		background-color:white;
+		border-radius: 2em;
 	}
-	
+	.bor{display:inline-block;}
+	.empty{float:left;}
 </style>
 </head>
 <body>
@@ -76,14 +74,14 @@
 			<script>
 				var mapContainer = document.getElementById('map'),
 				    mapOption = { 
-				        center: new kakao.maps.LatLng(36.3688296, 127.3446797),
-				        level: 6 
+				        center: new kakao.maps.LatLng(37.5064613, 127.0320657),
+				        level: 5 
 				    };
 				
 				var map = new kakao.maps.Map(mapContainer, mapOption); 
 				 
 				var points = [
-				    new kakao.maps.LatLng(36.3688296, 127.3446797),
+				    new kakao.maps.LatLng(37.5064613, 127.0320657),
 				];
 				
 				var bounds = new kakao.maps.LatLngBounds();    
@@ -104,16 +102,16 @@
 				<br>
 				<h5 style="text-decoration: underline overline 2px; text-underline-position: under; text-decoration-color: navy; color: navy;">
 				&nbsp;&nbsp; <strong>찾아오시는 길</strong>&nbsp;&nbsp;</h5>
-				&nbsp;&nbsp;> 주소 : (34134) 대전광역시 유성구 대학로99 충남대학교 (궁동 220)<br>
-				&nbsp;&nbsp;> 전화 : 042-821-5114<br><br>
+				&nbsp;&nbsp;> 주소 : 서울특별시 강남구 테헤란로 14길 6 남도빌딩 <br>
+				&nbsp;&nbsp;> Tel: 1544-9970 / Fax: 02-562-2378<br><br>
 				<br>
 				
 				<h5 style="text-decoration: underline overline 2px; text-underline-position: under; text-decoration-color: navy; color: navy;">
 				&nbsp;&nbsp; <strong>교통편 안내</strong>&nbsp;&nbsp;</h5>
-				&nbsp;&nbsp;> <strong>[지하철 : 유성온천역 하차 7번출구 이용]</strong><br>
-				&nbsp;&nbsp;택시 또는 순환버스 이용<br>
-				&nbsp;&nbsp;> <strong>[시내버스 유성온천역 경유]</strong><br>
-				&nbsp;&nbsp;교내 진입 48 / 정문 101, 105, 106, 113/ 서문 704, 911 / 동문(농업생명과학대학) 105, 115<br><br>
+				&nbsp;&nbsp;> <strong>[지하철 : 2호선 역삼역 3번출구 이용]</strong><br>
+				&nbsp;&nbsp;도보 100m<br>
+				&nbsp;&nbsp;> <strong>[버스 : 역삼역.포스코P & S타워 정류장]</strong><br>
+				&nbsp;&nbsp;146 / 740 / 341 / 360 / 1100 / 1700 / 2000 / 7007 / 8001<br><br>
 			</div>
 		</div>
 		
@@ -121,10 +119,28 @@
 		<div class="division">
 			<div class="weather">
 				<div class="icon" ></div><!-- <img alt="" src="http://openweathermap.org/img/wn/10d@2x.png"> -->
-				<div class="time"><br> </div>
-				<div class="ctemp"> </div>
+				<div class="content"></div>
 			</div>
+			<script>
+			$.getJSON('http://api.openweathermap.org/data/2.5/weather?q=Seoul&APPID=f46d2b55a8b012ccb8136dfcce652893&units=metric' ,function(result){
+			//result.weather[0].icon
+			var wIconUrl = '<img alt="'+result.weather[0].description+'" src="http://openweathermap.org/img/wn/'+result.weather[0].icon+'@2x.png">'
+			$('.icon').html(wIconUrl);
+			var ct = result.dt;
+			function convertTime(t){
+				var ot = new Date(t*1000);
+				
+				return ot.toLocaleString();
+			}
+			
+			var currentTime = convertTime(ct);
+			$('.content').append(result.sys.country+', '+result.name+' '+result.weather[0].description+'<br>'+currentTime+'<br>'+result.main.temp+' º');
+			});
+		</script>
+		<div class="bor">
+		<div class="empty"></div>
 			<div class="cal">
+			<br>
 			<script type="text/javascript">
 		        var today = new Date();
 		        var date = new Date();
@@ -202,26 +218,7 @@
 			</script>
 			</div>
 		</div>
-		
-		<script>
-			$.getJSON('http://api.openweathermap.org/data/2.5/weather?q=Daejeon&APPID=f46d2b55a8b012ccb8136dfcce652893&units=metric' ,function(result){
-			
-			$('.ctemp').append(result.main.temp+' º');
-			//result.weather[0].icon
-			var wIconUrl = '<img alt="'+result.weather[0].description+'" src="http://openweathermap.org/img/wn/'+result.weather[0].icon+'@2x.png">'
-			$('.icon').html(wIconUrl);
-			var ct = result.dt;
-			function convertTime(t){
-				var ot = new Date(t*1000);
-				
-				return ot.toLocaleString();
-			}
-			
-			var currentTime = convertTime(ct);
-			$('.time').append(currentTime);
-			});
-		</script>
  	</div>
- 	
+ 	</div>
 </body>
 </html>
