@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.sun.classHistory.model.vo.ClassHistory;
+
 import com.sun.classes.model.service.ClassService;
 import com.sun.classes.model.vo.Classes;
 import com.sun.user.model.vo.User;
@@ -35,6 +35,7 @@ public class ClassHistorySelectClass extends HttpServlet {
 		ArrayList<Classes> classList = new ClassService().selectClassByUserIdAndYearAndSemester(user.getUserId());
 		request.setAttribute("classList", classList);
 		request.getRequestDispatcher("views/professors/class/professorsGradeView.jsp").forward(request, response);
+		
 	}
 
 	/**

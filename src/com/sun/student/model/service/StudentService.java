@@ -10,9 +10,16 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.sun.student.model.dao.StudentDao;
-import com.sun.student.model.vo.Student;
+import com.sun.student.model.vo.Attachment;
+import com.sun.student.model.vo.Certificate;
+import com.sun.student.model.vo.DropDown;
 import com.sun.student.model.vo.Fluctuation;
 import com.sun.student.model.vo.PageInfo;
+import com.sun.student.model.vo.Student;
+import com.sun.student.model.vo.StudentConsulting;
+import com.sun.student.model.vo.StudentDivisionGrade;
+import com.sun.student.model.vo.StudentEarnCredit;
+import com.sun.student.model.vo.StudentSemeterGrade;
 
 public class StudentService {
 	public int getListCount() {
@@ -50,24 +57,25 @@ public class StudentService {
 		return result;
 	}
 
-	public ArrayList<Student> getPList() {
+	
+	public ArrayList<DropDown> getDList() {
 		Connection conn = getConnection();
 
-		ArrayList<Student> pList = new StudentDao().getPList(conn);
+		ArrayList<DropDown> dList = new StudentDao().getDList(conn);
 		
 		close(conn);
 		
-		return pList;
+		return dList;
 	}
 
 	public ArrayList<Student> getCList() {
 		Connection conn = getConnection();
 
-		ArrayList<Student> pList = new StudentDao().getCList(conn);
+		ArrayList<Student> cList = new StudentDao().getCList(conn);
 		
 		close(conn);
 		
-		return pList;
+		return cList;
 	}
 
 	public Student searchStudent(String search) {
@@ -114,15 +122,187 @@ public class StudentService {
 		return result;
 	}
 
+	public ArrayList<StudentConsulting> student_consultingList(String userId) {
+		Connection conn = getConnection();
+
+		ArrayList<StudentConsulting> list = new StudentDao().student_consultingList(conn,userId);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public String searchAdvisor(String userId) {
+		Connection conn = getConnection();
+		
+		String advisor = new StudentDao().searchAdvisor(conn, userId);
+		close(conn);
+		return advisor;
+	}
+
+	public ArrayList<StudentDivisionGrade> student_divisionGrade(String userId) {
+		Connection conn = getConnection();
+		
+		ArrayList<StudentDivisionGrade> list = new StudentDao().student_divisionGrade(conn, userId);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<StudentSemeterGrade> student_semesterGrade(String userId) {
+		Connection conn = getConnection();
+		
+		ArrayList<StudentSemeterGrade> SList = new StudentDao().student_semesterGrade(conn, userId);
+		close(conn);
+		return SList;
+	}
+
+	public int idCheck(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().idCheck(conn,userId);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int updateStudent(Student st) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().updateStudent(conn,st);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int pIdCheck(String pId) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().pIdCheck(conn,pId);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int insertFluctuation(Fluctuation fl) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().insertFluctuation(conn, fl);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+  public int deleteStudent(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().deleteStudent(conn, userId);
+		
+		if(result>0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public Student searchName(String name) {
+		Connection conn = getConnection();
+
+		Student st = new StudentDao().searchName(conn,name);
+		
+		close(conn);
+		
+		return st;
+	}
+
+  
+  
+	public ArrayList<Certificate> CertificateList(String userId) {
+		Connection conn = getConnection();
+		
+		ArrayList<Certificate> list = new StudentDao().CertificateList(conn, userId);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int addCertificate(Certificate ct /*, Attachment at*/) {
+		Connection conn = getConnection();
+	
+		int result1 = new StudentDao().addCertificate(conn,ct);
+		/*
+		int result2 = 1;
+		
+		if(at != null) {
+			result2 = new StudentDao().addAttachment(conn,at);
+		}
+		*/
+		if(result1/** result2*/ >0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return result1/** result2*/;
+	}	
+  
+	public ArrayList<StudentEarnCredit> student_earnCredit(String userId) {
+		Connection conn = getConnection();
+		
+		ArrayList<StudentEarnCredit> SList = new StudentDao().student_earnCredit(conn, userId);
+		close(conn);
+		return SList;
+	}
+
+	public ArrayList<StudentSemeterGrade> student_rank(String userId) {
+		Connection conn = getConnection();
+		
+		ArrayList<StudentSemeterGrade> rank = new StudentDao().student_rank(conn, userId);
+		close(conn);
+		return rank;
+	}
+
+	public int deleteCertificate(String sId, int cfNo) {
+		Connection conn = getConnection();
+		
+		int result = new StudentDao().deleteCertificate(conn, sId, cfNo);
+		
+		if(result>0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 	public Student selectStudent(String userId) {
 		
 		Connection conn = getConnection();
 
 		Student st = new StudentDao().selectStudent(conn,userId);
-		
-		close(conn);
-		
-		return st;
 	
-	}	
+	  close(conn);
+    
+		return st;
+  }
 }

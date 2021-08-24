@@ -12,11 +12,10 @@ String contextPath = request.getContextPath();
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
 <style>
 <!--login이 안 되어있을 때의 style --> 
 body {
@@ -143,8 +142,6 @@ span{
 	})
 
 	function loginVaildate() {
-		console.log("tq,,,,좀 돼라,,,");
-		
 		if ($("#userId").val().trim().length == 0) {
 			alert("아이디를 입력하세요");
 			$("#userId").focus();
@@ -191,8 +188,8 @@ span{
 				</form>
 
 				<div id="find-div">
-					<a href="">>학번/교직원 번호 찾기</a> 
-					<a href="">>비밀번호 초기화 </a>
+					<a onclick="findId();">>학번/교직원 번호 찾기</a> 
+					<a onclick="resetPwd();">>비밀번호 초기화 </a>
 				</div>
 			</div>
 		</div>
@@ -215,6 +212,7 @@ span{
 		<li><div class="menuLink" onclick="goManageProfessors();">교수 관리</div></li>
 		<li><div class="menuLink" onclick="goManageClass();">강의 관리</div></li>
 	</ul>
+	<%@ include file="../common/index.jsp" %>
 	
 	<%
 	} else if (Character.toUpperCase(loginUser.getUserId().charAt(0)) == 'P') { //교수
@@ -224,22 +222,26 @@ span{
 		<li><div class="menuLink" onclick="goProfessorsGrade();">성적</div></li>
 		<li><div class="menuLink" onclick="goProfessorsConsulting();">상담</div></li>
 	</ul>
-
+	<%@ include file="../common/index.jsp" %>
 	<%
 	} else { // 학생
 	%>
 	<ul>
-		<li><div class="menuLink" onclick="goStudentRegister();">학적</div></li>
+		<li><div class="menuLink" onclick="location='<%=contextPath%>/ct.st'">학적</div></li>
 		<li><div class="menuLink" onclick="goStudentConsulting();">상담</div></li>
 		<li><div class="menuLink" onclick="goStudentGrade();">성적</div></li>
-		<li><div class="menuLink" onclick="goCertificate();">증명서발급</div></li>
+		<li><div class="menuLink" onclick="goCertification('https://www.webminwon.com/#reload');">증명서발급</div></li>
 	</ul>
-	<%}%>
-	</div>
-	<%} %>
+	<%@ include file="../common/index.jsp" %>
+	<%}}%>
 	</nav>
 	
 	<script>
+    
+   function goStudentRegister(){
+		location.href="<%=request.getContextPath()%>/fluctuation.st";
+	}
+	
 	function goProfessorsClass(){
 		location.href="<%=request.getContextPath()%>/classList.pr";
 	}
@@ -255,7 +257,27 @@ span{
 	function goStudentRegister(){
 		location.href="<%=request.getContextPath()%>/StudentAcademic";
 	}
-
+	
+	function goStudentConsulting(){
+		location.href="<%=request.getContextPath()%>/student.consult";
+	}
+	
+	function goStudentGrade(){
+		location.href="<%=request.getContextPath()%>/student.grade";
+		
+	}
+	
+	function goCertification(url) {
+        var win = window.open(url, '_blank');
+        win.focus();
+    }
+	
+	function findId(){
+		window.open("<%=contextPath%>/findIdForm.us","아이디 찾기","width=500, height=300");
+	}
+	function resetPwd(){
+		window.open("<%=contextPath%>/resetPwdForm.us","비밀번호 초기화","width=500, height=300");
+	}
 	</script>
 </body>
 </html>

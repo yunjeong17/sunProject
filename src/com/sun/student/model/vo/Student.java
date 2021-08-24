@@ -189,24 +189,16 @@ public class Student extends User{
 		this.pName = pName;
 	} //관리자-학생 목록
 	
-	public Student(String pId, String pName) {
-		super();
-		this.pId = pId;
-		this.pName = pName;
-	}//교수 드롭다운
-
-	public Student(String cNo, String cName, String deptNo) {
+	public Student(String cNo, String cName) {
 		super();
 		this.cNo = cNo;
 		this.cName = cName;
-		this.deptNo = deptNo;
 	}//카테고리 드롭다운
-	
-	
-	
-	
 
-
+	public Student(String pName) {
+		super();
+		this.pName = pName;
+	}//professors 드롭다운
 }
 
 	

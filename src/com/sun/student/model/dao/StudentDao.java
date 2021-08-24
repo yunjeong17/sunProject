@@ -1,9 +1,9 @@
 package com.sun.student.model.dao;
 
-
 import static com.sun.common.JDBCTemplate.close;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,9 +12,16 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.sun.common.CommonDao;
-import com.sun.student.model.vo.Student;
+import com.sun.student.model.vo.Attachment;
+import com.sun.student.model.vo.Certificate;
+import com.sun.student.model.vo.DropDown;
 import com.sun.student.model.vo.Fluctuation;
 import com.sun.student.model.vo.PageInfo;
+import com.sun.student.model.vo.Student;
+import com.sun.student.model.vo.StudentConsulting;
+import com.sun.student.model.vo.StudentDivisionGrade;
+import com.sun.student.model.vo.StudentEarnCredit;
+import com.sun.student.model.vo.StudentSemeterGrade;
 
 public class StudentDao {
 
@@ -68,8 +75,14 @@ public class StudentDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				list.add(new Student(rset.getString("S_ID"), rset.getString("S_NAME"), rset.getInt("S_LEVEL"),
-						rset.getString("DEPT_NAME"), rset.getString("C_NAME"), rset.getString("P_NAME")));
+				Student st = new Student();
+				st.setUserId(rset.getString("S_ID"));
+				st.setUserName(rset.getString("S_NAME"));
+				st.setsLevel(rset.getInt("S_LEVEL"));
+				st.setDeptName(rset.getString("DEPT_NAME"));
+				st.setcName(rset.getString("C_NAME"));
+				st.setpName(rset.getString("P_NAME"));
+				list.add(st);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -103,20 +116,21 @@ public class StudentDao {
 		}
 		return result;
 	}
-
-	public ArrayList<Student> getPList(Connection conn) {
-		ArrayList<Student> pList = new ArrayList<Student>();
+	
+	public ArrayList<DropDown> getDList(Connection conn) {
+		ArrayList<DropDown> dList = new ArrayList<DropDown>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String sql = prop.getProperty("getPList");
+		String sql = prop.getProperty("getdList");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				pList.add(new Student(rset.getString("P_ID"), rset.getString("P_NAME")));
+				dList.add(new DropDown(rset.getString("P_ID"),
+									 rset.getString("P_Name")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -124,7 +138,7 @@ public class StudentDao {
 			close(rset);
 			close(pstmt);
 		}
-		return pList;
+		return dList;
 	}
 
 	public ArrayList<Student> getCList(Connection conn) {
@@ -139,7 +153,8 @@ public class StudentDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				cList.add(new Student(rset.getString("C_NO"), rset.getString("C_NAME")));
+				cList.add(new Student(rset.getString("C_NO"),
+						rset.getString("C_NAME")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -226,24 +241,147 @@ public class StudentDao {
 		return result;
 	}
 
-	public Student selectStudent(Connection conn, String userId) {
+	public int idCheck(Connection conn, String userId) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
 		
+		String sql=prop.getProperty("idCheck");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result=rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+				
+		return result;
+	}
+
+	public int updateStudent(Connection conn, Student st) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateStudent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, st.getPId());
+			pstmt.setString(2, st.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int pIdCheck(Connection conn, String pId) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		
+		String sql=prop.getProperty("pIdCheck");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pId);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result=rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+				
+		return result;
+	}
+
+	public int insertFluctuation(Connection conn, Fluctuation fl) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertFluctuation");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, fl.getFlNo());
+			pstmt.setString(2, fl.getsId());
+			pstmt.setString(3, fl.getFlChange());
+			pstmt.setString(4, fl.getFlReason());
+			pstmt.setInt(5, fl.getFlYear());
+			pstmt.setInt(6, fl.getFlSemester());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteStudent(Connection conn, String userId) {
+		int result=0;
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("deleteStudent");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Student searchName(Connection conn, String name) {
 		Student st = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-
-		String sql = prop.getProperty("selectStudent");
+    
+		String sql = prop.getProperty("searchName");
 
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
+			pstmt.setString(1, name);
 
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				st = new Student(rset.getString("S_ID"), rset.getString("P_ID"), rset.getString("C_NO"),
-						rset.getString("S_NAME"), rset.getDate("S_EDATE"), rset.getString("S_PHONE")
-						, rset.getString("S_EMAIL"), rset.getInt("S_LEVEL"));
+    st = new Student(rset.getString("S_ID"), rset.getString("S_NAME"), rset.getInt("S_LEVEL"),
+						rset.getString("DEPT_NAME"), rset.getString("C_NAME"), rset.getString("P_NAME"));
+				System.out.println(st);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -252,7 +390,315 @@ public class StudentDao {
 			close(pstmt);
 		}
 		return st;
+	}
+
+	public ArrayList<Certificate> CertificateList(Connection conn, String userId) {
+		ArrayList<Certificate> list = new ArrayList<Certificate>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
 		
+		String sql = prop.getProperty("CertificateList");
+		/*
+		 * CF_NO
+			S_ID
+			CF_NAME
+			CF_ISSUE
+			CF_DATE
+			CF_ATTCHMENT
+			CF_ID
+		 */
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Certificate(rset.getInt("CF_NO"),
+										rset.getString("S_ID"),
+										rset.getString("CF_NAME"),
+										rset.getString("CF_ISSUE"),
+										rset.getDate("CF_DATE"),
+										rset.getString("CF_ATTCHMENT"),
+										rset.getString("CF_ID")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int addCertificate(Connection conn, Certificate ct) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("addCertificate");
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, ct.getCfNo());
+			pstmt.setString(2, ct.getsId());
+			pstmt.setString(3, ct.getCfName());
+			pstmt.setString(4, ct.getCfIssue());
+			pstmt.setDate(5, (Date) ct.getCfDate());
+			pstmt.setString(6, ct.getCfAttachment());
+			pstmt.setString(7, ct.getCfId());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	/*
+	public int addAttachment(Connection conn, Attachment at) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAttachment");
+		try {
+
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, at.getOriginName());
+			pstmt.setString(2, at.getChangeName());
+			pstmt.setString(3, at.getFilePath());
+
+			result = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	*/
+
+	public ArrayList<StudentDivisionGrade> student_divisionGrade(Connection conn, String userId) {
+		ArrayList<StudentDivisionGrade> list = new ArrayList<StudentDivisionGrade>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("student_divisionGrade");
+		/*
+		 * SELECT CLASS.CLASS_TYPE_NO, SUM(CLASS.CREDIT) FROM CLASS LEFT JOIN
+		 * CLASS_HISTORY ON CLASS_HISTORY.CLASS_NO=CLASS.CLASS_NO WHERE
+		 * CLASS_HISTORY.S_ID=? GROUP BY CLASS.CLASS_TYPE_NO;
+		 */
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new StudentDivisionGrade(rset.getInt("TYPENO"), rset.getInt("CREDIT")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<StudentSemeterGrade> student_semesterGrade(Connection conn, String userId) {
+		ArrayList<StudentSemeterGrade> SList = new ArrayList<StudentSemeterGrade>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql1 = prop.getProperty("student_semesterGrade");
+		/*			
+			SELECT YEAR, SEMESTER, CREDIT, CG_POINT, PERCENT FROM VIEW_ST_APPLI WHERE S_ID=?
+			int year, int semester, int appliCredit, double avgCredit, double percent
+		 */
+		try {
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, userId);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				SList.add(new StudentSemeterGrade(rset.getInt("YEAR"),
+												  rset.getInt("SEMESTER"),
+												  rset.getInt("CREDIT"),
+												  rset.getDouble("CG_POINT"),
+												  rset.getDouble("PERCENT")));
+				System.out.println(SList);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return SList;
+	
 	}
 	
+  
+	public ArrayList<StudentEarnCredit> student_earnCredit(Connection conn, String userId) {
+		ArrayList<StudentEarnCredit> EList = new ArrayList<StudentEarnCredit>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql1 = prop.getProperty("student_earnCredit");
+		/*			
+			SELECT SUM(C.CREDIT) FROM CLASS C JOIN CLASS_HISTORY H ON C.CLASS_NO=H.CLASS_NO WHERE H.S_ID=? AND H.CG_POINT IS NOT NULL GROUP BY C.CLASS_YEAR,C.CLASS_SEMESTER
+			SELECT CREDIT FROM VIEW_ST_EARN WHERE S_ID=?
+		 */
+		try {
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, userId);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				EList.add(new StudentEarnCredit(rset.getInt("CREDIT")));
+				System.out.println(EList);
+			}
+			if(EList.isEmpty()) {
+				EList.add(new StudentEarnCredit(0));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return EList;
+	}
+
+	public ArrayList<StudentSemeterGrade> student_rank(Connection conn, String userId) {
+		ArrayList<StudentSemeterGrade> rank = new ArrayList<StudentSemeterGrade>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("student_rank");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				rank.add(new StudentSemeterGrade(rset.getInt("RANK")));
+				System.out.println(rank);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return rank;
+	}
+  	
+	public ArrayList<StudentConsulting> student_consultingList(Connection conn, String userId) {
+		ArrayList<StudentConsulting> list = new ArrayList<StudentConsulting>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("student_consultingList");
+		// student_consultingList=SELECT CS_NO, CS_CONTENTS, CS_DATE, CS_TIME, CS_WAY,
+		// CS_TYPE FROM CONSULTING WHERE S_ID = ?
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				list.add(new StudentConsulting(rset.getInt("CS_NO"), rset.getString("CS_CONTENTS"),
+						rset.getDate("CS_DATE"), rset.getString("CS_TIME"), rset.getString("CS_WAY"),
+						rset.getString("CS_TYPE")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public String searchAdvisor(Connection conn, String userId) {
+		String advisor = "";
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("searchAdvisor");
+		/*
+		 * SELECT P_NAME FROM PROFESSORS LEFT JOIN STUDENT ON PROFESSORS.P_ID =
+		 * STUDENT.P_ID WHERE STUDENT.S_ID =?
+		 */
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				advisor = rset.getString("P_NAME");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return advisor;
+	}
+
+	public int deleteCertificate(Connection conn, String sId, int cfNo) {
+		int result=0;
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("deleteCertificate");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, sId);
+			pstmt.setInt(2, cfNo);
+
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+    
+   public Student selectStudent(Connection conn, String userId) {
+     	Student st = null;
+	  	PreparedStatement pstmt = null;
+	  	ResultSet rset = null;
+       String sql = prop.getProperty("selectStudent");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+      st = new Student(rset.getString("S_ID"), rset.getString("P_ID"), rset.getString("C_NO"),
+						rset.getString("S_NAME"), rset.getDate("S_EDATE"), rset.getString("S_PHONE")
+						, rset.getString("S_EMAIL"), rset.getInt("S_LEVEL"));
+      } catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return st;
+   }
 }
+

@@ -95,22 +95,23 @@ label, input {
 	color: rgb(2, 34, 89);
 }
 
-#opposite, #oppositeSt{
-	color: orchid;
-}
-
 form{
 	margin:auto;
 }
+
+ b:hover{
+ 	text-decoration : underline;
+ }
 </style>
 </head>
 <body>
 	<%@ include file="/views/common/menubar.jsp"%>
 	<br>
 	<h4 align="center">학생 정보 수정</h4>
+	<h5 align="center">학생 목록으로 돌아가시려면 <b id = "back" onclick="location.href='list.st'"><mark>여기</mark></b>를 클릭하세요</h5>
 	<div class="wrap" align="center">
 		<table>
-			<thead>
+			<thead> 
 				<tr>
 					<td class="head">학번</td>
 					<td class="head">이름</td>
@@ -146,72 +147,65 @@ form{
 			</tbody>
 		</table>
 		<br>
-		<div align="center" class="stButtons">
-			<button onclick="history.go(-1)">학생 목록</button>
-			<button onclick="location.href='delete.st'">학생 정보 삭제</button>
-		</div>
-		<div hidden="true" class="stUpdate" align="left" hidden="true" >
+		<div class="stUpdate" align="left">
 			<h4>학생 정보 수정하기</h4>
-			<h5>
-				학생 정보 수정을 원하지 않으시면 <b id="oppositeSt">여기</b>를 클릭하세요.
-			</h5>
-				<form  action="<%=contextPath%>/update.st" method="post">
-					<label for="sId">학번 &nbsp;&nbsp; : &nbsp;&nbsp;</label> <input
-						type="text" name="sId" placeholder="변경할 대상 학생의 학번" required></input> <label
-						for="flNo"> &nbsp;&nbsp; 식별번호 &nbsp;&nbsp; : &nbsp;&nbsp;</label> <input
-						type="text" maxlength="2" name="flNo" placeholder="변경할 학적의 식별번호" required></input> <label
-						for="flChange">&nbsp;&nbsp; 변동사항 &nbsp;&nbsp; :
-						&nbsp;&nbsp;</label> <input type="text" name="flChange" required></input>
-					<label for="flReason">&nbsp;&nbsp; 변동사유 &nbsp;&nbsp; :
-						&nbsp;&nbsp;</label> <input type="text" name="flReason" required></input>
-					&nbsp;&nbsp;&nbsp;&nbsp;
+				<form  id="update" action="<%=contextPath%>/update.st" method="post">
+					<input type="text" name="userId" value="<%=st.getUserId()%>" hidden="true"></input>
+					<label for="pId">&nbsp;&nbsp; 지도교수 &nbsp;&nbsp; : &nbsp;&nbsp;</label><input
+						type="text" name="pId" placeholder="교수 ID 입력" required></input> 
+						&nbsp;&nbsp;
+						<button type="button" id="idCheckBtn" onclick="checkId();">교수 확인</button>
+						&nbsp;&nbsp;&nbsp;
 					<button type="submit">수정하기</button>
 				</form>
-				<br><br>
-			</div>
-		
-		
+		<br>
+			<h4>학생 정보 삭제</h4>
+				<form id="delete" action="<%=contextPath%>/delete.st" method="get">
+					<input type="text" name="userId" value="<%=st.getUserId()%>" hidden="true"></input>
+					&nbsp;&nbsp; 위 학생 정보를 삭제하시려면 <button type="submit">삭제하기</button> 를 눌러주세요.
+				</form>
+				</div>
+				<br><br>	
 		<script>
-		$(function() {
-			$('.st>tr').click(function() {
-				$('.stUpdate').show();
-				$('.stButtons').hide();
-				$('.flUpdate').hide();
-			})
-		})
-		</script>
-		<script>
-			$(function() {
-				$('#oppositeSt').click(function() {
-					$('.stUpdate').hide();
-					$('.stButtons').show();
+		function checkId() {
+				var pId = $("#update input[name=pId]");
+				if (pId.val() == "") {
+					alert("아이디를 입력해주세요.");
+					return false;
+				}
+				$.ajax({
+					url : "pIdCheck.me",
+					type : "post",
+					data : {
+						pId : pId.val()
+					},
+					success : function(result) {
+						if (result == "fail") {
+							if (confirm("존재하는 지도교수입니다. 사용하시겠습니까?")) {
+								pId.attr("readonly", "true");
+							//$("#joinBtn").removeAttr("disabled");
+							} else {
+								pId.focus();
+							}
+						} else {
+							alert("존재하지 않는 지도교수입니다.");
+							pId.focus();
+							pId.val("");
+							
+						}
+					},
+					error : function() {
+						console.log("서버통신실패");
+					},
 				})
-			})
+			}
 		</script>
 		
 		<hr>
 		
 		<!-- 학적 -->
-
-		<h4 align="center">학적 변동 사항 추가</h4>
-		<h5 align="center">수정하고자 하는 학생을 선택하면 학적 정보 수정이 가능합니다.</h5>
-		
-		<div align="left" id="flDetail">
-		<form action="<%=contextPath%>/insert.fl"
-			method="post">
-			<label for="flChange">변동사항 &nbsp;&nbsp; : &nbsp;&nbsp;</label> <input
-				type="text" maxlength="10" name="flChange"></input> <label
-				for="flReason">&nbsp;&nbsp; 변동사유 &nbsp;&nbsp; : &nbsp;&nbsp;</label>
-			<input type="text" maxlength="10" name="flReason"></input> <label
-				for="flYear">&nbsp;&nbsp; 연도 &nbsp;&nbsp; : &nbsp;&nbsp;</label> <input
-				type="text" maxlength="10" name="flYear"></input> <label
-				for="flSemester">&nbsp;&nbsp; 학기 &nbsp;&nbsp; : &nbsp;&nbsp;</label>
-			<input type="text" maxlength="10" name="flSemester"></input>&nbsp;&nbsp;
-			<button onclick="location.href='insert.fl'">추가하기</button>
-		</form>
-		</div>
+		<h4 align="center">학적 변동 사항 수정</h4>
 		<br>
-		
 		<table>
 			<thead>
 				<tr>
@@ -255,16 +249,15 @@ form{
 			</tbody>
 		</table>
 
-		<div hidden="true" class="flUpdate" align="left">
+		<div class="flUpdate" align="left">
 			<br>
 			<h4>학적 수정하기</h4>
 			<h5>
-				학적 수정을 원하지 않으시면 <b id="opposite">여기</b>를 클릭하세요.
+				학적 추가를 원하시면 <b onclick= "location.href='form.fl'"><mark>여기</mark></b>를 클릭하세요.
 			</h5>
 				<form  action="<%=contextPath%>/update.fl" method="post">
-					<label for="sId">학번 &nbsp;&nbsp; : &nbsp;&nbsp;</label> <input
-						type="text" name="sId" placeholder="변경할 대상 학생의 학번" required></input> <label
-						for="flNo"> &nbsp;&nbsp; 식별번호 &nbsp;&nbsp; : &nbsp;&nbsp;</label> <input
+					<input type="text" name="getsId" value="<%=st.getUserId()%>" hidden="true"></input>
+						<label for="flNo"> &nbsp;&nbsp; 식별번호 &nbsp;&nbsp; : &nbsp;&nbsp;</label> <input
 						type="text" maxlength="2" name="flNo" placeholder="변경할 학적의 식별번호" required></input> <label
 						for="flChange">&nbsp;&nbsp; 변동사항 &nbsp;&nbsp; :
 						&nbsp;&nbsp;</label> <input type="text" name="flChange" required></input>
@@ -275,23 +268,6 @@ form{
 				</form>
 			</div>
 		</div>
-	<script>
-		$(function() {
-			$('.fl>tr').click(function() {
-				$('.flUpdate').show();
-				$('#flDetail').hide();
-				$('.stUpdate').hide();
-			})
-		})
-	</script>
-	<script>
-		$(function() {
-			$('#opposite').click(function() {
-				$('.flUpdate').hide();
-				$('#flDetail').show();
-				
-			})
-		})
-	</script>
+		<br><br>
 </body>
 </html>

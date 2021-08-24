@@ -32,6 +32,8 @@ public class StudentInsert extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		String userId= request.getParameter("userId");
 		String userPwd= request.getParameter("userPwd");
 		String userName= request.getParameter("userName");
@@ -43,13 +45,9 @@ public class StudentInsert extends HttpServlet {
 			sLevel=Integer.parseInt(sSLevel);
 		}
 		
-		ArrayList<Student> pList = new StudentService().getPList();
-		ArrayList<Student> cList = new StudentService().getCList();
-		request.setAttribute("pList", pList);
-		request.setAttribute("cList", cList);
-			
 		Student st = new Student();
 		st.setUserId(userId);
+		st.setPId(pId);
 		st.setUserPwd(userPwd);
 		st.setUserName(userName);
 		st.setPId(pId);

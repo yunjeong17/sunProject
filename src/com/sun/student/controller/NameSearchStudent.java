@@ -1,23 +1,27 @@
 package com.sun.student.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.sun.student.model.service.StudentService;
+import com.sun.student.model.vo.Student;
+
 /**
- * Servlet implementation class FluctuationPage
+ * Servlet implementation class StudentSearch
  */
-@WebServlet("/page.fl")
-public class FluctuationPage extends HttpServlet {
+@WebServlet("/name.st")
+public class NameSearchStudent extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FluctuationPage() {
+    public NameSearchStudent() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +30,12 @@ public class FluctuationPage extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/admin/student/flUpdate.jsp").forward(request, response);
+		String name= request.getParameter("name");
+		
+		Student de = new StudentService().searchName(name);
+		request.setAttribute("de", de);
+		
+		request.getRequestDispatcher("views/admin/student/stName.jsp").forward(request, response);
 	}
 
 	/**
