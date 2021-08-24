@@ -111,11 +111,11 @@ Student st = (Student) request.getAttribute("st");
 	}
 
 	function flucadjust(){
-		location.href="<%=request.getContextPath()%>/StAcademicFluctuations";
+		location.href="<%=request.getContextPath()%>/stpage.fl";
 	}
 	
 	function cHistory(){
-		location.href="<%=request.getContextPath()%>/StCourseHistory";
+		location.href="<%=request.getContextPath()%>/stpage.ch";
 	}
 	
 	function certificate(){

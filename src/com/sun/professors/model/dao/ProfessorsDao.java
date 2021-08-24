@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.sun.common.CommonDao;
+import com.sun.student.model.vo.PageInfo;
 import com.sun.student.model.vo.Student;
 import com.sun.student.model.vo.StudentConsulting;
 
@@ -52,15 +53,20 @@ public class ProfessorsDao {
 	}
 	
 	
-	public ArrayList<StudentConsulting> selectConsultingList(Connection conn, String sId) {
+	public ArrayList<StudentConsulting> selectConsultingList(Connection conn, String sId,PageInfo pi) {
 		ArrayList<StudentConsulting> list = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
 		String sql = prop.getProperty("selectConsultingList");
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sId);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			list = new ArrayList<StudentConsulting>();
 			while (rset.next()) {
@@ -161,6 +167,33 @@ public class ProfessorsDao {
 		}
 
 		return result;
+	}
+
+
+
+	public int getListCount(Connection conn, String sId) {
+		int listCount = 0;
+
+		PreparedStatement pstmt=null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("getListCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, sId);
+			rset= pstmt.executeQuery();
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+		}
+
+		return listCount;
 	}
 
 }

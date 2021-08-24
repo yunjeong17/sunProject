@@ -14,6 +14,7 @@ import java.util.Properties;
 import com.sun.common.CommonDao;
 import com.sun.student.model.vo.Attachment;
 import com.sun.student.model.vo.Certificate;
+import com.sun.student.model.vo.ClassHistories;
 import com.sun.student.model.vo.DropDown;
 import com.sun.student.model.vo.Fluctuation;
 import com.sun.student.model.vo.PageInfo;
@@ -673,6 +674,7 @@ public class StudentDao {
 						rset.getString("PHONE"), rset.getString("EMAIL"), rset.getString("FLUCTUATION"),
 						rset.getInt("GRADE"), rset.getString("DEPT"), rset.getString("CATEGORY"),
 						rset.getString("PROFESSOR"), rset.getInt("SUMCREDIT"));
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -719,24 +721,27 @@ public class StudentDao {
 
 		String sql = prop.getProperty("studentPersonalselect");
 
+	public ArrayList<ClassHistories> ClassHistories(Connection conn, String userId, ClassHistories ch) {
+		ArrayList<ClassHistories> list = new ArrayList<ClassHistories>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("ClassHistories");
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
 
 			rset = pstmt.executeQuery();
-			   
-			if (rset.next()) {
-				per = new Student(rset.getString("PHONE"), rset.getString("EMAIL"), rset.getString("MILITARY"),
-						rset.getString("ADDRESS"), rset.getString("ACCOUNT"), rset.getString("BANK"),
-						rset.getString("HOLDER"));
-			} else {
-				per.setsPhone(" ");
-				per.setsEmail(" ");
-				per.setMilitary(" ");
-				per.setAddress(" ");
-				per.setAccount(" ");
-				per.setBank(" ");
-				per.setHolder(" ");
+
+			
+			while (rset.next()) {
+				list.add(new ClassHistories(rset.getInt("CLASS_YEAR"),
+						rset.getInt("CLASS_SEMESTER"),
+						rset.getString("CLASS_NAME"),
+						rset.getInt("CREDIT"),
+						rset.getString("CLASS_TYPE_NAME"),
+						rset.getString("P_NAME")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -744,6 +749,7 @@ public class StudentDao {
 			close(rset);
 			close(pstmt);
 		}
-		return per;
+		return list;
 	}
+
 }

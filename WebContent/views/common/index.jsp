@@ -13,11 +13,16 @@
 		background-size:cover;
 	}
 	.outer{
-		display: inline-block;
-		margin-left:100px;
+		width: 1200px;
+		margin-right:20%;
+		/*display: inline-block;
 		width:1200px;
-		height:900px;	
+		height:900px;	*/
 	}
+	/*
+	.outer>*{
+	width: 100%;
+	}*/
 	#map{
 		margin-top: 80px;
 		margin-right: 100px;

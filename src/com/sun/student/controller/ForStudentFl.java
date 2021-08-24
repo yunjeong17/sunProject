@@ -12,19 +12,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sun.student.model.service.StudentService;
 import com.sun.student.model.vo.Fluctuation;
-import com.sun.student.model.vo.Student;
+import com.sun.user.model.vo.User;
 
 /**
- * Servlet implementation class StudentDetail
+ * Servlet implementation class ForStudentFl
  */
-@WebServlet("/detail.st")
-public class StudentDetail extends HttpServlet {
+@WebServlet("/stpage.fl")
+public class ForStudentFl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StudentDetail() {
+    public ForStudentFl() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,33 +33,35 @@ public class StudentDetail extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("userId");
+		User userId=(User)request.getSession().getAttribute("loginUser");
 		String flChange = request.getParameter("flChange"); 
 		String flReason = request.getParameter("flReason"); 
 		String flYear = request.getParameter("flYear");
 		String flSemester = request.getParameter("flSemester");
+		
+		
 		int year=0;
 		int semester=0; 		
 		if(flYear!=null && flSemester!=null) {
 			year=Integer.parseInt(flYear);
 			semester = Integer.parseInt(flSemester);
 		}
-		Student st = new StudentService().studentDetail(userId);
+		//Student st = new StudentService().studentDetail(userId);
 		
 		Fluctuation fuck = new Fluctuation();
-		fuck.setUserId(userId);
+		fuck.setUserId(userId.getUserId());
 		fuck.setFlChange(flChange);
 		fuck.setFlReason(flReason);
 		fuck.setFlYear(year);
 		fuck.setFlSemester(semester);
 
-		ArrayList<Fluctuation> fl = new StudentService().fluctuationDetail(userId);
+		ArrayList<Fluctuation> fl = new StudentService().fluctuationDetail(userId.getUserId());
 		
-		if(st != null) {
-			request.setAttribute("st", st);
+		if(fl != null) {
+			//request.setAttribute("st", st);
 			request.setAttribute("fl", fl);
 
-			request.getRequestDispatcher("views/admin/student/stDetail.jsp").forward(request, response);
+			request.getRequestDispatcher("views/student/FLforST.jsp").forward(request, response);
 		}else {
 			
 			request.setAttribute("msg", "학적 상세 조회를 실패했습니다.");
@@ -68,7 +70,6 @@ public class StudentDetail extends HttpServlet {
 		
 		}
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

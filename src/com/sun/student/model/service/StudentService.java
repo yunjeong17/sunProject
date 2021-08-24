@@ -13,6 +13,7 @@ import com.sun.professors.model.dao.ProfessorsDao;
 import com.sun.student.model.dao.StudentDao;
 import com.sun.student.model.vo.Attachment;
 import com.sun.student.model.vo.Certificate;
+import com.sun.student.model.vo.ClassHistories;
 import com.sun.student.model.vo.DropDown;
 import com.sun.student.model.vo.Fluctuation;
 import com.sun.student.model.vo.PageInfo;
@@ -330,4 +331,14 @@ public class StudentService {
     
 		return per;
 	}
+	public ArrayList<ClassHistories> ClassHistories(String userId, ClassHistories ch) {
+		Connection conn = getConnection();
+
+		ArrayList<ClassHistories> list = new StudentDao().ClassHistories(conn,userId,ch);
+	
+		close(conn);
+    
+		return list;
+  }
+
 }

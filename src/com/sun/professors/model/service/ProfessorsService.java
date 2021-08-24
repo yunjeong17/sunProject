@@ -8,8 +8,8 @@ import static com.sun.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import com.sun.classHistory.model.dao.ClassHistoryDao;
 import com.sun.professors.model.dao.ProfessorsDao;
+import com.sun.student.model.vo.PageInfo;
 import com.sun.student.model.vo.Student;
 import com.sun.student.model.vo.StudentConsulting;
 
@@ -22,9 +22,9 @@ public class ProfessorsService {
 		return sList;
 	}
 
-	public ArrayList<StudentConsulting> selectConsultingList(String sId) {
+	public ArrayList<StudentConsulting> selectConsultingList(String sId,PageInfo pi) {
 		Connection conn = getConnection();
-		ArrayList<StudentConsulting> cList = new ProfessorsDao().selectConsultingList(conn,sId);
+		ArrayList<StudentConsulting> cList = new ProfessorsDao().selectConsultingList(conn,sId,pi);
 		return cList;
 	}
 
@@ -86,6 +86,14 @@ public class ProfessorsService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int getListCount(String sId) {
+		Connection conn = getConnection();
+		int listCount = new ProfessorsDao().getListCount(conn,sId);
+		
+		close(conn);
+		return listCount;
 	}
 
 }
