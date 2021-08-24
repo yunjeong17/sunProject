@@ -9,172 +9,105 @@ Student st = (Student) request.getAttribute("st");
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-div {
-	/*border: 1px solid red;*/
-	box-sizing: border-box;
-	display: block;
-}
-
-header {
-	align: left;
-}
-
-.wrap {
-	width: 1200px;
-	margin: auto;
-}
-
-.wrap>* {
-	width: 100%;
-}
-
-table, .head, td {
-	border: 1px rgb(2, 34, 89) solid
-}
-
-table {
-	width: max-content height= max-content margin= auto
-}
-
-.head {
-	background: rgb(2, 34, 89);
-	color: white;
-}
-
-caption {
-	padding: 0;
-}
-
-td {
-	text-align: center;
-	color: rgb(2, 34, 89);
-}
-
-button {
-	/*color: white;*/
-	border-style: groove;
-	border-radius: 10px;
-	background: white;
-	margin: left;
-}
-
-button:hover {
-	background: rgb(224, 224, 224);
-	border-style: groove;
-	border-radius: 10px;
-}
-
-label, input {
-	color: rgb(2, 34, 89);
-}
-
-nav {
-	background-color: rgb(2, 34, 89);
-	margin: 5px 0px;
-	
-}
-
-nav>ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	height: 100%;
-}
-
-nav li {
-	float: left;
-	width: 15%;
-	height: 100%;
-	text-align: center;
-	font-size: 18px;
-	line-height: 35px;
-	
-}
-
-nav li a {
-	text-decoration: none;
-	color: white;
-}
-
-nav li:hover {
-	color: #092d70;
-	background-color: white;
-	text-decoration: underline;
-}
+	.outer{
+       width: 1400px;
+       margin: auto;
+       margin-top: 50px;
+	}
+	th{
+       background-color: rgb(3,33,89);
+       color: white;
+       border: 1px solid white;
+       width:200px; 
+		       
+	}
+	tr{
+		height: 40px;
+	}
+	td {
+		text-align: center;
+		color: rgb(3,33,89);
+		width:200px; 
+	}
+	ul li {
+		list-style: none;
+		float: left;
+		line-height: 50px;
+		vertical-align: middle;
+		text-align: center;
+		margin-left: 10%;
+	}
+	.category{
+		aling:center;
+		margin-left:200px;
+		font-size:20px;
+	}
 </style>
 </head>
 <body>
 	<%@ include file="/views/common/menubar.jsp"%>
 	<br>
 	<br>
-	<div class="wrap">
-
+	<div class="outer">
+	<div class="wrap" align="center">
 		<table border="1">
 			<tr>
-				<td class="head">학번</td>
-				<td><%=st.getUserId()%></td>
-				<!-- <td></td>-->
-				<!-- <td></td>-->
-				<td class="head">이메일</td>
-				<td><%=st.getSEmail()%></td>
+				<th style="text-align: center;">학번</th>
+				<td><%=st.getUserId() %></td>
+				<th style="text-align: center;">이름</th>
+				<td><%=st.getcName() %></td>
+				<th style="text-align: center;">학년</th>
+				<td><%=st.getsLevel() %></td>
 			</tr>
 			<tr>
-				<td class="head">이름</td>
-				<td><%=st.getUserName()%></td>
-				<!--<td>휴학학기</td>
-				 <td></td>-->
-				<td class="head">핸드폰 번호</td>
-				<td><%=st.getSPhone()%></td>
+				<th style="text-align: center;">이메일</th>
+				<%if(st.getSEmail()==null){ %>
+					<td></td>
+				<%}else{ %>
+					<td><%=st.getSEmail() %></td>
+				<%} %>
+				<th style="text-align: center;">핸드폰번호</th>
+				<%if(st.getSEmail()==null){ %>
+					<td></td>
+				<%}else{ %>
+					<td><%=st.getSPhone() %></td>
+				<%} %>
+				<td colspan="2"></td>
 			</tr>
 			<tr>
-				<td class="head">학부</td>
-				<td><%=st.getCNo()%></td>
-				<td class="head">입학일</td>
-				<td><%=st.getSEDate()%></td>
+				<th style="text-align: center;">학부</th>
+				<td><%=st.getDeptName() %></td>
+				<th style="text-align: center;">학과</th>
+				<td><%=st.getcName() %></td>
+				<th style="text-align: center;">지도교수</th>
+				<td><%=st.getpName() %></td>
 			</tr>
 			<tr>
-				<td class="head">학년</td>
-				<td><%=st.getsLevel()%></td>
-				<td class="head">지도 교수</td>
-				<td><%=st.getPId()%></td>
-				<!-- <td></td>-->
-				<!-- <td></td>-->
+				<th style="text-align: center;">입학년도</th>
+				<td><%=st.getSEDate() %></td>
+				<th style="text-align: center;">이수학기</th>
+				<td></td>
+				<th style="text-align: center;">취득학점</th>
+				<td><%=st.getSumCredit() %></td>
 			</tr>
-			<!--  <tr>
-				<td></td>
-				<td></td>
-				<td>입학년도(과정년도)</td>
-				<td></td>
-				<td></td>
-				<td></td>
-		    </tr>
-		    <tr>
-				<td></td>
-				<td></td>
-				<td>취득 학점</td>
-				<td></td>
-				<td></td>
-				<td></td>
-		    </tr>-->
-
 		</table>
 	<br>
 	<br>
-	 <div align="center">
-	<nav class="menu2">
-		<ul>
-			<li onclick="idtheft();">신상 정보</li>
-			<li onclick="flucadjust()">학적 변동</li>
-			<li onclick="cHistory();">수강 내역</li>
-			<li onclick="certificate();">자격증</li>
-		</ul>
-	</nav>
 	</div>
+	<div class="category">
+		<ul style="">
+			<li onclick="idtheft();"><B><U>신상 정보</U></B></li>
+			<li onclick="flucadjust()"><B><U>학적 변동</U></B></li>
+			<li onclick="cHistory();"><B><U>수강 내역</U></B></li>
+			<li onclick="certificate();"><B><U>자격증</U></B></li>
+		</ul>
+	
 	</div>
 
 	<script>
 	function idtheft(){
-		location.href="<%=request.getContextPath()%>/StPersonal";
+		<%--location.href="<%=request.getContextPath()%>/stPersonal.save";--%>
+		location.href="<%=request.getContextPath()%>/stPersonal.sel";
 	}
 
 	function flucadjust(){
@@ -190,6 +123,6 @@ nav li:hover {
 	}
 
 	</script>
-
+</div>
 </body>
 </html>

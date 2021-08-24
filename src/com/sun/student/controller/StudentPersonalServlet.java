@@ -1,6 +1,7 @@
 package com.sun.student.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,16 +13,16 @@ import com.sun.student.model.vo.Student;
 import com.sun.user.model.vo.User;
 
 /**
- * Servlet implementation class StPersonal
+ * Servlet implementation class StudentPersonalServlet
  */
-@WebServlet("/StPersonal")
-public class StPersonal extends HttpServlet {
+@WebServlet("/stPersonal.sel")
+public class StudentPersonalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StPersonal() {
+    public StudentPersonalServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,13 +30,11 @@ public class StPersonal extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		User user=(User)request.getSession().getAttribute("loginUser");
-		Student st = new StudentService().selectStudent(user.getUserId());
-		request.setAttribute("st", st);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.getRequestDispatcher("views/admin/student/stPersonal.jsp").forward(request, response);
-	
-	}	
+	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
