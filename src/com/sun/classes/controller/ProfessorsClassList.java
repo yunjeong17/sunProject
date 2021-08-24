@@ -33,8 +33,17 @@ public class ProfessorsClassList extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user=(User)request.getSession().getAttribute("loginUser");
+		String cName= request.getParameter("cName");
+		System.out.println("이전!!"+cName);
+		if(cName==null) {
+			cName="%";
+		}
+		else {
+			cName=cName+"%";
+		}
+		System.out.println("이후!!"+cName);
 		
-		ArrayList<Classes> list = new ClassService().selectClassList(user.getUserId());
+		ArrayList<Classes> list = new ClassService().selectClassList(user.getUserId(),cName);
 		request.setAttribute("list", list);
 		
 		request.getRequestDispatcher("views/professors/class/professorsClassListView.jsp").forward(request, response);
