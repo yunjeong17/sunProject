@@ -35,7 +35,6 @@ public class ClassHistoryList extends HttpServlet {
 		String cId = request.getParameter("cId");
 		ArrayList<ClassHistory> list = new ClassHistoryService().selectchList(cId);
 		response.setContentType("application/json; charset=utf-8");
-		
 		new Gson().toJson(list, response.getWriter());
 	}
 

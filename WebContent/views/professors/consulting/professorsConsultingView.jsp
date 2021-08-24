@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, com.sun.student.model.vo.Student"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, com.sun.student.model.vo.Student, com.sun.student.model.vo.PageInfo"%>
 <%
 	ArrayList<Student> sList = (ArrayList<Student>)request.getAttribute("sList");
 %>
@@ -9,6 +9,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	#consulting-table  tfoot,
+	#content-div,
+	h3{
+		text-align:center;
+	}
+	
 	button {
 		border-style: groove;
 		border-radius: 10px;
@@ -44,11 +50,11 @@
 	}
 
 	#consulting-table  th {
-	border: 1px solid white;
-	background-color: #00205b;
-	color: white;
-	text-align:center;
-	padding : 10px;
+		border: 1px solid white;
+		background-color: #00205b;
+		color: white;
+		text-align:center;
+		padding : 4px;
 	}
 	
 	#insert-table td{
@@ -56,37 +62,32 @@
 		padding-right : 10px;
 	}
 	#consulting-table  td{
-	border: 1px solid #00205b;
-	background-color: white;
-	color: #00205b;
-	padding : 10px;
+		border: 1px solid #00205b;
+		background-color: white;
+		color: #00205b;
+		padding : 4px;
 	}
 	
-	#consulting-table  tfoot{
-		text-align:center;
-	}
-	
-	.student-tr:hover{
-		background:darkgrey;
-		cursor:pointer
-	}
 	#insert-div{
 		display:inline-block;
 	}
-	#content-div{
-		text-align:center;
-	}
-	
-	#delete-btn{
-		visibility: hidden;
-		display:none;
-	}
+
+	#delete-btn,
 	#update-btn{
 		visibility: hidden;
 		display:none;
 	}
-	h3{
+
+	.pagingArea{
 		text-align:center;
+		margin-top:10px;
+	}
+	#footer-div{
+		position:fixed;
+		text-align:center;
+		height:150px; 
+		bottom: 0;
+    	width: 100%;
 	}
 </style>
 </head>
@@ -104,9 +105,8 @@
 	<div id="insert-div">
 		<table id="insert-table">
 			<tr>
-				<td rowspan="4" id="select-student">
-				
-					<label>학생명 : </label>
+				<td rowspan="4">
+					<label for="studentId">학생명 : </label>
 					<select id="studentId">
 						<%if( sList.isEmpty() ) {%>
 							<option value="">학생 정보 없음</option>
@@ -116,8 +116,10 @@
 							<%} %>
 						<%} %>		
 					</select>
+				</td>
+				<td rowspan="4">
 					<button id="select-student-btn">선택</button>
-			</td>
+				</td>
 				<td><label for="consult-type" >상담 구분</label></td>
 				<td><input type="text" id="consult-type" name="consult-category"  disabled/></td>
 				<td rowspan="4"><label for="consult-content">상담 내용</label></td>
@@ -138,7 +140,7 @@
 			</tr>
 		</table>
 		<br>
-		<button id="insert-btn" type="submit">추가</button>
+		<button id="insert-btn" type="submit">저장</button>
 		<button id="update-btn" type="submit">수정</button>
 		<button id='delete-btn' type='submit'>삭제</button>
 		<br>
@@ -157,20 +159,23 @@
 		</thead>
 		<tbody id="consultingListArea">
 		</tbody>
-		<tfoot>
-			<tr>
-			<td colspan="6"><button id="area-reset-btn">추가하기</button></td>
-			</tr>
-		</tfoot>
 	</table>
 	</div>
+	<div id="footer-div">
+		<button id="area-reset-btn">추가하기</button>
+	<div class="pagingArea" align="center">
+	</div> 
+	</div>
+
 	
-	
+	<br>
+
 	<script>
 
 
 
 	$(function(){
+		let cPage;
 		$.datepicker.setDefaults($.datepicker.regional['ko']); 
 	    $("#consult-date" ).datepicker({
 	         changeMonth: true, 
@@ -231,18 +236,8 @@
 			$('#update-btn').css('visibility','hidden');
 			$('#insert-btn').css('visibility','visible');
 			
-			$("#consult-type").val("");
-			$("#consult-content").val("");
-			$("#consult-time").val("");
-			$("#consult-date").val("");
-			$("#consult-way").val("");
-			$("#consult-csNo").val("");
-
-			$("#consult-type").attr("disabled", false);
-			$("#consult-content").attr("disabled", false);
-			$("#consult-time").attr("disabled", false);
-			$("#consult-date").attr("disabled", false);
-			$("#consult-way").attr("disabled", false);
+			emptyValue();
+			setDisabledInput(false);
 			
 		})
 		
@@ -261,7 +256,7 @@
 				},
 				type:"post",
 				success:function(){
-					selectConsultingList();
+					selectConsultingList(cPage);
 					alert("저장이 완료되었습니다.");
 				},
 				error:function(){
@@ -274,105 +269,92 @@
 		
 		/* 수정하기 버튼 눌렀을 때 */
 		$("#update-btn").click(function(){
+			if(confirm("수정하시겠습니까?\n(수정하시려면 '확인', 수정하지 않으려면 '취소'를 누르십시오.) ")){
+				$.ajax({
+					url:"updateConsulting.pr",
+					data:{
+						sId:$("#studentId").val(),
+						type:$("#consult-type").val(),
+						content:$("#consult-content").val(),
+						time:$("#consult-time").val(),
+						date:$("#consult-date").val(),
+						way:$("#consult-way").val(),
+						csNo:$("#consult-csNo").val()
+					},
+					type:"post",
+					success:function(){
+						selectConsultingList(cPage);
+						
+						emptyValue();
+						setDisabledInput(true);
+						
+						alert("수정이 완료되었습니다.");
+					},
+					error:function(){
+						console.log("ajax 통신 실패");
+					}
+				});
+			  
+			 }
+			 else{
+			 	alert('수정을 취소합니다.');
+			 }
 			
-			$.ajax({
-				url:"updateConsulting.pr",
-				data:{
-					sId:$("#studentId").val(),
-					type:$("#consult-type").val(),
-					content:$("#consult-content").val(),
-					time:$("#consult-time").val(),
-					date:$("#consult-date").val(),
-					way:$("#consult-way").val(),
-					csNo:$("#consult-csNo").val()
-				},
-				type:"post",
-				success:function(){
-					selectConsultingList();
-					
-					$("#consult-type").val("");
-					$("#consult-content").val("");
-					$("#consult-time").val("");
-					$("#consult-date").val("");
-					$("#consult-way").val("");
-					$("#consult-csNo").val("");
-					$("#consult-type").attr("disabled", true);
-					$("#consult-content").attr("disabled", true);
-					$("#consult-time").attr("disabled", true);
-					$("#consult-date").attr("disabled", true);
-					$("#consult-way").attr("disabled", true);
-					
-					alert("수정이 완료되었습니다.");
-				},
-				error:function(){
-					console.log("ajax 통신 실패");
-				}
-			});
+			
 		});
 	
 		/* 삭제 버튼 눌렀을 때 */
 		$("#delete-btn").click(function(){
-			$.ajax({
-				url:"deleteConsulting.pr",
-				data:{
-					csNo:$("#consult-csNo").val()
-				},
-				type:"post",
-				success:function(){
-					selectConsultingList();
-					$("#consult-type").val("");
-					$("#consult-content").val("");
-					$("#consult-time").val("");
-					$("#consult-date").val("");
-					$("#consult-way").val("");
-					$("#consult-csNo").val("");
-					$("#consult-type").attr("disabled", true);
-					$("#consult-content").attr("disabled", true);
-					$("#consult-time").attr("disabled", true);
-					$("#consult-date").attr("disabled", true);
-					$("#consult-way").attr("disabled", true);
-					alert("삭제가 완료되었습니다.");
-				},
-				error:function(){
-					console.log("ajax 통신 실패");
-				}
-			});
+			if(confirm("삭제하시겠습니까?\n(삭제하시려면 '확인', 삭제하지 않으려면 '취소'를 누르십시오.) ")){
+				$.ajax({
+					url:"deleteConsulting.pr",
+					data:{
+						csNo:$("#consult-csNo").val()
+					},
+					type:"post",
+					success:function(){
+						selectConsultingList(cPage);
+						emptyValue();
+						setDisabledInput(true);
+						alert("삭제가 완료되었습니다.");
+					},
+					error:function(){
+						console.log("ajax 통신 실패");
+					}
+				});
+			 }
+			else{
+				alert('삭제를 취소합니다.');
+			}
+			
 		});
-		
-		
 		
 		/* 학생 선택 후 선택 버튼 클릭 시  */
 		$("#select-student-btn").click(function(){
-			$("#consult-type").val("");
-			$("#consult-content").val("");
-			$("#consult-time").val("");
-			$("#consult-date").val("");
-			$("#consult-way").val("");
-			$("#consult-csNo").val("");
-			
-			$("#consult-type").attr("disabled", false);
-			$("#consult-content").attr("disabled", false);
-			$("#consult-time").attr("disabled", false);
-			$("#consult-date").attr("disabled", false);
-			$("#consult-way").attr("disabled", false);
-			selectConsultingList();
+			emptyValue();
+			setDisabledInput(false);
+			selectConsultingList(1);
 		})
 	
 	})
 	
-	function selectConsultingList(){
+
+	function selectConsultingList(cPage){
 		$("#consultingListArea").empty();
 		$.ajax({
 			url:"selectConsultingList.pr",
 			data:{
-				sId:$("#studentId").val()
+				sId:$("#studentId").val(),
+				currentPage:cPage
 			},
 			type:"get",
-			success:function(list){
-				console.log(list);
+			success:function(result){
+				console.log(result);
+				const pi=result.pi;
+				const list=result.sc;
 				$.each(list, function(index, obj){
 					const csNo= $("<td  class='no-td' style='visibility:hidden;display:none;position:absolute;'>").text(obj.csNo);
-					const idx= $("<td  class='index-td'>").text(index+1);
+					const idx= $("<td  class='index-td'>").text(index+1+pi.pageLimit*(pi.currentPage-1));
 					const date = $("<td  class='date-td'>").text(obj.csDate);
 					const content = $("<td  class='content-td'>").text(obj.csContent);
 					const time = $("<td  class='time-td'>").text(obj.csTime);
@@ -384,6 +366,7 @@
 					$("#consultingListArea").append(tr);
 					
 				});
+				pagingSetting(pi);
 			},
 			error:function(){
 				console.log("ajax 통신 실패");
@@ -392,6 +375,65 @@
 		})
 	}
 	
+	function pagingSetting(pi){
+		cPage=pi.currentPage;
+		$(".pagingArea").empty();
+
+		//맨처음 <<
+		let startBtn=$("<button onclick='selectConsultingList(1);'>");
+		$(".pagingArea").append(startBtn.text("<<"));
+		
+		
+		//이전페이지 <
+		if(pi.currentPage == 1){
+			$(".pagingArea").append($("<button disabled>").text("<"));
+		}
+		
+		else{
+			$(".pagingArea").append($("<button onclick='selectConsultingList("+(cPage-1)+");'>").text("<"));
+		}
+		
+		//페이지 목록 1,2,3,...
+		for(let p=pi.startPage; p<=pi.endPage; p++){
+			if(p==pi.currentPage){
+				$(".pagingArea").append($("<button disabled>").text(p));
+			}
+			else{
+				$(".pagingArea").append($("<button onclick='selectConsultingList("+p+");'>").text(p));	
+			}
+		}
+		
+		//다음페이지로 >
+		if(pi.currentPage == pi.maxPage){
+			$(".pagingArea").append($("<button disabled>").text(">"));
+		}
+		else{
+			$(".pagingArea").append($("<button onclick='selectConsultingList("+(cPage+1)+");'>").text(">"));
+		}
+		
+		//맨 끝 페이지로 >>
+		$(".pagingArea").append($("<button onclick='selectConsultingList("+(pi.maxPage)+");'>").text(">>"));
+		
+		$(".pagingArea button").css("margin","4px");
+	}
+	
+	function emptyValue(){
+		$("#consult-type").val("");
+		$("#consult-content").val("");
+		$("#consult-time").val("");
+		$("#consult-date").val("");
+		$("#consult-way").val("");
+		$("#consult-csNo").val("");
+	}
+	
+	function setDisabledInput(flag){
+		$("#consult-type").attr("disabled", flag);
+		$("#consult-content").attr("disabled", flag);
+		$("#consult-time").attr("disabled", flag);
+		$("#consult-date").attr("disabled", flag);
+		$("#consult-way").attr("disabled", flag);
+		
+	}
 	</script>
 </body>
 </html>

@@ -7,11 +7,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Properties;
 
 import com.sun.classes.model.vo.Classes;
 import com.sun.common.CommonDao;
+import com.sun.student.model.vo.PageInfo;
 
 public class ClassDao {
 	Properties prop;
@@ -22,17 +22,24 @@ public class ClassDao {
 	}
 	
 	//userId
-	public ArrayList<Classes> selectClassList(Connection conn, String userId, String cName) {
+	public ArrayList<Classes> selectClassList(Connection conn, String userId, String cName, PageInfo pi) {
 		ArrayList<Classes> list=new ArrayList<Classes>();
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
 		String sql=prop.getProperty("selectClass");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
 		System.out.println(sql);
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
 			pstmt.setString(2,  cName);
+			
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
 			System.out.println(cName);
 			rset= pstmt.executeQuery();
 			
@@ -94,6 +101,31 @@ public class ClassDao {
 			
 		}
 		return list;
+	}
+
+	public int getListCount(Connection conn,String userId) {
+		int listCount = 0;
+
+		PreparedStatement pstmt=null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("getListCount");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+			rset= pstmt.executeQuery();
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+		}
+
+		return listCount;
 	}
 	
 }
