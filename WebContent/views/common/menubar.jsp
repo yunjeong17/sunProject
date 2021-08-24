@@ -17,79 +17,15 @@ String contextPath = request.getContextPath();
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
 <style>
-<!--login이 안 되어있을 때의 style --> 
-body {
-	background-color:#dae6f0;
-}
-
-form {
-	margin-top: 20px;
-	margin-left: 100px;
-}
-
-td {
-	padding-top: 10px;
-	padding-right: 8px;
-}
-span{
-	color:black;
-}
-#find-div>a {
-	color: white;
-	display: block;
-}
-
-#main-container {
-	position: absolute;
-	display: inline-block;
-	margin-top: 100px;
-	margin-left: 100px;
-	width: 500px;
-	height: 500px;
-	background-color: #63718b;
-}
-
-#main-logo, #main-img {
-	display: block;
-}
-
-#main-div {
-	display: inline-block;
-	margin-top: 100px;
-	margin-left: 200px;
-}
-
-#login-btn {
-	height: 70px;
-	width: 70px;
-	background-color: white;
-	border: 0;
-	outline: 0;
-	border-radius: 4px;
-}
-
-#lock-div {
-	margin-top: 120px;
-	margin-left: 100px;
-}
-
-#login-text {
-	font-size: 70px;
-}
-
-#lock-img {
-	display: inline-block;
-	vertical-align: text-bottom;
-}
-
-#find-div {
-	margin-left: 100px;
-	margin-top: 20px;
-}
-
 
 <!--login이 되어있을 때의 style -->
- #logo { display:block-inline;
+
+#top{
+	
+}
+
+ #logo { 
+ 	display:block-inline;
 	padding-right: 80%;
 	text-decoration-line: none;
 }
@@ -129,6 +65,10 @@ span{
 	background-color: white;
 }
 
+#logo:link {text-decoration: none;}
+#logo:visited {text-decoration: none;}
+#logo:hover {text-decoration:  none;}
+
 </style>
 
 
@@ -160,48 +100,15 @@ span{
 		<%
 		if (loginUser == null) {
 		%>
-		<div>
-			<div id="main-div">
-				<img id="main-logo" src="resources/images/sunLogo1.png" alt=""
-					width="200px"> <img id="main-img"
-					src="resources/images/sunUni.jpg" alt="" width="500px">
-			</div>
-			<div id="main-container">
-				<div id="lock-div">
-					<img id="lock-img" src="resources/images/lock.png" alt=""
-						width="100px"> <span id="login-text">LOGIN</span>
-				</div>
-
-				<form id="loginForm" action="<%=request.getContextPath()%>/login" method="post" onsubmit="return loginVaildate();">
-					<table>
-						<tr>
-							<th><label for="userId">아이디</label></th>
-							<td><input type="text" id="userId" name="userId"></td>
-
-							<td rowspan="2"><button type="submit" id="login-btn">로그인</button></td>
-						</tr>
-						<tr>
-							<th><label for="userPwd">비밀번호</label></th>
-							<td><input type="password" id="userPwd" name="userPwd"></td>
-						</tr>
-					</table>
-				</form>
-
-				<div id="find-div">
-					<a onclick="findId();">>학번/교직원 번호 찾기</a> 
-					<a onclick="resetPwd();">>비밀번호 초기화 </a>
-				</div>
-			</div>
-		</div>
+			<%@ include file="../common/logoutIndex.jsp" %>
 		<%
 		} else {
 		%>
-		<div id="top">
-		<a id='logo'> <img src="resources/images/sunLogo1.png" width="140px"
-			height="70px">
-		</a> <span id="login-user-name"> <%=loginUser.getUserName() %>님
-			<a href = "<%=contextPath%>/logout">로그아웃</a> <span>
-			
+		<div id="top" style="background-color:white;">
+			<a id='logo' href="<%=contextPath%>"> <img src="resources/images/sunLogo1.png" width="140px" height="70px"></a> 
+			<span id="login-user-name"> <%=loginUser.getUserName() %>님
+			<a href = "<%=contextPath%>/logout">로그아웃</a></span>
+		
 	<nav id="topMenu">
 	<%
 	if (Character.toUpperCase(loginUser.getUserId().charAt(0)) == 'A') { //관리자
@@ -212,7 +119,6 @@ span{
 		<li><div class="menuLink" onclick="goManageProfessors();">교수 관리</div></li>
 		<li><div class="menuLink" onclick="goManageClass();">강의 관리</div></li>
 	</ul>
-	<%--<%@ include file="../common/index.jsp" %> --%>
 	
 	<%
 	} else if (Character.toUpperCase(loginUser.getUserId().charAt(0)) == 'P') { //교수
@@ -222,7 +128,6 @@ span{
 		<li><div class="menuLink" onclick="goProfessorsGrade();">성적</div></li>
 		<li><div class="menuLink" onclick="goProfessorsConsulting();">상담</div></li>
 	</ul>
-	<%--<%@ include file="../common/index.jsp" %> --%>
 	<%
 	} else { // 학생
 	%>
@@ -232,10 +137,9 @@ span{
 		<li><div class="menuLink" onclick="goStudentGrade();">성적</div></li>
 		<li><div class="menuLink" onclick="goCertification('https://www.webminwon.com/#reload');">증명서발급</div></li>
 	</ul>
-	<%--<%@ include file="../common/index.jsp" %> --%>
 	<%}}%>
 	</nav>
-	
+	</div>
 	<script>
     
    function goStudentManagement(){

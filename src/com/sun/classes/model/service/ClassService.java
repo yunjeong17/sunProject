@@ -12,9 +12,9 @@ import com.sun.classes.model.vo.Classes;
 
 public class ClassService {
 
-	public ArrayList<Classes> selectClassList(String userId) {
+	public ArrayList<Classes> selectClassList(String userId,String cName) {
 		Connection conn = getConnection();
-		ArrayList<Classes> list = new ClassDao().selectClassList(conn,userId);
+		ArrayList<Classes> list = new ClassDao().selectClassList(conn,userId,cName);
 		close(conn);
 		return list;
 
@@ -39,5 +39,6 @@ public class ClassService {
 		close(conn);
 		return list;
 	}
+
 
 }

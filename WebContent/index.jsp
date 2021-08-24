@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	User u = (User) session.getAttribute("loginUser");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,9 +12,9 @@
 </style>
 </head>
 <body>
-
 	<%@ include file="views/common/menubar.jsp" %>
-	<%@ include file="views/common/index.jsp" %>
-	
+	<% if(u!=null){%>	
+		<%@ include file="views/common/index.jsp" %>
+	<%} %>
 </body>
 </html>

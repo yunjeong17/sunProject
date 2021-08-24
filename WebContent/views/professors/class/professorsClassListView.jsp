@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.ArrayList, com.sun.classes.model.vo.Classes"%>
+	pageEncoding="UTF-8" import="java.util.*, com.sun.classes.model.vo.Classes"%>
 <%
 	ArrayList<Classes> list = (ArrayList<Classes>)request.getAttribute("list");
 %>
@@ -35,11 +35,22 @@ td{
 	background-color: white;
 	color: #00205b;
 }
+#top-div{
+text-align:center;
+
+}
 </style>
 </head>
 <body>
 	<%@ include file="../../../views/common/menubar.jsp"%>
+	<div id="top-div">
 	<h3>강의</h3>
+		<form id="searchClassForm" action="<%=contextPath%>/classList.pr" method="post">
+			<label for="cName">강의명 : </label>
+			<input type="text" maxlength="10" id="cName" name="cName"></input>
+			<button id="search" onclick="location.href='classList.prr'">검색하기</button>
+		</form>
+	</div>
 	<table id="class-table">
 		<thead>
 			<tr>

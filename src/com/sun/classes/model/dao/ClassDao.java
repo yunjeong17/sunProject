@@ -22,7 +22,7 @@ public class ClassDao {
 	}
 	
 	//userId
-	public ArrayList<Classes> selectClassList(Connection conn, String userId) {
+	public ArrayList<Classes> selectClassList(Connection conn, String userId, String cName) {
 		ArrayList<Classes> list=new ArrayList<Classes>();
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
@@ -32,8 +32,8 @@ public class ClassDao {
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
-
-			
+			pstmt.setString(2,  cName);
+			System.out.println(cName);
 			rset= pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -46,7 +46,6 @@ public class ClassDao {
 							rset.getInt("CLASS_YEAR"),
 							rset.getInt("CLASS_SEMESTER")
 						);
-				System.out.println(c.getClassNo());
 				list.add(c);
 			}
 			
@@ -96,7 +95,5 @@ public class ClassDao {
 		}
 		return list;
 	}
-	
-	
 	
 }

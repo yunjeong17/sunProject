@@ -51,8 +51,9 @@
 	padding : 10px;
 	}
 	
-	#insert-table #select-student{
-		padding-right : 30px;
+	#insert-table td{
+		padding-left : 10px;
+		padding-right : 10px;
 	}
 	#consulting-table  td{
 	border: 1px solid #00205b;
