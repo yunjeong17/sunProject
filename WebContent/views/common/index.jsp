@@ -53,16 +53,15 @@
 	.wayToCome{
 		border: 2px solid gray;	
 		margin-left:200px;
-		width:550px;
+		width:600px;
 		height:280px;
 		float: left;
 		background-color: #f0f8ff;
 	}
 	.cal{
-		width:280px;
+		width:300px;
 		height:340px;
-		margin-top:200px;
-		margin-left:10px;
+		margin-top:80px;
 		font-size:25px;
 		background-color:white;
 		border-radius: 2em;
@@ -74,7 +73,7 @@
 <body>
 	<div class="outer">
 		<div class="division"> 
-			<div id="map" style="width:550px;height:500px;"></div>
+			<div id="map" style="width:600px;height:500px;"></div>
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=c019dd9a3a4c3ef858ee36d226914efc"></script>
 			<script>
 				var mapContainer = document.getElementById('map'),

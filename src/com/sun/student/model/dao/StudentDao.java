@@ -670,9 +670,11 @@ public class StudentDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				st = new Student(rset.getString("S_ID"), rset.getString("P_ID"), rset.getString("C_NO"),
-						rset.getString("S_NAME"), rset.getDate("S_EDATE"), rset.getString("S_PHONE"),
-						rset.getString("S_EMAIL"), rset.getInt("S_LEVEL"));
+				st = new Student(rset.getString("ID"), rset.getString("NAME"), rset.getDate("EDATE"),
+						rset.getString("PHONE"), rset.getString("EMAIL"), rset.getString("FLUCTUATION"),
+						rset.getInt("GRADE"), rset.getString("DEPT"), rset.getString("CATEGORY"),
+						rset.getString("PROFESSOR"), rset.getInt("SUMCREDIT"));
+
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -682,6 +684,42 @@ public class StudentDao {
 		}
 		return st;
 	}
+
+	public int stPersonalInsert(Connection conn, Student stp, String userId) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("stPersonalInsert");
+		
+		/*
+		  	INSERT INTO ST_PERSONAL VALUES(?,?,?,?,?,?,?)
+		*/
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,userId);
+			pstmt.setString(2,stp.getsPhone());
+			pstmt.setString(3,stp.getsEmail());
+			pstmt.setString(4,stp.getMilitary());
+			pstmt.setString(5,stp.getAddress());
+			pstmt.setString(6,stp.getAccount());
+			pstmt.setString(7,stp.getBank());
+			pstmt.setString(8,stp.getHolder());
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public Student studentPersonalselect(Connection conn, String userId) {
+		Student per = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("studentPersonalselect");
 
 	public ArrayList<ClassHistories> ClassHistories(Connection conn, String userId, ClassHistories ch) {
 		ArrayList<ClassHistories> list = new ArrayList<ClassHistories>();
@@ -695,6 +733,7 @@ public class StudentDao {
 			pstmt.setString(1, userId);
 
 			rset = pstmt.executeQuery();
+
 			
 			while (rset.next()) {
 				list.add(new ClassHistories(rset.getInt("CLASS_YEAR"),

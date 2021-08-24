@@ -6,25 +6,80 @@ import com.sun.user.model.vo.User;
 
 public class Student extends User{
 	
-	private String userId; 
+	private String userId;
 	private String userPwd; 
-	private String userName; 
+	private String userName;
 	private String pId; 
 	private String cNo; 
-	private Date sEDate; 
-	private String sPhone; 
-	private String sEmail; 
+	private Date sEDate;
+	private String sPhone;//PHONE 
+	private String sEmail;//EMAIL 
 	private String sImg; 
-	private String flChange; 
+	private String flChange;
 	private int sLevel;
 	private String deptName;
 	private String deptNo;
 	private String cName;
 	private String pName;
+	private int sumCredit;
+	private String military;//병역
+	private String address;//주소
+	private String account;//계좌
+	private String bank;//은행명
+	private String holder;//예금주
 	
 	public Student() {
 		// TODO Auto-generated constructor stub
 	}
+
+	
+
+
+	public Student(String userId, String sPhone, String sEmail, String military, String address, String account,
+			String bank, String holder) {
+		super();
+		this.userId = userId;
+		this.sPhone = sPhone;
+		this.sEmail = sEmail;
+		this.military = military;
+		this.address = address;
+		this.account = account;
+		this.bank = bank;
+		this.holder = holder;
+	}
+
+	public Student(String sPhone, String sEmail, String military, String address, String account, String bank,
+			String holder) {
+		super();
+		this.sPhone = sPhone;
+		this.sEmail = sEmail;
+		this.military = military;
+		this.address = address;
+		this.account = account;
+		this.bank = bank;
+		this.holder = holder;
+	}
+
+
+
+
+	public Student(String userId, String userName, Date sEDate, String sPhone, String sEmail, String flChange,
+			int sLevel, String deptName, String cName, String pName,int sumCredit) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.sEDate = sEDate;
+		this.sPhone = sPhone;
+		this.sEmail = sEmail;
+		this.flChange = flChange;
+		this.sLevel = sLevel;
+		this.deptName = deptName;
+		this.cName = cName;
+		this.pName = pName;
+		this.sumCredit = sumCredit;
+		
+	}
+
 
 	public Student(String userId, String userName, String pId, String cNo, Date sEDate, String sPhone, String sEmail,
 			int sLevel) {
@@ -177,7 +232,84 @@ public class Student extends User{
 		this.deptNo = deptNo;
 	}
 
+	public int getSumCredit() {
+		return sumCredit;
+	}
+
+	public void setSumCredit(int sumCredit) {
+		this.sumCredit = sumCredit;
+	}
+
 	
+	public String getsPhone() {
+		return sPhone;
+	}
+
+
+	public void setsPhone(String sPhone) {
+		this.sPhone = sPhone;
+	}
+
+
+	public String getsEmail() {
+		return sEmail;
+	}
+
+
+	public void setsEmail(String sEmail) {
+		this.sEmail = sEmail;
+	}
+
+
+	public String getMilitary() {
+		return military;
+	}
+
+
+	public void setMilitary(String military) {
+		this.military = military;
+	}
+
+
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
+	public String getAccount() {
+		return account;
+	}
+
+
+	public void setAccount(String account) {
+		this.account = account;
+	}
+
+
+	public String getBank() {
+		return bank;
+	}
+
+
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+
+
+	public String getHolder() {
+		return holder;
+	}
+
+
+	public void setHolder(String holder) {
+		this.holder = holder;
+	}
+
 
 	public Student(String userId, String userName, int sLevel, String deptName, String cName, String pName) {
 		super();

@@ -9,6 +9,7 @@ import static com.sun.common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import com.sun.professors.model.dao.ProfessorsDao;
 import com.sun.student.model.dao.StudentDao;
 import com.sun.student.model.vo.Attachment;
 import com.sun.student.model.vo.Certificate;
@@ -307,6 +308,29 @@ public class StudentService {
 		return st;
   }
 
+	public int stPersonalInsert(String userId, Student stp) {
+		int result=0;
+		Connection conn = getConnection();
+
+		result=new StudentDao().stPersonalInsert(conn,stp,userId);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public Student studentPersonalselect(String userId) {
+		Connection conn = getConnection();
+
+		Student per = new StudentDao().studentPersonalselect(conn,userId);
+	
+		close(conn);
+    
+		return per;
+	}
 	public ArrayList<ClassHistories> ClassHistories(String userId, ClassHistories ch) {
 		Connection conn = getConnection();
 

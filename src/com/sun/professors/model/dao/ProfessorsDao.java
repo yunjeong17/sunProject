@@ -170,6 +170,7 @@ public class ProfessorsDao {
 	}
 
 
+
 	public int getListCount(Connection conn, String sId) {
 		int listCount = 0;
 
@@ -194,4 +195,5 @@ public class ProfessorsDao {
 
 		return listCount;
 	}
+
 }
