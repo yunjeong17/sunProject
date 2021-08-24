@@ -112,5 +112,17 @@ public class StudentService {
 		}
 		
 		return result;
+	}
+
+	public Student selectStudent(String userId) {
+		
+		Connection conn = getConnection();
+
+		Student st = new StudentDao().selectStudent(conn,userId);
+		
+		close(conn);
+		
+		return st;
+	
 	}	
 }

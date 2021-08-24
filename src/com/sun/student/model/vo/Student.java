@@ -26,6 +26,19 @@ public class Student extends User{
 		// TODO Auto-generated constructor stub
 	}
 
+	public Student(String userId, String userName, String pId, String cNo, Date sEDate, String sPhone, String sEmail,
+			int sLevel) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.pId = pId;
+		this.cNo = cNo;
+		this.sEDate = sEDate;
+		this.sPhone = sPhone;
+		this.sEmail = sEmail;
+		this.sLevel = sLevel;
+	}
+
 	public Student(String userId, String userPwd, String userName, String pId, String cNo, Date sEDate, String sPhone,
 			String sEmail, String sImg, String flChange) {
 		super(userId,userPwd,userName);

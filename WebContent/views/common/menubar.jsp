@@ -252,6 +252,9 @@ span{
 		location.href="<%=request.getContextPath()%>/consultingList.pr";
 	}
 	
+	function goStudentRegister(){
+		location.href="<%=request.getContextPath()%>/StudentAcademic";
+	}
 
 	</script>
 </body>

@@ -225,4 +225,34 @@ public class StudentDao {
 
 		return result;
 	}
+
+	public Student selectStudent(Connection conn, String userId) {
+		
+		Student st = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("selectStudent");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				st = new Student(rset.getString("S_ID"), rset.getString("P_ID"), rset.getString("C_NO"),
+						rset.getString("S_NAME"), rset.getDate("S_EDATE"), rset.getString("S_PHONE")
+						, rset.getString("S_EMAIL"), rset.getInt("S_LEVEL"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return st;
+		
+	}
+	
 }
