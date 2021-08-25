@@ -728,15 +728,20 @@ public class StudentDao {
 
 			rset = pstmt.executeQuery();
 
-			while(rset.next()) {
-				per = new Student(rset.getString("PHONE"),
-									rset.getString("EMAIL"),
-									rset.getString("MILITARY"),
-									rset.getString("ADDRESS"),
-									rset.getString("ACCOUNT"),
-									rset.getString("BANK"),
-									rset.getString("HOLDER"));
-			} 
+			if(rset.next()) {
+				per = new Student(rset.getString("MILITARY"),
+								  rset.getString("ADDRESS"),
+								  rset.getString("ACCOUNT"),
+								  rset.getString("BANK"),
+								  rset.getString("HOLDER"));
+				System.out.println(per);
+			} else {
+					per.setMilitary("");
+					per.setAddress("");
+					per.setAccount("");
+					per.setBank("");
+					per.setHolder("");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

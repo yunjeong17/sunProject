@@ -48,11 +48,8 @@ public class Student extends User{
 		this.holder = holder;
 	}
 
-	public Student(String sPhone, String sEmail, String military, String address, String account, String bank,
-			String holder) {
+	public Student(String military, String address, String account, String bank, String holder) {
 		super();
-		this.sPhone = sPhone;
-		this.sEmail = sEmail;
 		this.military = military;
 		this.address = address;
 		this.account = account;
