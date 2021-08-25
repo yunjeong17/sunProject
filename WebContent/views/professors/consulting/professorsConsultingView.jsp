@@ -352,9 +352,11 @@
 				console.log(result);
 				const pi=result.pi;
 				const list=result.sc;
+				
+				console.log(pi.listLimit);
 				$.each(list, function(index, obj){
 					const csNo= $("<td  class='no-td' style='visibility:hidden;display:none;position:absolute;'>").text(obj.csNo);
-					const idx= $("<td  class='index-td'>").text(index+1+pi.pageLimit*(pi.currentPage-1));
+					const idx= $("<td  class='index-td'>").text(index+1+pi.boardLimit*(cPage-1));
 					const date = $("<td  class='date-td'>").text(obj.csDate);
 					const content = $("<td  class='content-td'>").text(obj.csContent);
 					const time = $("<td  class='time-td'>").text(obj.csTime);
@@ -364,6 +366,7 @@
 					
 					const tr = $("<tr class='consulting-tr'>").append(idx, content, date, way , time, type,csNo);
 					$("#consultingListArea").append(tr);
+					
 					
 				});
 				pagingSetting(pi);

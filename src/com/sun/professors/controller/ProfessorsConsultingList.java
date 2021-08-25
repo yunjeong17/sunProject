@@ -40,7 +40,7 @@ public class ProfessorsConsultingList extends HttpServlet {
 		int maxPage;			// 전체 페이지에서의 가장 마지막 페이지
 		
 		int pageLimit=4;			// 한 페이지 하단에 보여질 페이지 최대 갯수
-		int listLimit=5;			// 한 페이지에 보여질 게시글 최대 갯수
+		int boardLimit=5;			// 한 페이지에 보여질 게시글 최대 갯수
 		
 		
 		listCount = new ProfessorsService().getListCount(sId);
@@ -49,7 +49,7 @@ public class ProfessorsConsultingList extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 
-		maxPage = (int)Math.ceil((double)listCount/listLimit);
+		maxPage = (int)Math.ceil((double)listCount/boardLimit);
 
 		startPage = (currentPage - 1) / pageLimit * pageLimit + 1;
 		endPage = startPage + pageLimit - 1;
@@ -58,7 +58,7 @@ public class ProfessorsConsultingList extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, listLimit);
+		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		ArrayList<StudentConsulting> cList = new ProfessorsService().selectConsultingList(sId,pi);
 		
 		ConsultingPageInfoDto cpDto= new ConsultingPageInfoDto(pi,cList);
