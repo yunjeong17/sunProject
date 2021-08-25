@@ -661,7 +661,7 @@ public class StudentDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String sql = prop.getProperty("selectStudent");
+		String sql = prop.getProperty("acdemicselect");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -675,6 +675,7 @@ public class StudentDao {
 						rset.getInt("GRADE"), rset.getString("DEPT"), rset.getString("CATEGORY"),
 						rset.getString("PROFESSOR"), rset.getInt("SUMCREDIT"));
 
+				System.out.println(st);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
