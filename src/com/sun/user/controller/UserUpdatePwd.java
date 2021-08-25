@@ -35,9 +35,7 @@ public class UserUpdatePwd extends HttpServlet {
 		String userId= ((User)request.getSession().getAttribute("loginUser")).getUserId();
 		String userPwd= request.getParameter("userPwd");
 		String newPwd= request.getParameter("newPwd");
-		System.out.println(userId+"   "+userPwd+"    "+newPwd);
 		String tableName=null;
-		System.out.println(userPwd);
 		
 		if(userId!=null && userId.charAt(0)=='P') {
 			tableName="Professors";
