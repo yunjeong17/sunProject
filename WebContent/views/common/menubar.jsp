@@ -136,6 +136,9 @@ div{
 		<div id="top" style="background-color:white;">
 			<a id='logo' href="<%=contextPath%>"> <img src="resources/images/sunLogo1.png" width="140px" height="70px"></a> 
 			<span id="login-user-name"> <%=loginUser.getUserName() %>님
+			<%if(Character.toUpperCase(loginUser.getUserId().charAt(0)) != 'A'){ %>
+				<a onclick="updatePwd();">비밀번호 변경</a>
+			<%} %>
 			<a href = "<%=contextPath%>/logout">로그아웃</a></span>
 		
 	<nav id="topMenu">
@@ -210,11 +213,8 @@ div{
         win.focus();
     }
 	
-	function findId(){
-		window.open("<%=contextPath%>/findIdForm.us","아이디 찾기","width=500, height=300");
-	}
-	function resetPwd(){
-		window.open("<%=contextPath%>/resetPwdForm.us","비밀번호 초기화","width=500, height=300");
+	function updatePwd(){
+		window.open("<%=request.getContextPath()%>/updatePwdForm.us","비밀번호 초기화","width=500, height=300");
 	}
 	</script>
 </body>

@@ -36,7 +36,7 @@ public class UserService {
 	}
 
 	public User selectUpdateUser(User user, String tableName) {
-Connection conn = getConnection();
+		Connection conn = getConnection();
 		
 		User resetUser = new UserDao().selectUpdateUser(conn, user, tableName);
 		close(conn);
@@ -51,6 +51,13 @@ Connection conn = getConnection();
 		return result;
 	}
 
+	public int updateUserNewPwd(String userId,String userPwd,String tableName) {
+		Connection conn = getConnection();
+		
+		int result = new UserDao().updateUserNewPwd(conn, userId,userPwd,tableName);
+		close(conn);
+		return result;
+	}
 
 
 }

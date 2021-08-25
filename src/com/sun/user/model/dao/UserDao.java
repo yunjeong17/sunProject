@@ -148,4 +148,59 @@ public class UserDao {
 
 		return resetUser;
 	}
+
+
+
+	public User selectUserPwd(Connection conn, String userId, String userPwd, String tableName) {
+		User updateUser=null;
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		String sql=prop.getProperty("selectUserPwd"+tableName);
+		System.out.println(sql);
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, tableName);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, userPwd);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				updateUser= new User();
+				updateUser.setUserId(rset.getString(tableName.charAt(0)+"_ID"));
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+
+		return updateUser;
+	}
+	
+	public int updateUserNewPwd(Connection conn,String userId,String userPwd,String tableName) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateNewPwd"+tableName);
+//		updatePwdStudent=UPDATE STUDENT SET S_PWD=? WHERE S_ID=?
+//		updatePwdStudent=UPDATE PROFESSORS SET P_PWD=? WHERE P_ID=?
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,userPwd);
+			pstmt.setString(2,userId);
+			result = pstmt.executeUpdate();
+			System.out.println("dao::"+userPwd);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
 }
