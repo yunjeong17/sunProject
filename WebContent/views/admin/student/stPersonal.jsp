@@ -1,14 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.sun.student.model.vo.Student"%>
-<%
-	String Phone="";
-	String Email="";
-	String military="";
-	String address="";
-	String account="";
-	String bank="";
-	String holder="";
-%>
+    pageEncoding="UTF-8" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,10 +10,10 @@
 	.outer{
 		width: 1400px;
 		margin: auto;
-	    margin-top: 50px;
+	    margin-top: 25px;
 	}
 	.bor{
-		margin-left:100px;
+		margin-left:50px;
 	}
 	th{
        background-color: rgb(3,33,89);
@@ -51,42 +43,58 @@
 		height:30px;
 		
 	}
+	
+	h4, h6{
+		margin-right : 100px;
+	}
+	
+	.btn{
+			margin-left : 1100px;
+	
+	}
 </style>
 </head>
 <body>
-<%@ include file="/views/admin/student/stmenu.jsp"%>
+<%@ include file="/views/common/menubar.jsp"%>
 <div class="outer">
  	<div class="bor">
- 	<br>
-		
+ 	 	<br>
+		<form id="enrollForm" action="<%=request.getContextPath()%>/stPersonal.save" method="post">
+		<h4 align="center">신상 정보 등록 페이지</h4>
+		<h6 align="center"><b id = "back" onclick="history.go(-1)"><mark>여기</mark></b>를 클릭하시면 이전 화면으로 돌아갑니다.</h6>
 		<h5><B>*상세 신상정보</B></h5>		 
 		<table border="1">
 		 <tr>
-                <th style="text-align: center;">핸드폰번호</td>
-                <td><input type="text" class="input" id="phone" width="100px" value="<%=Phone %>" ></td>
-                <th style="text-align: center;">이메일</td>
-                <td><input type="text" class="input" id="email" value="<%=Email %>"></td>
-                <th style="text-align: center;">병역</td>
-                <td><input type="text" class="input" id="military" value="<%=military %>"></td>
+                <th class="head" style="text-align: center;">핸드폰번호</th>
+                <td><input type="text" class="input" name="phone" width="100px" required></td>
+                <th class="head"   style="text-align: center;">이메일</th>
+                <td><input type="email" class="input" name="email" required></td>
+                <th class="head"  style="text-align: center;">병역</th>
+                <td><input type="text" class="input" name="military" required></td>
         </tr>
 	    <tr>
-			<th style="text-align: center;">주소</td>
-            <td colspan="5"><input type="text" id="address" style="width:1000px; height:40px" value="<%=address %>"></td>
+			<th class="head"  style="text-align: center;">주소</th>
+            <td colspan="5"><input type="text" name="address"  maxlength= "20" style="width:1000px; height:40px" placeholder="구까지만 간단히 적으시오." required></td>
 	    </tr>
 		</table>
 		<h5><B>*계좌구분</B></h5>		 
 		<table border="1">
 		 <tr>
-                <th style="text-align: center;">계좌번호</td>
-                <td><input type="text" class="input" id="account" value="<%=account %>"></td>
-                <th style="text-align: center;">은행명</td>
-                <td><input type="text" class="input" id="bank" value="<%=bank %>"></td>
-                <th style="text-align: center;">예금주</td>
-                <td><input type="text" class="input" id="holder" value="<%=holder %>"></td>
+                <th class="head"  style="text-align: center;">계좌번호</th>
+                <td><input type="text" class="input" name="account" required></td>
+                <th class="head"  style="text-align: center;">은행명</th>
+                <td><input type="text" class="input" name="bank" required></td>
+                <th class="head"  style="text-align: center;">예금주</th>
+                <td><input type="text" class="input" name="holder" required></td>
         </tr>
 		</table>
-		<button id="save" type="submit">저장</button>
+		<div class="btn" >
+				<button id="save" type="submit">등록하기</button>
+		</div>
+		</form>
+		
 	</div>
+	<%--
 		<script>
 			$("#save").click(function(){
 				$.ajax({
@@ -110,10 +118,9 @@
 					}
 				});
 			});
-		</script>
+		</script> --%>
+	</div>
 	<br>
 	<br>
-	<br>
-</div>
 </body>
 </html>
