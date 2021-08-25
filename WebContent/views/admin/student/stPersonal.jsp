@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="com.sun.student.model.vo.Student"%>
 <%
-	Student per = (Student)request.getAttribute("per");
+	String Phone="";
+	String Email="";
+	String military="";
+	String address="";
+	String account="";
+	String bank="";
+	String holder="";
 %>
 <!DOCTYPE html>
 <html>
@@ -52,30 +58,31 @@
 <div class="outer">
  	<div class="bor">
  	<br>
+		
 		<h5><B>*상세 신상정보</B></h5>		 
 		<table border="1">
 		 <tr>
                 <th style="text-align: center;">핸드폰번호</td>
-                <td><input type="text" class="input" id="phone" width="100px" value="<%=per.getsPhone() %>" ></td>
+                <td><input type="text" class="input" id="phone" width="100px" value="<%=Phone %>" ></td>
                 <th style="text-align: center;">이메일</td>
-                <td><input type="text" class="input" id="email" value="<%=per.getsEmail() %>"></td>
+                <td><input type="text" class="input" id="email" value="<%=Email %>"></td>
                 <th style="text-align: center;">병역</td>
-                <td><input type="text" class="input" id="military" value="<%=per.getMilitary() %>"></td>
+                <td><input type="text" class="input" id="military" value="<%=military %>"></td>
         </tr>
 	    <tr>
 			<th style="text-align: center;">주소</td>
-            <td colspan="5"><input type="text" id="address" style="width:1000px; height:40px" value="<%=per.getAddress() %>"></td>
+            <td colspan="5"><input type="text" id="address" style="width:1000px; height:40px" value="<%=address %>"></td>
 	    </tr>
 		</table>
 		<h5><B>*계좌구분</B></h5>		 
 		<table border="1">
 		 <tr>
                 <th style="text-align: center;">계좌번호</td>
-                <td><input type="text" class="input" id="account" value="<%=per.getAccount() %>"></td>
+                <td><input type="text" class="input" id="account" value="<%=account %>"></td>
                 <th style="text-align: center;">은행명</td>
-                <td><input type="text" class="input" id="bank" value="<%=per.getBank() %>"></td>
+                <td><input type="text" class="input" id="bank" value="<%=bank %>"></td>
                 <th style="text-align: center;">예금주</td>
-                <td><input type="text" class="input" id="holder" value="<%=per.getHolder() %>"></td>
+                <td><input type="text" class="input" id="holder" value="<%=holder %>"></td>
         </tr>
 		</table>
 		<button id="save" type="submit">저장</button>
