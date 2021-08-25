@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>순대학교 학사 관리 시스템</title>
+<link href="resources/images/sunIcon.png" rel="shortcut icon" type="image/x-icon">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
 <!--
