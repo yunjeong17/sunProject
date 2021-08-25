@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>학번/교원번호 찾기</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 var uId="<%=uId%>";
@@ -29,9 +29,24 @@ button {
 	background: white;
 	margin: left;
 }
+
+h1{
+	font-size:14px;
+	background-color:#00205b;
+	color:white;
+	padding-top:4px;
+	padding-bottom:4px;
+}
+#content{
+	text-align:center;
+}
+table {
+    margin:auto; 
+}
 </style>
 </head>
 <body>
+<div id="content">
 <b>학번/교원번호 찾기</b>
 	<br>
 	
@@ -44,14 +59,13 @@ button {
 			</tr>
 			<tr>
 				<td><label for="userName">이름</label>
-				<td><input type="text" name="userName" id="userName"></td>
+				<td colspan="2"><input type="text" name="userName" id="userName"></td>
 			</tr>
 			<tr>
 				<td><label for="userEmail">이메일</label></td>
-				<td><input type="email" name="userEmail" id="userEmail"></td>
+				<td colspan="2"><input type="email" name="userEmail" id="userEmail"></td>
 			</tr>
 		</table>	
-		<br>
 		<br>
 		
 		<div class="btns" align="center">
@@ -59,7 +73,7 @@ button {
 		</div>
 
 	</form>
-	
+</div>	
 	<script type="text/javascript">
 		function checkNull(){
 			const userName = $("#userName");
