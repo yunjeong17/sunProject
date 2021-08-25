@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style>
 	.outer{
-		width: 1400px;
+		width: 1200px;
 		margin: auto;
 	    margin-top: 25px;
 	}
@@ -44,12 +44,12 @@
 		
 	}
 	
-	h4, h6{
+	/*h4, h6{
 		margin-right : 100px;
-	}
+	}*/
 	
 	.btn{
-			margin-left : 1100px;
+			margin-left : 1050px;
 	
 	}
 </style>
@@ -61,6 +61,8 @@
  	 	<br>
 		<form id="enrollForm" action="<%=request.getContextPath()%>/stPersonal.save" method="post">
 		<h4 align="center">신상 정보 등록 페이지</h4>
+				<hr>
+		
 		<h6 align="center"><b id = "back" onclick="history.go(-1)"><mark>여기</mark></b>를 클릭하시면 이전 화면으로 돌아갑니다.</h6>
 		<h5><B>*상세 신상정보</B></h5>		 
 		<table border="1">
