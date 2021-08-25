@@ -31,6 +31,10 @@ public class StudentPersonalServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		User user=(User)request.getSession().getAttribute("loginUser");
+		
+		Student per = new StudentService().studentPersonalselect(user.getUserId());
+		request.setAttribute("per", per);
 		
 		request.getRequestDispatcher("views/admin/student/stPersonal.jsp").forward(request, response);
 	}

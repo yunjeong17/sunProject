@@ -662,7 +662,7 @@ public class StudentDao {
 		ResultSet rset = null;
 
 		String sql = prop.getProperty("selectStudent");
-
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, userId);
@@ -720,6 +720,30 @@ public class StudentDao {
 		ResultSet rset = null;
 
 		String sql = prop.getProperty("studentPersonalselect");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+
+			rset = pstmt.executeQuery();
+
+			while(rset.next()) {
+				per = new Student(rset.getString("PHONE"),
+									rset.getString("EMAIL"),
+									rset.getString("MILITARY"),
+									rset.getString("ADDRESS"),
+									rset.getString("ACCOUNT"),
+									rset.getString("BANK"),
+									rset.getString("HOLDER"));
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return per;
+	}
 
 	public ArrayList<ClassHistories> ClassHistories(Connection conn, String userId, ClassHistories ch) {
 		ArrayList<ClassHistories> list = new ArrayList<ClassHistories>();
