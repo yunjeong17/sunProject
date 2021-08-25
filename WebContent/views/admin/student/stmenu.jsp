@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.util.*,com.sun.student.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.sun.student.model.vo.Student"%>
 <%
-	Student st = (Student) request.getAttribute("st");
+	Student st = (Student)request.getAttribute("st");
 %>
 <!DOCTYPE html>
 <html>
@@ -107,7 +107,7 @@
 	<script>
 	function idtheft(){
 		location.href="<%=request.getContextPath()%>/stPersonal.save";
-		<%--location.href="<%=request.getContextPath()%>/stPersonal.sel";--%>
+		location.href="<%=request.getContextPath()%>/stPersonal.sel";
 	}
 
 	function flucadjust(){
