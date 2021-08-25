@@ -687,24 +687,26 @@ public class StudentDao {
 	}
 
 	public int stPersonalInsert(Connection conn, Student stp, String userId) {
+		
 		PreparedStatement pstmt = null;
 		int result = 0;
 		String sql = prop.getProperty("stPersonalInsert");
 		
-		/*
-		  	INSERT INTO ST_PERSONAL VALUES(?,?,?,?,?,?,?)
-		*/
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,userId);
-			pstmt.setString(2,stp.getsPhone());
-			pstmt.setString(3,stp.getsEmail());
-			pstmt.setString(4,stp.getMilitary());
-			pstmt.setString(5,stp.getAddress());
-			pstmt.setString(6,stp.getAccount());
-			pstmt.setString(7,stp.getBank());
-			pstmt.setString(8,stp.getHolder());
+			
+			
+			pstmt.setString(1,stp.getsPhone());
+			pstmt.setString(2,stp.getsEmail());
+			pstmt.setString(3,stp.getMilitary());
+			pstmt.setString(4,stp.getAddress());
+			pstmt.setString(5,stp.getAccount());
+			pstmt.setString(6,stp.getBank());
+			pstmt.setString(7,stp.getHolder());
+			pstmt.setString(8,userId);
+			
 			result = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

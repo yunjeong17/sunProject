@@ -106,7 +106,6 @@
 
 	<script>
 	function idtheft(){
-		location.href="<%=request.getContextPath()%>/stPersonal.save";
 		location.href="<%=request.getContextPath()%>/stPersonal.sel";
 	}
 
