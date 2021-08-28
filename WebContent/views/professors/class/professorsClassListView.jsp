@@ -62,17 +62,18 @@ text-align:center;
 		<form id="searchClassForm" action="<%=contextPath%>/classList.pr" method="post">
 			<label for="cName">강의명 : </label>
 			<input type="text" maxlength="10" id="cName" name="cName"></input>
-			<button id="search" onclick="location.href='classList.prr'">검색하기</button>
+			<button id="search" onclick="searchClass();">검색</button>
+			<button id="search" onclick="resetClassList();">목록 초기화</button>
 		</form>
 	</div>
 	<table id="class-table">
 		<thead>
 			<tr>
 				<th>순번</th>
-				<th>강의명</th>
+				<th>강의번호</th>
 				<th>연도</th>
 				<th>학기</th>
-				<th>강좌명</th>
+				<th>강의명</th>
 				<th>이수구분</th>
 				<th>강의실</th>
 			</tr>
@@ -131,5 +132,17 @@ text-align:center;
 			<!-- 맨 끝으로 (>>) -->
 			<button onclick="location.href='<%=contextPath%>/classList.pr?currentPage=<%=maxPage%>'"> &gt;&gt; </button>
 	</div> 
+	<script>
+		function searchClass(){
+			if($("#cName").val()!=""){
+				location.href='classList.pr';
+			}
+		}
+		
+		function resetClassList(){
+			$("#cName").val("");
+			location.href='classList.pr';
+		}
+	</script>
 </body>
 </html>
