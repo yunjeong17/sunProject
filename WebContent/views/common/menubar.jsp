@@ -27,7 +27,7 @@ String contextPath = request.getContextPath();
 
  #logo { 
  	display:block-inline;
-	padding-right: 80%;
+	padding-right: 75%;
 	text-decoration-line: none;
 }
 
