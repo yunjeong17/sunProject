@@ -86,7 +86,7 @@
 	#footer-div{
 		position:fixed;
 		text-align:center;
-		height:150px; 
+		height:100px; 
 		bottom: 0;
     	width: 100%;
 	}
@@ -133,7 +133,7 @@
 			</tr>
 			<tr>
 				<td><label for="consult-date">상담 날짜</label></td>
-				<td><input type="text" id="consult-date" name="consult-date"  disabled/></td>
+				<td><input type="text" id="consult-date" name="consult-date"  disabled readonly/></td>
 			</tr>
 			<tr>
 				<td><label for="consult-date">상담 방식</label></td>
@@ -163,7 +163,7 @@
 	</table>
 	</div>
 	<div id="footer-div">
-		<button id="area-reset-btn">추가하기</button>
+		<button id="area-reset-btn" style="visibility:hidden;display:none;">추가하기</button>
 	<div class="pagingArea" align="center">
 	</div> 
 	</div>
@@ -367,6 +367,9 @@
 			emptyValue();
 			setDisabledInput(false);
 			selectConsultingList(1);
+			style='visibility:hidden;display:none;'
+			$('#area-reset-btn').css('visibility','visible');
+			$("#area-reset-btn").css("display", 'inline-block');
 		})
 	
 	})
