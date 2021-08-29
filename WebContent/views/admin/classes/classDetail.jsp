@@ -139,8 +139,8 @@ form{
 					<td><%=classes.getClassNo()%></td>
 					<td><%=classes.getClassName()%></td>
 					<td><%=classes.getClassPlace()%></td>
-					<td><%=classes.getClassTypeNo()%></td>
-					<td><%=classes.getpId()%></td>
+					<td><%=classes.getClassTypeName()%></td>
+					<td><%=classes.getpName()%></td>
 					<td><%=classes.getClassYear()%></td>					
 					<td><%=classes.getClassSemester()%></td>	
 				</tr>
