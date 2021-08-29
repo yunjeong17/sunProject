@@ -31,9 +31,10 @@ public class ProfessorsIdCheck extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String pId = request.getParameter("pId");
-		int result = new ProfessorsService().pIdCheck(pId);
-		
+		String userId = request.getParameter("userId");
+		int result = new ProfessorsService().pIdCheck(userId);
+		System.out.println(userId);
+		System.out.println(result);
 		PrintWriter out = response.getWriter();
 		if(result>0) {
 			out.print("fail");

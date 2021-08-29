@@ -138,8 +138,9 @@ button:hover {
 				alert("아이디를 입력해주세요.");
 				return false;
 			}
+			
 			$.ajax({
-				url : "idCheck.me",
+				url : "idcheck.prof",
 				type : "post",
 				data : {
 					userId : userId.val()
