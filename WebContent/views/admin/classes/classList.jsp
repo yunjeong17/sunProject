@@ -164,7 +164,7 @@ label, input {
 			</tbody>
 		</table>
 	</div>
-
+	<br>
 	<script>
 		$(document).ready(function() {
 			$(function() {

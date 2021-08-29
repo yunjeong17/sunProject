@@ -129,6 +129,19 @@ public class ClassService {
 			return result;
 		}
 
+		public int updateStudent(String changeNO, String changeName) {
+			
+			Connection conn = getConnection();
+			
+			int result = new ClassDao().updateStudent(conn,changeNO,changeName);
 
+			if(result > 0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			
+			return result;
+		}
 
 }
