@@ -56,6 +56,7 @@ button:hover {
 	<h4 align="center">교수추가</h4>
 	<hr>
 	<div align="center">
+	<p>학과 선택 후 확인 버튼을 누르면 교수 번호가 발급됩니다.</p>
 		<form id="enrollForm" action="<%=request.getContextPath()%>/insert.prof" method="post" onsubmit="return joinValidate();">
 			<table>
 				<tr>
@@ -72,12 +73,13 @@ button:hover {
 						<%} %>
 						</select>
 					</td>
-						
+					<td>
+						<button onclick="selectCategory();">확인</button>
+					</td>
 				</tr>
 				<tr>
 					<td width="200px">교수번호</td>
-					<td><input type="text" maxlength="10" name="userId" required></td>
-					<td  width="200px"><button type="button" id="idCheckBtn" onclick="checkId();">중복확인</button>
+					<td><input type="text" maxlength="10" name="userId" disabled></td>
 					</td>
 				</tr>
 				<tr>
@@ -109,61 +111,41 @@ button:hover {
 		</form>
 	</div>
 	<script>
+		function selectCategory(){
+			if($("#categoryNo").val()==""){
+				alert("학과를 선택 후 확인버튼을 눌러주세요.");
+				$("#categoryNo").focus();
+			}else{
+
+				$.ajax({
+					url : "autoCreateId.ad",
+					type : "post",
+					data : {
+						categoryNo:$("#categoryNo").val()
+					},
+					success : function(result) {
+						console.log(result);
+						$("#enrollForm input[name=userId]").val(result);
+						$("#joinBtn").attr("disabled", false);
+					},
+					error : function() {
+						console.log("ajax 통신 오류");
+					},
+				})
+			}
+
+		}
+		
 		function joinValidate(){
-				
-				if(!(/^[a-z][a-z\d]{3,11}$/i.test($("#enrollForm input[name=userId]").val()))){
-					$("#enrollForm input[name=userId]").focus();
-			        return false;
-				}
-				
-				
-				
 				if(!(/^[가-힣]{2,}$/.test($("#enrollForm input[name=userName]").val()))){
 					 $("#enrollForm input[name=userName]").focus();
 			        return false;
 				 }
-				 
+	
 				 return true;
 						
 			}
-		function checkId() {
-			var userId = $("#enrollForm input[name=userId]");
-			console.log( $("#enrollForm input[name=userId]").val().substr(1,3) );
-			console.log($("#categoryNo").val().substr(1,3) );
-			if($("#enrollForm input[name=userId]").val().substr(1,3) != $("#categoryNo").val().substr(1,3) ){
-				alert("교수 아이디는 P 다음 세글자가 학과번호여야합니다. ");
-				 return false;
-			}
-			if (userId.val() == "") {
-				alert("아이디를 입력해주세요.");
-				return false;
-			}
-			
-			$.ajax({
-				url : "idcheck.prof",
-				type : "post",
-				data : {
-					userId : userId.val()
-				},
-				success : function(result) {
-					if (result == "fail") {
-						alert("사용할 수 없는 아이디입니다.");
-						userId.focus();
-						userId.val("");
-					} else {
-						if (confirm("사용할 수 있는 아이디입니다. 사용하시겠습니까?")) {
-							userId.attr("readonly", "true");
-							$("#joinBtn").removeAttr("disabled");
-						} else {
-							userId.focus();
-						}
-					}
-				},
-				error : function() {
-					console.log("서버통신실패");
-				},
-			})
-		}
+
 	</script>
 		
 </body>

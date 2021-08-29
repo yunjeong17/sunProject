@@ -456,6 +456,37 @@ public class ProfessorsDao {
 	}
 
 
+	public int getAutoCreateId(Connection conn, String categoryNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		int lastNo=01;
+		String sql=prop.getProperty("getAutoCreateId");
+//		SELECT SUBSTR(A.P_ID,5) FROM(SELECT * FROM PROFESSORS WHERE C_NO=? ORDER BY P_ID DESC) A WHERE ROWNUM=1
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, categoryNo);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				lastNo=rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+				
+		return lastNo;
+	}
+
+
 	
 
 }
