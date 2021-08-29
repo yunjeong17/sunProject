@@ -35,10 +35,6 @@ public class ProfessorsDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userId = request.getParameter("userId");
-		String userName = request.getParameter("userName"); 
-		String cNo = request.getParameter("cNo"); 
-		String pPhone = request.getParameter("pPhone");
-		String pEmail = request.getParameter("pEmail");
 		
 		Professors prof = new ProfessorsService().professorsDetail(userId);
 		

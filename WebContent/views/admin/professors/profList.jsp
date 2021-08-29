@@ -145,7 +145,7 @@ label, input {
 				<tr>
 					<td><%=prof.getUserId()%></td>
 					<td><%=prof.getUserName()%></td>
-					<td><%=prof.getcNo()%></td>
+					<td><%=prof.getcName()%></td>
 					<td><%=prof.getpPhone()%></td>
 					<td><%=prof.getpEmail()%></td>
 					

@@ -219,13 +219,13 @@ public class ProfessorsDao {
 			rset=pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Professors(rset.getString("P_ID")											
-						,rset.getString("P_NAME")
-						,rset.getString("C_NO")
-						,rset.getString("P_PHONE")
-						,rset.getString("P_EMAIL")
-						
-						));
+				Professors p = new Professors();
+				p.setcName(rset.getString("C_NAME"));
+				p.setUserEmail(rset.getString("P_EMAIL"));
+				p.setUserId(rset.getString("P_ID")	);
+				p.setUserName(rset.getString("P_NAME"));
+				p.setpPhone(rset.getString("P_PHONE"));
+				list.add(p);
 			}
 			
 		} catch (Exception e) {
