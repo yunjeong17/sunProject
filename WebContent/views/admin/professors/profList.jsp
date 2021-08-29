@@ -242,7 +242,7 @@ label, input {
 			&gt;&gt;</button>
 	
 	<br><br>
-		<button onclick="location.href='form.prof'">교수 추가</button>
+		<button onclick="location.href='insertForm.prof'">교수 추가</button>
 		
 	</div>
 	<script type="text/javascript">

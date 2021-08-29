@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.sun.common.CommonDao;
+import com.sun.professors.model.vo.Category;
 import com.sun.professors.model.vo.PageInfoprof;
 import com.sun.professors.model.vo.Professors;
 import com.sun.student.model.vo.PageInfo;
@@ -407,6 +408,35 @@ public class ProfessorsDao {
 	}
 
 
+
+	public ArrayList<Category> selectCategoryList(Connection conn) {
+		ArrayList<Category> cateList = new ArrayList<Category>();
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		
+		String sql = prop.getProperty("selectCateogryList");
+		
+		
+		try {
+			stmt = conn.createStatement();
+			rset=stmt.executeQuery(sql);
+			
+			while(rset.next()) {
+				Category cate = new Category();
+				cate.setCategoryName(rset.getString("C_NAME"));
+				cate.setCategoryNo(rset.getString("C_NO"));
+				cateList.add(cate);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rset);
+			close(stmt);
+		}
+		return cateList;
+
 	public int deleteProfessors(Connection conn, String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -422,6 +452,7 @@ public class ProfessorsDao {
 			close(pstmt);
 		}
 		return result;
+
 	}
 
 
