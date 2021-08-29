@@ -141,7 +141,6 @@ label, input{
 		<div align="center">
 		<button onclick="history.go(-1)">뒤로가기</button>
 		<button onclick="location.href='form.class'">강의 추가</button>
-		<button onclick="location.href='update.class'">강의 정보 수정</button>
 		</div>
 	</div>
 	

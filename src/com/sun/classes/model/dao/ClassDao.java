@@ -51,7 +51,7 @@ public class ClassDao {
 								rset.getString("CLASS_NO")
 								,rset.getString("CLASS_NAME")
 								,rset.getString("CLASS_PLACE")
-								,rset.getInt("CLASS_TYPE_NAME")
+								,rset.getString("CLASS_TYPE_NAME")
 								,rset.getString("P_NAME")
 								,rset.getInt("CLASS_YEAR")
 								,rset.getInt("CLASS_SEMESTER")
