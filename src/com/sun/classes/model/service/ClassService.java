@@ -15,14 +15,14 @@ import com.sun.classes.model.vo.PageInfoclass;
 import com.sun.student.model.vo.PageInfo;
 
 public class ClassService {
-
+	/*
 	public ArrayList<Classes> selectClassList(String userId,String cName,PageInfo pi) {
 		Connection conn = getConnection();
 		ArrayList<Classes> list = new ClassDao().selectClassList(conn,userId,cName,pi);
 		close(conn);
 		return list;
 
-	}
+	}*/
 
 //	연도와학기
 	public ArrayList<Classes> selectClassByUserIdAndYearAndSemester(String userId) {
@@ -83,6 +83,7 @@ public class ClassService {
 			return list;
 		}
 
+		
 		public Classes ClassesDetail(String classNo) {
 			Connection conn = getConnection();
 
@@ -93,6 +94,7 @@ public class ClassService {
 			return classes;
 		}
 
+		
 		public Classes searchClasses(String search) {
 			Connection conn = getConnection();
 

@@ -20,7 +20,7 @@ import com.sun.classes.model.vo.PageInfoclass;
 @WebServlet("/list.class")
 public class ClassList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+        
     /**
      * @see HttpServlet#HttpServlet()
      */
