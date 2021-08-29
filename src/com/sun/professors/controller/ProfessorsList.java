@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sun.professors.model.service.ProfessorsService;
 import com.sun.professors.model.vo.Professors;
-import com.sun.professors.model.vo.PageInfo;
+import com.sun.professors.model.vo.PageInfoprof;
 
 
 /**
@@ -106,7 +106,7 @@ public class ProfessorsList extends HttpServlet {
 		}
 		
 		
-		PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
+		PageInfoprof pi = new PageInfoprof(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 		
 		ArrayList<Professors> list = new ProfessorsService().professorsList(pi);
 		request.setAttribute("list", list);

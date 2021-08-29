@@ -99,4 +99,18 @@ public class Classes {
 	}
 	
 	
+	//합친부분
+	public Classes(String classNo, String className, String classPlace, int classTypeNo, String pId, int classYear,
+			int classSemester) {
+		super();
+		this.classNo = classNo;
+		this.className = className;
+		this.classPlace = classPlace;
+		this.classTypeNo = classTypeNo;
+		this.pId = pId;
+		this.classYear = classYear;
+		this.classSemester = classSemester;
+		
+	}
+	
 }
