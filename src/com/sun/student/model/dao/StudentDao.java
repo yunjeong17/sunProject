@@ -362,8 +362,8 @@ public class StudentDao {
 		return result;
 	}
 
-	public Student searchName(Connection conn, String name) {
-		Student st = null;
+	public ArrayList<Student> searchName(Connection conn, String name) {
+		ArrayList<Student> list = new ArrayList<Student>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
@@ -376,9 +376,15 @@ public class StudentDao {
 			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
-				st = new Student(rset.getString("S_ID"), rset.getString("S_NAME"), rset.getInt("S_LEVEL"),
-						rset.getString("DEPT_NAME"), rset.getString("C_NAME"), rset.getString("P_NAME"));
-				System.out.println(st);
+				Student st = new Student();
+				st.setUserId(rset.getString("S_ID"));
+				st.setUserName(rset.getString("S_NAME"));
+				st.setsLevel(rset.getInt("S_LEVEL"));
+				st.setDeptName(rset.getString("DEPT_NAME"));
+				st.setcName(rset.getString("C_NAME"));
+				st.setpName(rset.getString("P_NAME"));
+				System.out.println("st has been added : " + st.toString());
+				list.add(st);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -386,7 +392,7 @@ public class StudentDao {
 			close(rset);
 			close(pstmt);
 		}
-		return st;
+		return list;
 	}
 
 	public ArrayList<Certificate> CertificateList(Connection conn, String userId) {
@@ -697,13 +703,13 @@ public class StudentDao {
 			
 			
 			pstmt.setString(1,stp.getsPhone());
-			pstmt.setString(2,stp.getsEmail());
+			pstmt.setString(2,stp.getsEmail());/*
 			pstmt.setString(3,stp.getMilitary());
 			pstmt.setString(4,stp.getAddress());
 			pstmt.setString(5,stp.getAccount());
 			pstmt.setString(6,stp.getBank());
-			pstmt.setString(7,stp.getHolder());
-			pstmt.setString(8,userId);
+			pstmt.setString(7,stp.getHolder());*/
+			pstmt.setString(3,userId);
 			
 			result = pstmt.executeUpdate();
 			
@@ -737,13 +743,13 @@ public class StudentDao {
 								  rset.getString("BANK"),
 								  rset.getString("HOLDER"));
 				System.out.println(per);
-			} else {
+			} /*else {
 					per.setMilitary("");
 					per.setAddress("");
 					per.setAccount("");
 					per.setBank("");
 					per.setHolder("");
-			}
+			}*/
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -782,6 +788,36 @@ public class StudentDao {
 			close(pstmt);
 		}
 		return list;
+	}
+
+	public int aintInsert(Connection conn, Student stp, String userId) {
+
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("aintInsert");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1,userId);
+			pstmt.setString(2,stp.getsPhone());
+			pstmt.setString(3,stp.getsEmail());
+			pstmt.setString(4,stp.getMilitary());
+			pstmt.setString(5,stp.getAddress());
+			pstmt.setString(6,stp.getAccount());
+			pstmt.setString(7,stp.getBank());
+			pstmt.setString(8,stp.getHolder());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 
 }

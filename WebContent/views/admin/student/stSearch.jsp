@@ -100,8 +100,8 @@ label, input{
 	<%@ include file="/views/common/menubar.jsp"%>
 	<br>
 	<div class="wrap" align="center">
-	<h4 align="center">검색 결과</h4>
-		<h5 align="center">학생을 선택하면 학적 정보 수정이 가능합니다.</h5>
+	<h4 align="center">학번으로 검색한 결과</h4>
+		<h5 align="center"><mark>학생을 선택하면 학적 정보 수정이 가능합니다.</mark></h5>
 		<table>
 			<thead>
 				<tr>

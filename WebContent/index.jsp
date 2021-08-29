@@ -10,6 +10,11 @@
 <title>순대학교 학사 관리 시스템</title>
 <link href="resources/images/sunIcon.png" rel="shortcut icon" type="image/x-icon"></title>
 <style>
+/*
+body{
+		background:url('<%=request.getContextPath()%>/resources/images/bgd2.png') no-repeat; 
+		background-size:cover;
+	}*/
 </style>
 </head>
 <body>
