@@ -180,7 +180,7 @@ public class ProfessorsDao {
 		PreparedStatement pstmt=null;
 		ResultSet rset = null;
 
-		String sql = prop.getProperty("getListCount");
+		String sql = prop.getProperty("getConsultingListCount");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, sId);
