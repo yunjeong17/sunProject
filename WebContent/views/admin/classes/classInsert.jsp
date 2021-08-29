@@ -61,37 +61,49 @@ button:hover {
 			<table>
 				<tr>
 					<td width="200px">강의번호</td>
-					<td><input type="text" maxlength="10" name="userId" required></td>
+					<td><input type="text" maxlength="5" name="cId" required></td>
 					<td  width="200px"><button type="button" id="idCheckBtn" onclick="checkId();">중복확인</button>
 					</td>
 				</tr>
 				<tr>
 					<td width="200px">강의명</td>
-					<td width="200px"><input type="text" maxlength="10" name="userPwd" required></td>
+					<td width="200px"><input type="text" name="cName" required></td>
 					<td></td>
 				</tr>
 				<tr>
 					<td  width="200px">강의실</td>
-					<td  width="200px"><input type="text" name="userName" required></td>
+					<td  width="200px"><input type="text" name="cPlace" required></td>
 				</tr>
 					
 					<tr>
 						<td width="200px">강의타입</td>
-						<td width="200px"><input type="text" name="cName" required></td>
-						
+						<td width="200px">
+						<select name = "ctype">
+							<option value="1" selected>전공필수</option>
+							<option value="2" selected>전공선택</option>
+							<option value="3" selected>교양필수</option>
+							<option value="4" selected>교양선택</option>
+							<option value="5" selected>산학</option>
+							<option value="6" selected>자유</option>
+						</select>
 						</td>
 					</tr>
-				<tr>
+				<tr> <!-- 교수 체크 -->
 					<td width="200px">담당교수</td>
-					<td width="200px"><input type="text" name="pEmail" required></td>
+					<td width="200px"><input type="text" name="pId" required></td>
+					<td  width="200px"><button type="button" id="pIdCheckBtn" onclick="checkpId();">교수확인</button>
 				</tr>
 					<tr>
 						<td width="200px">개설연도</td>
-						<td width="200px"><input type="text" name="pEmail" required></td>
+						<td width="200px"><input type="text" name="eYear" required></td>
 					</tr>
 				<tr>
 					<td width="200px">개설학기</td>
-					<td width="200px"><input type="text" name="pEmail" required></td>
+					<td width="200px"><input type="text" name="eSemester" required></td>
+				</tr>
+				<tr>
+					<td width="200px">학점</td>
+					<td width="200px"><input type="text" name="credit" required></td>
 				</tr>
 				
 				
@@ -145,6 +157,39 @@ button:hover {
 								userId.focus();
 							}
 
+						}
+					},
+					error : function() {
+						console.log("서버통신실패");
+					},
+				})
+			}
+			
+			function checkpId() {
+				var pId = $("#enrollForm input[name=pId]");
+				if (pId.val() == "") {
+					alert("교수 번호를 입력해주세요.");
+					return false;
+				}
+				$.ajax({
+					url : "pIdCheck.cl",
+					type : "post",
+					data : {
+						pId : pId.val()
+					},
+					success : function(result) {
+						if (result == "fail") {
+							if (confirm("존재하는 지도교수입니다. 사용하시겠습니까?")) {
+								pId.attr("readonly", "true");
+							//$("#joinBtn").removeAttr("disabled");
+							} else {
+								pId.focus();
+							}
+						} else {
+							alert("존재하지 않는 지도교수입니다.");
+							pId.focus();
+							pId.val("");
+							
 						}
 					},
 					error : function() {
