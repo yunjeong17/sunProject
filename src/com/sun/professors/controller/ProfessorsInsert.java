@@ -39,7 +39,7 @@ public class ProfessorsInsert extends HttpServlet {
 		String userId= request.getParameter("userId");
 		String userPwd= request.getParameter("userPwd");
 		String userName= request.getParameter("userName");
-		String cNo= request.getParameter("cNo");
+		String categoryNo= request.getParameter("categoryNo");
 		String pPhone= request.getParameter("pPhone");
 		String pEmail= request.getParameter("pEmail");
 		
@@ -48,15 +48,16 @@ public class ProfessorsInsert extends HttpServlet {
 		prof.setUserId(userId);
 		prof.setUserPwd(userPwd);
 		prof.setUserName(userName);
-		prof.setcNo(cNo);
+		prof.setcNo(categoryNo);
 		prof.setpPhone(pPhone);
 		prof.setpEmail(pEmail);
 		
+		System.out.println("category!!!!"+categoryNo);
 		int result = new ProfessorsService().insertProfessors(prof);
 		
 		if(result>0) {
 			request.getSession().setAttribute("msg", "교수 등록 성공");
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect(request.getContextPath()+"/list.prof");
 		}
 		else {
 			request.setAttribute("msg", "교수 등록 실패");

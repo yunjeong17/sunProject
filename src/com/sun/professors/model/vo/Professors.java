@@ -7,6 +7,7 @@ public class Professors extends User {
 	private String userPwd;
 	private String userName;
 	private String cNo;
+	private String cName;
 	private String pPhone;
 	private String pEmail;
 	
@@ -23,9 +24,17 @@ public class Professors extends User {
 	
 	@Override
 	public String toString() {
-		return "professors["+super.toString()+" cNo"+cNo+" pPhone"+pPhone+" pEmail"+pEmail+"]";
+		return "professors["+super.toString()+" cNo"+cNo+" cName"+cName+" pPhone"+pPhone+" pEmail"+pEmail+"]";
 	}
 	
+	public String getcName() {
+		return cName;
+	}
+
+	public void setcName(String cName) {
+		this.cName = cName;
+	}
+
 	public String getUserId() {
 		return userId;
 	}

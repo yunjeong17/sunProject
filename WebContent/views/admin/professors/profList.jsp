@@ -145,7 +145,7 @@ label, input {
 				<tr>
 					<td><%=prof.getUserId()%></td>
 					<td><%=prof.getUserName()%></td>
-					<td><%=prof.getcNo()%></td>
+					<td><%=prof.getcName()%></td>
 					<td><%=prof.getpPhone()%></td>
 					<td><%=prof.getpEmail()%></td>
 					
@@ -242,7 +242,7 @@ label, input {
 			&gt;&gt;</button>
 	
 	<br><br>
-		<button onclick="location.href='form.prof'">교수 추가</button>
+		<button onclick="location.href='insertForm.prof'">교수 추가</button>
 		
 	</div>
 	<script type="text/javascript">

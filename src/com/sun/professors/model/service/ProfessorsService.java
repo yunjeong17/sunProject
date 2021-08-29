@@ -9,8 +9,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.sun.professors.model.dao.ProfessorsDao;
+import com.sun.professors.model.vo.Category;
 import com.sun.professors.model.vo.PageInfoprof;
 import com.sun.professors.model.vo.Professors;
+import com.sun.student.model.dao.StudentDao;
 import com.sun.student.model.vo.PageInfo;
 
 import com.sun.student.model.vo.Student;
@@ -189,6 +191,33 @@ public class ProfessorsService {
 		
 		close(conn);
 		return listCount;
+	}
+
+
+	public ArrayList<Category> selectCategoryList() {
+		Connection conn = getConnection();
+
+		ArrayList<Category> cateList = new ProfessorsDao().selectCategoryList(conn);
+		
+		close(conn);
+		
+		return cateList ;
+		
+	}
+	public int deleteProfessors(String userId) {
+		Connection conn = getConnection();
+		
+		int result = new ProfessorsDao().deleteProfessors(conn, userId);
+		
+		if(result>0) {
+			commit(conn);
+		}
+		else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+
 	}
 
 }

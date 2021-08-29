@@ -146,4 +146,18 @@ public class ClassService {
 			return result;
 		}
 
+		public int deleteClasses(String classNo) {
+			Connection conn = getConnection();
+			
+			int result = new ClassDao().deleteClasses(conn, classNo);
+			
+			if(result>0) {
+				commit(conn);
+			}
+			else {
+				rollback(conn);
+			}
+			close(conn);
+			return result;
+		}
 }

@@ -24,7 +24,7 @@ public class ClassDao {
 	}
 	
 	//userId
-	/*
+
 	public ArrayList<Classes> selectClassList(Connection conn, String userId, String cName, PageInfo pi) {
 		ArrayList<Classes> list=new ArrayList<Classes>();
 		PreparedStatement pstmt=null;
@@ -57,7 +57,7 @@ public class ClassDao {
 								,rset.getInt("CLASS_SEMESTER")
 								,rset.getInt("CREDIT")
 								);
-						);
+
 				list.add(c);
 			}
 			
@@ -73,8 +73,7 @@ public class ClassDao {
 
 		return list;
 	}
-	*/
-	
+
 	//	userId와 현재 연도, 학기에 따른 클래스
 	public ArrayList<Classes> selectClassByYearAndSemester(Connection conn, String userId,int year, int semester) {
 		ArrayList<Classes> list=new ArrayList<Classes>();
@@ -225,6 +224,7 @@ public class ClassDao {
 						rset.getInt("CLASS_YEAR"),
 						rset.getInt("CLASS_SEMESTER"),
 						rset.getInt("CREDIT")
+
 						));
 			}
 			
@@ -238,7 +238,6 @@ public class ClassDao {
 		return list;	
 		}
 
-	
 	public Classes searchClasses(Connection conn, String search) {
 		Classes classes = null;
 		PreparedStatement pstmt = null;
@@ -262,6 +261,7 @@ public class ClassDao {
 						,rset.getInt("CLASS_YEAR")
 						,rset.getInt("CLASS_SEMESTER")
 						,rset.getInt("CREDIT")
+
 						);
 			}
 		} catch (Exception e) {
@@ -274,7 +274,6 @@ public class ClassDao {
 		return classes;
 	}
 
-	
 	public int insertClasses(Connection conn, Classes classes) {
 		int result=0;
 		PreparedStatement pstmt= null;
@@ -329,6 +328,24 @@ public class ClassDao {
 		}
 				
 		return result;
+	}
+
+	public int deleteClasses(Connection conn, String classNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteClass");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, classNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+      e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+      
+      return result;
 	}
 
 	public int updateStudent(Connection conn, String changeNO, String changeName) {
