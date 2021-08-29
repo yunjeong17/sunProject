@@ -220,4 +220,18 @@ public class ProfessorsService {
 
 	}
 
+	public String getAutoCreateId(String categoryNo) {
+		Connection conn = getConnection();
+		String finalUserId="";
+		int userId = 01;
+		userId=new ProfessorsDao().getAutoCreateId(conn,categoryNo);
+		System.out.println("subString!!!"+categoryNo);
+		String temp="P"+categoryNo.substring(1,4);
+		finalUserId=temp+String.format("%02d",userId+1);
+
+		close(conn);
+		
+		return finalUserId ;
+	}
+
 }
