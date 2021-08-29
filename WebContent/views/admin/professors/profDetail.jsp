@@ -137,75 +137,53 @@ form{
 					<td><%=prof.getUserId()%></td>
 					<td><%=prof.getUserName()%></td>
 					<td><%=prof.getcName()%></td>
-					<td><%=prof.getpPhone()%></td>
-					<td><%=prof.getpEmail()%></td>
+					<td><input id="phone-input" type="text" value="<%=prof.getpPhone()%>"></input></td>
+					<td><input id="email-input" type="email" value="<%=prof.getpEmail()%>"></input></td>
 				</tr>
 				<%
 				}
 				%>
 			</tbody>
 		</table>
+		<button id="update-btn" type='submit'>수정</button>
 		<br>
 		
 		<div class="profUpdate" align="left">
-			<h4>교수 정보 수정하기</h4>
 			<h5>
 				교수 정보 삭제를 원하시면 <b id="oppositeProf"><mark>여기</mark></b>를 클릭하세요.
 			</h5>
-				<form  id="update" action="<%=contextPath%>/update.prof" method="post">
-					<input type="text" name="userId" value="<%=prof.getUserId()%>" hidden="true"></input>
-					<label for="pId">&nbsp;&nbsp; 지도교수 &nbsp;&nbsp; : &nbsp;&nbsp;</label><input
-						type="text" name="pId" placeholder="교수 ID 입력" required></input> 
-						&nbsp;&nbsp;
-						<button type="button" id="idCheckBtn" onclick="checkId();">교수 확인</button>
-						&nbsp;&nbsp;&nbsp;
-					<button type="submit">수정하기</button>
-				</form>
-				<br><br>
-			</div>
+			<br><br>
+		</div>
 			
 			<script>
-			function checkId() {
-				var pId = $("#update input[name=pId]");
-				if (pId.val() == "") {
-					alert("아이디를 입력해주세요.");
-					return false;
-				}
-				$.ajax({
-					url : "idcheck.prof",
-					type : "post",
-					data : {
-						pId : pId.val()
-					},
-					success : function(result) {
-						if (result == "fail") {
-							if (confirm("존재하는 지도교수입니다. 사용하시겠습니까?")) {
-								pId.attr("readonly", "true");
-							//$("#joinBtn").removeAttr("disabled");
-							} else {
-								pId.focus();
-							}
-						} else {
-							alert("존재하지 않는 지도교수입니다.");
-							pId.focus();
-							pId.val("");
+			$("#update-btn").click(function(){
+				if(confirm("수정하시겠습니까?\n(수정하시려면 '확인', 수정하지 않으려면 '취소'를 누르십시오.) ")){
+					$.ajax({
+						url : "update.prof",
+						type : "post",
+						data : {
+							pId : "<%=prof.getUserId()%>",
+							phone : $("#phone-input").val(),
+							email : $("#email-input").val()
 							
-						}
-					},
-					error : function() {
-						console.log("서버통신실패");
-					},
-				})
-			}
+						},
+						success : function(result) {
+							alert("교수정보 수정이 완료되었습니다.");
+						},
+						error : function() {
+							console.log("서버통신실패");
+						},
+					})
+				}
+				else{
+					alert("수정을 취소하였습니다.");
+				}
+			})
 		</script>
 		
 		<hr>
 		
-			
-		
-		
-		
 		</div>
 	</div>
-			
-			
+</body>
+</html>		

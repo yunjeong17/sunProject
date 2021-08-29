@@ -1,6 +1,7 @@
 package com.sun.professors.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,26 +33,27 @@ public class ProfessorsUpdate extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		 
-		String userId= request.getParameter("userId");
+
 		String pId= request.getParameter("pId");
+		String email=request.getParameter("email");
+		String phone= request.getParameter("phone");
+		Professors p = new Professors();
+		p.setUserId(pId);
+		p.setpPhone(phone);
+		p.setpEmail(email);
+		int updatest = new ProfessorsService().updateProfessors(p);
 		
-		Professors prof = new Professors();
-		prof.setUserId(userId);
-		
-		
-		int updatest = new ProfessorsService().updateProfessors(prof);
-		
-		if(updatest > 0) {
-			request.getSession().setAttribute("msg", "교수 정보 수정을 성공했습니다.");
-			response.sendRedirect("list.prof");
+		PrintWriter out = response.getWriter();
+		if(updatest>0) {
+			out.print("success");
 			
 		}else {
-			request.setAttribute("msg", "교수 정보 수정을 실패했습니다.");
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
-			view.forward(request, response);
+			out.print("fail");
+			
 		}
+		out.flush();
+		out.close();
+
 	}
 
 	/**

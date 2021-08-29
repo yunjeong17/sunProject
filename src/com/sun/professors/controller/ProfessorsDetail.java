@@ -38,7 +38,7 @@ public class ProfessorsDetail extends HttpServlet {
 		
 		Professors prof = new ProfessorsService().professorsDetail(userId);
 		
-		
+		System.out.println(prof.getpEmail());
 		
 		if(prof != null) {
 			request.setAttribute("prof", prof);
