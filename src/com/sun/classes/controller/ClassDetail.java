@@ -32,17 +32,13 @@ public class ClassDetail extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+
 		String classNo = request.getParameter("classNo");
-		String className = request.getParameter("className"); 
-		String classPlace = request.getParameter("classPlace"); 
-		String classTypeNo = request.getParameter("classTypeNo");
-		String pId = request.getParameter("pId");
-		String classYear = request.getParameter("classYear");
-		String classSemester = request.getParameter("classSemester");
 		
 		Classes classes = new ClassService().ClassesDetail(classNo);
+		//선택한 강의 받아옴
 		
-				
 		if(classes != null) {
 			request.setAttribute("classes", classes);
 			
@@ -53,7 +49,6 @@ public class ClassDetail extends HttpServlet {
 			request.setAttribute("msg", "게시물 상세 조회를 실패했습니다.");
 			RequestDispatcher view= request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
-		
 		}
 	}
 

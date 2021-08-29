@@ -123,7 +123,7 @@ button:hover {
 			function checkId() {
 				var userId = $("#enrollForm input[name=userId]");
 				if (userId.val() == "") {
-					alert("아이디를 입력해주세요.");
+					alert("강의번호를 입력해주세요.");
 					return false;
 				}
 				$.ajax({
@@ -134,11 +134,11 @@ button:hover {
 					},
 					success : function(result) {
 						if (result == "fail") {
-							alert("사용할 수 없는 아이디입니다.");
+							alert("사용할 수 없는 강의번호입니다.");
 							userId.focus();
 							userId.val("");
 						} else {
-							if (confirm("사용할 수 있는 아이디입니다. 사용하시겠습니까?")) {
+							if (confirm("사용할 수 있는 강의번호입니다. 사용하시겠습니까?")) {
 								userId.attr("readonly", "true");
 								$("#joinBtn").removeAttr("disabled");
 							} else {

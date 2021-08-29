@@ -52,7 +52,7 @@
 			margin-left : 1050px;
 	
 	}
-	/*
+	
 	#phoneResult{
 	margin-left:170px;
 	}
@@ -60,7 +60,7 @@
 	#emailResult{
 		margin-left:300px;
 	
-	}*/
+	}
 </style>
 </head>
 <body>
@@ -68,20 +68,20 @@
 <div class="outer">
  	<div class="bor">
  	 	<br>
-		<form id="enrollForm" action="<%=request.getContextPath()%>/stPersonal.save" method="post">
-		<h4 align="center">신상 정보 수정 페이지</h4>
+		<form id="enrollForm" action="<%=request.getContextPath()%>/aint.info" method="post">
+		<h4 align="center">신상 정보 등록 페이지</h4>
 				<hr>
 		
 		<h6 align="center"><b id = "back" onclick="history.go(-1)"><mark>여기</mark></b>를 클릭하시면 이전 화면으로 돌아갑니다.</h6>
-		<!--<h5><B>*상세 신상정보</B></h5>		 
-		 <table border="1">
+		<h5><B>*상세 신상정보</B></h5>		 
+		<table border="1">
 		<caption><label id="phoneResult"></label><label id="emailResult"></label></caption>
 		 <tr>
                 <th class="head" style="text-align: center;">핸드폰번호</th>
                 <td><input type="text" class="input"  id="phone" name="phone" width="100px" required></td>
                 <th class="head"   style="text-align: center;">이메일</th>
                 <td><input type="email" class="input" name="email" id="email" required></td>
-                <!-- <th class="head"  style="text-align: center;">병역</th>
+                <th class="head"  style="text-align: center;">병역</th>
                 <td><input type="text" class="input" name="military" required></td>
         </tr>
 	    <tr>
@@ -99,20 +99,7 @@
                 <th class="head"  style="text-align: center;">예금주</th>
                 <td><input type="text" class="input" name="holder" required></td>
         </tr>
-		</table> -->
-		<br>
-		
-		<div align="center">
-		<label for ="phone" >핸드폰번호 &nbsp;&nbsp; : &nbsp;&nbsp; </label>
-		<input type="text" class="input"  id="phone" name="phone" width="100px" required>&nbsp;&nbsp;&nbsp;
-		<label id="phoneResult"></label>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<label for="email">이메일 &nbsp;&nbsp; : &nbsp;&nbsp; </label>
-		<input type="email" class="input" name="email" id="email" required>&nbsp;&nbsp;&nbsp;
-		<label id="emailResult"></label>
-		</div>
-		
+		</table>
 		<div class="btn" >
 				<button id="save" type="submit" disabled>등록하기</button>
 		</div>

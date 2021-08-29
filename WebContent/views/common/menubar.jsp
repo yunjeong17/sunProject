@@ -21,6 +21,7 @@ String contextPath = request.getContextPath();
 
 <!--login이 되어있을 때의 style -->
 
+
 #top{
 	
 }

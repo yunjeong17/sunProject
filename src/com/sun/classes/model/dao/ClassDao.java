@@ -323,6 +323,7 @@ public class ClassDao {
 		return result;
 	}
 
+
 	public int deleteClasses(Connection conn, String classNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -333,11 +334,40 @@ public class ClassDao {
 
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
+      e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+      
+      return result;
+	}
+      
+
+	public int updateStudent(Connection conn, String changeNO, String changeName) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateStudent");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, changeName);
+			pstmt.setString(2, changeNO);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
+
 		return result;
 	}
 	
+
+
+	
+
+
 }

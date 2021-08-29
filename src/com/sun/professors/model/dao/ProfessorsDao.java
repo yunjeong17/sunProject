@@ -180,7 +180,7 @@ public class ProfessorsDao {
 		PreparedStatement pstmt=null;
 		ResultSet rset = null;
 
-		String sql = prop.getProperty("getListCount");
+		String sql = prop.getProperty("getConsultingListCount");
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, sId);
@@ -219,13 +219,13 @@ public class ProfessorsDao {
 			rset=pstmt.executeQuery();
 			
 			while(rset.next()) {
-				list.add(new Professors(rset.getString("P_ID")											
-						,rset.getString("P_NAME")
-						,rset.getString("C_NO")
-						,rset.getString("P_PHONE")
-						,rset.getString("P_EMAIL")
-						
-						));
+				Professors p = new Professors();
+				p.setcName(rset.getString("C_NAME"));
+				p.setpEmail(rset.getString("P_EMAIL"));
+				p.setUserId(rset.getString("P_ID")	);
+				p.setUserName(rset.getString("P_NAME"));
+				p.setpPhone(rset.getString("P_PHONE"));
+				list.add(p);
 			}
 			
 		} catch (Exception e) {
@@ -252,12 +252,12 @@ public class ProfessorsDao {
 			rset=pstmt.executeQuery();
 			
 			while(rset.next()) {
-				prof = new Professors(rset.getString("P_ID")
-						,rset.getString("P_NAME")
-						,rset.getString("C_NO")
-						,rset.getString("P_PHONE")
-						,rset.getString("P_EMAIL")
-						);
+				prof=new Professors();
+				prof.setcName(rset.getString("C_NAME"));
+				prof.setpEmail(rset.getString("P_EMAIL"));
+				prof.setUserId(rset.getString("P_ID")	);
+				prof.setUserName(rset.getString("P_NAME"));
+				prof.setpPhone(rset.getString("P_PHONE"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -331,10 +331,16 @@ public class ProfessorsDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			
-			pstmt.setString(2, prof.getUserId());
+
+			pstmt.setString(1, prof.getpEmail());
+			pstmt.setString(2, prof.getpPhone());
+			pstmt.setString(3, prof.getUserId());
 			
 			result = pstmt.executeUpdate();
+			System.out.println(prof.getpPhone());
+			System.out.println(prof.getpEmail());
+			System.out.println(prof.getUserId());
+			System.out.println(result);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
