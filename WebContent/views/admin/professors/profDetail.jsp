@@ -150,10 +150,21 @@ form{
 		<button id="update-btn" type='submit'>수정</button>
 		<br>
 		
-		<div class="profUpdate" align="left">
-			<h5>
-				교수 정보 삭제를 원하시면 <b id="oppositeProf"><mark>여기</mark></b>를 클릭하세요.
-			</h5>
+			<div class="profUpdate" align="left">
+				<h4>교수 정보 삭제</h4>
+			<form id="delete" action="<%=contextPath%>/delete.prof" method="get">
+				<input type="text" name="userId" value="<%=prof.getUserId()%>"
+					hidden="true"></input> &nbsp;&nbsp; 위 교수 정보를 삭제하시려면
+				<button type="submit">삭제하기</button>
+				를 눌러주세요.
+			</form>
+			
+				<br><br>
+			</div>
+
+			
+		
+	
 			<br><br>
 		</div>
 			
@@ -188,4 +199,4 @@ form{
 		</div>
 	</div>
 </body>
-</html>		
+</html>

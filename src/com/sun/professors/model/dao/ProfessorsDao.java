@@ -408,6 +408,7 @@ public class ProfessorsDao {
 	}
 
 
+
 	public ArrayList<Category> selectCategoryList(Connection conn) {
 		ArrayList<Category> cateList = new ArrayList<Category>();
 		Statement stmt = null;
@@ -435,6 +436,23 @@ public class ProfessorsDao {
 			close(stmt);
 		}
 		return cateList;
+
+	public int deleteProfessors(Connection conn, String userId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteProfessors");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userId);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+
 	}
 
 

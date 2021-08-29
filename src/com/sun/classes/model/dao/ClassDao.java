@@ -323,6 +323,26 @@ public class ClassDao {
 		return result;
 	}
 
+
+	public int deleteClasses(Connection conn, String classNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteClass");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, classNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+      e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+      
+      return result;
+	}
+      
+
 	public int updateStudent(Connection conn, String changeNO, String changeName) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -336,6 +356,7 @@ public class ClassDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -343,7 +364,11 @@ public class ClassDao {
 
 		return result;
 	}
+	
 
+
+	
 
 
 }
+
