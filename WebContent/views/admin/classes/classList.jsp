@@ -251,18 +251,7 @@ label, input {
 		<button onclick="location.href='form.class'">강의 추가</button>
 		
 	</div>
-	<script type="text/javascript">
 		
-	<%if (!list.isEmpty()) {%>
-		$(function() {
-			$(".listArea>tbody>tr").click(function() {
-				var bno = $(this).children().eq(0).text();
-			})
-		});
-	<%}%>
-		
-	</script>
-	
 	
 </body>
 </html>

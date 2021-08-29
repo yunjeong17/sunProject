@@ -287,7 +287,7 @@ public class ClassDao {
 			pstmt.setString(5, classes.getpId());
 			pstmt.setInt(6, classes.getClassYear());
 			pstmt.setInt(7, classes.getClassSemester());
-			
+			pstmt.setInt(8, classes.getCredit());
 
 			result=pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -364,6 +364,36 @@ public class ClassDao {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int pIdCheck(Connection conn, String pId) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("pIdCheck");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setString(1, pId);
+
+			rset = pstmt.executeQuery();
+
+			if (rset.next()) {
+				result = rset.getInt(1);
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+
 		}
 
 		return result;

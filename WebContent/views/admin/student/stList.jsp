@@ -253,13 +253,6 @@ label, input {
 		<br> <br>
 		<button onclick="location.href='form.st'">학생 추가</button>
 	</div>
-	<!-- 
-	<script type="text/javascript">
-		$(function(){
-			$(".listArea>tbody>tr").click(function(){
-				var bno = $(this).children().eq(0).text();
-			})
-		});
-	</script> -->
+	
 </body>
 </html>

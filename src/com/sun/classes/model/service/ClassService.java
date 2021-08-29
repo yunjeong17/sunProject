@@ -12,6 +12,7 @@ import java.util.Calendar;
 import com.sun.classes.model.dao.ClassDao;
 import com.sun.classes.model.vo.Classes;
 import com.sun.classes.model.vo.PageInfoclass;
+import com.sun.student.model.dao.StudentDao;
 import com.sun.student.model.vo.PageInfo;
 
 public class ClassService {
@@ -158,6 +159,17 @@ public class ClassService {
 				rollback(conn);
 			}
 			close(conn);
+			return result;
+		}
+
+
+		public int pIdCheck(String pId) {
+			Connection conn = getConnection();
+			
+			int result = new ClassDao().pIdCheck(conn,pId);
+			
+			close(conn);
+			
 			return result;
 		}
 }

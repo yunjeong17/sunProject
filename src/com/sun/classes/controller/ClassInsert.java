@@ -34,47 +34,43 @@ public class ClassInsert extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		String classNo= request.getParameter("classNo");
-		String className= request.getParameter("className");
-		String classPlace= request.getParameter("classPlace");
-		String classTypeNoin= request.getParameter("classTypeNoin");
+		String cId= request.getParameter("cId");
+		String cName= request.getParameter("cName");
+		String cPlace= request.getParameter("cPlace");
+		String type= request.getParameter("ctype");
 		String pId= request.getParameter("pId");
-		String classYearin= request.getParameter("classYearin");
-		String classSemesterin= request.getParameter("classSemesterin");
+		String eYear= request.getParameter("eYear");
+		String eSem= request.getParameter("eSemester");
+		String cre= request.getParameter("credit");
 		
-		int classTypeNo = 0;
-			if(classTypeNoin != null) {
-				classTypeNo = Integer.parseInt(classTypeNoin);
-			}
-			
 		int classYear = 0;
-			if(classYearin != null) {
-				classYear = Integer.parseInt(classYearin);
-			}
+		int credit = 0;
+		int ctype=0;
+		int semester = 0;
 		
-		int classSemester = 0;
-			if(classSemesterin != null) {
-				classSemester = Integer.parseInt(classSemesterin);
-			}
-		
-		
+		if(eYear != null && cre != null && type !=null) {
+			classYear = Integer.parseInt(eYear);
+			credit = Integer.parseInt(cre);
+			ctype = Integer.parseInt(type);
+			semester = Integer.parseInt(eSem);
+		}
 		
 		Classes classes = new Classes();
-	
-		classes.setClassNo(classNo);
-		classes.setClassName(className);
-		classes.setClassPlace(classPlace);
-		classes.setClassTypeNo(classTypeNo);
+		
+		classes.setClassNo(cId);
+		classes.setClassName(cName);
+		classes.setClassPlace(cPlace);
+		classes.setClassTypeNo(ctype);
 		classes.setpId(pId);
 		classes.setClassYear(classYear);
-		classes.setClassSemester(classSemester);
-		
+		classes.setClassSemester(semester);
+		classes.setCredit(credit);
 		
 		int result = new ClassService().insertClasses(classes);
 		
 		if(result>0) {
 			request.getSession().setAttribute("msg", "강의 등록 성공");
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect("list.class");
 		}
 		else {
 			request.setAttribute("msg", "강의 등록 실패");
