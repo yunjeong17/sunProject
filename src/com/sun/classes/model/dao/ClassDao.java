@@ -6,10 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import com.sun.classes.model.vo.Classes;
+import com.sun.classes.model.vo.PageInfoclass;
 import com.sun.common.CommonDao;
 import com.sun.student.model.vo.PageInfo;
 
@@ -126,6 +128,199 @@ public class ClassDao {
 		}
 
 		return listCount;
+	}
+	
+	//합친부분
+	public ArrayList<Classes> selectClass(Connection conn, String pId) {
+		ArrayList<Classes> list=new ArrayList<Classes>();
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		String sql=prop.getProperty("selectClass");
+		System.out.println(sql);
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, pId);
+			
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Classes c = new Classes(
+							rset.getString("CLASS_NO"),
+							rset.getString("CLASS_NAME"),
+							rset.getString("CLASS_PLACE"),
+							rset.getInt("CLASS_TYPE_NO"),
+							rset.getString("P_ID"),
+							rset.getInt("CLASS_YEAR"),
+							rset.getInt("CLASS_SEMESTER")
+						);
+				System.out.println(c.getClassNo());
+				list.add(c);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+
+		return list;
+	}
+	
+	public int getListCount(Connection conn) {
+		int listCount = 0;
+
+		Statement stmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("getListCount");
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+		}
+
+		return listCount;
+	}
+	
+	public ArrayList<Classes> classList(Connection conn, PageInfoclass pi) {
+		ArrayList<Classes> list = new ArrayList<Classes>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("classList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Classes(
+						rset.getString("CLASS_NO"),
+						rset.getString("CLASS_NAME"),
+						rset.getString("CLASS_PLACE"),
+						rset.getInt("CLASS_TYPE_NO"),
+						rset.getString("P_ID"),
+						rset.getInt("CLASS_YEAR"),
+						rset.getInt("CLASS_SEMESTER")
+						));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;	
+		}
+
+	public Classes searchClasses(Connection conn, String search) {
+		Classes classes = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("searchClass");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				classes = new Classes(
+						rset.getString("CLASS_NO")
+						,rset.getString("CLASS_NAME")
+						,rset.getString("CLASS_PLACE")
+						,rset.getInt("CLASS_TYPE_NO")
+						,rset.getString("P_ID")
+						,rset.getInt("CLASS_YEAR")
+						,rset.getInt("CLASS_SEMESTER")
+						);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		return classes;
+	}
+
+	public int insertClasses(Connection conn, Classes classes) {
+		int result=0;
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("insertClass");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, classes.getClassNo());
+			pstmt.setString(2, classes.getClassName());
+			pstmt.setString(3, classes.getClassPlace());
+			pstmt.setInt(4, classes.getClassTypeNo());
+			pstmt.setString(5, classes.getpId());
+			pstmt.setInt(6, classes.getClassYear());
+			pstmt.setInt(7, classes.getClassSemester());
+			
+
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int classNoCheck(Connection conn, String classNo) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		
+		String sql=prop.getProperty("classNoCheck");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, classNo);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result=rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+				
+		return result;
 	}
 	
 }

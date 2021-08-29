@@ -9,7 +9,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.sun.professors.model.dao.ProfessorsDao;
+import com.sun.professors.model.vo.PageInfoprof;
+import com.sun.professors.model.vo.Professors;
 import com.sun.student.model.vo.PageInfo;
+
 import com.sun.student.model.vo.Student;
 import com.sun.student.model.vo.StudentConsulting;
 
@@ -91,6 +94,98 @@ public class ProfessorsService {
 	public int getListCount(String sId) {
 		Connection conn = getConnection();
 		int listCount = new ProfessorsDao().getListCount(conn,sId);
+		
+		close(conn);
+		return listCount;
+	}
+	
+	
+	
+	//합친부분
+	public ArrayList<Professors> professorsList(PageInfoprof pi) {
+		Connection conn = getConnection();
+
+		ArrayList<Professors> list = new ProfessorsDao().professorsList(conn,pi);
+		
+		close(conn);
+		
+		return list;
+	}
+
+
+	public Professors searchProfessors(String search) {
+		Connection conn = getConnection();
+
+		Professors prof = new ProfessorsDao().searchProfessors(conn,search);
+		
+		close(conn);
+		
+		return prof;
+	}
+
+	public ArrayList<Professors> getPList() {
+		Connection conn = getConnection();
+
+		ArrayList<Professors> pList = new ProfessorsDao().getPList(conn);
+		
+		close(conn);
+		
+		return pList;
+	}
+
+	public int insertProfessors(Professors prof) {
+		Connection conn = getConnection();
+		
+		int result = new ProfessorsDao().insertProfessors(conn, prof);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public Professors professorsDetail(String userId) {
+		Connection conn = getConnection();
+
+		Professors prof = new ProfessorsDao().searchProfessors(conn,userId);
+		
+		close(conn);
+		
+		return prof;
+	}
+
+	public int updateProfessors(Professors prof) {
+		Connection conn = getConnection();
+		
+		int result = new ProfessorsDao().updateProfessors(conn,prof);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		
+		return result;
+	}
+
+	public int pIdCheck(String pId) {
+		Connection conn = getConnection();
+		
+		int result = new ProfessorsDao().pIdCheck(conn,pId);
+		
+		close(conn);
+		
+		return result;
+	}
+	
+	public int getListCount() {
+		Connection conn = getConnection();
+		int listCount = new ProfessorsDao().getListCount(conn);
 		
 		close(conn);
 		return listCount;

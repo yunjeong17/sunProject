@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8" import="java.util.*, com.sun.professors.model.vo.*"%>
 <%
 ArrayList<Professors> list = (ArrayList<Professors>) request.getAttribute("list");
-PageInfo pi = (PageInfo) request.getAttribute("pi");
+PageInfoprof pi = (PageInfoprof) request.getAttribute("pi");
 
 int listCount = pi.getListCount();
 int currentPage = pi.getCurrentPage();

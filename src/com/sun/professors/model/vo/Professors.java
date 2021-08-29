@@ -74,7 +74,17 @@ public class Professors extends User {
 		this.pEmail = pEmail;
 	}
 
+	//합친부분
+	public Professors(String userId, String userName, String cNo, String pPhone, String pEmail) {
+		super();
+		this.userId = userId;
+		this.userName = userName;
+		this.cNo = cNo;
+		this.pPhone = pPhone;
+		this.pEmail = pEmail;
+		
 	
+	} //관리자-교수 목록
 
 	
 	

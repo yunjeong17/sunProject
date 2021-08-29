@@ -149,8 +149,8 @@ div{
 	<div align="right" >
 	<ul>
 		<li><div class="menuLink" onclick="goStudentManagement();">학생 관리</div></li>
-		<li><div class="menuLink" onclick="goManageProfessors();">교수 관리</div></li>
-		<li><div class="menuLink" onclick="goManageClass();">강의 관리</div></li>
+		<li><div class="menuLink" onclick="location='<%=contextPath%>/list.prof'">교수 관리</div></li>
+		<li><div class="menuLink" onclick="location='<%=contextPath%>/list.class'">강의 관리</div></li>
 	</ul>
 	</div>
 	<%

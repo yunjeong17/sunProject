@@ -7,10 +7,13 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import com.sun.common.CommonDao;
+import com.sun.professors.model.vo.PageInfoprof;
+import com.sun.professors.model.vo.Professors;
 import com.sun.student.model.vo.PageInfo;
 import com.sun.student.model.vo.Student;
 import com.sun.student.model.vo.StudentConsulting;
@@ -195,5 +198,209 @@ public class ProfessorsDao {
 
 		return listCount;
 	}
+	
+	
+	//합친부분
+	public ArrayList<Professors> professorsList(Connection conn, PageInfoprof pi) {
+		ArrayList<Professors> list = new ArrayList<Professors>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("professorsList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new Professors(rset.getString("P_ID")											
+						,rset.getString("P_NAME")
+						,rset.getString("C_NO")
+						,rset.getString("P_PHONE")
+						,rset.getString("P_EMAIL")
+						
+						));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	public Professors searchProfessors(Connection conn, String search) {
+		Professors prof = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("searchProfessors");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, search);
+			
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				prof = new Professors(rset.getString("P_ID")
+						,rset.getString("P_NAME")
+						,rset.getString("C_NO")
+						,rset.getString("P_PHONE")
+						,rset.getString("P_EMAIL")
+						);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		return prof;
+	}
+	
+	public ArrayList<Professors> getPList(Connection conn) {
+		ArrayList<Professors> pList = new ArrayList<Professors>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		
+		String sql = prop.getProperty("getPList");
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset=pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pList.add(new Professors(
+						rset.getString("P_ID")
+						,rset.getString("P_PWD")
+						,rset.getString("P_NAME")
+						,rset.getString("C_NO")
+						,rset.getString("P_PHONE")
+						,rset.getString("P_EMAIL")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pList;
+	}
+
+	public int insertProfessors(Connection conn, Professors prof) {
+		int result=0;
+		PreparedStatement pstmt= null;
+		String sql = prop.getProperty("insertProfessors");
+		try {
+			pstmt= conn.prepareStatement(sql);
+			pstmt.setString(1, prof.getUserId());
+			pstmt.setString(2, prof.getUserPwd());
+			pstmt.setString(3, prof.getUserName());
+			pstmt.setString(4, prof.getcNo());
+			pstmt.setString(5, prof.getpPhone());
+			pstmt.setString(6, prof.getpEmail());
+
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateProfessors(Connection conn, Professors prof) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("updateProfessors");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(2, prof.getUserId());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int pIdCheck(Connection conn, String pId) {
+		int result=0;
+		PreparedStatement pstmt=null;
+		ResultSet rset=null;
+		
+		String sql=prop.getProperty("pIdCheck");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setString(1, pId);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result=rset.getInt(1);
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+			
+		}
+				
+		return result;
+	}
+	
+	public int getListCount(Connection conn) {
+		int listCount = 0;
+
+		Statement stmt = null;
+		ResultSet rset = null;
+
+		String sql = prop.getProperty("getListCount");
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(sql);
+
+			if (rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+		}
+
+		return listCount;
+	}
+
+
+	
 
 }

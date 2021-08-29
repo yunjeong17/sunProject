@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.sun.classes.model.service.ClassService;
 import com.sun.classes.model.vo.Classes;
-import com.sun.classes.model.vo.PageInfo;
+import com.sun.classes.model.vo.PageInfoclass;
 
 
 /**
@@ -106,7 +106,7 @@ public class ClassList extends HttpServlet {
 				}
 				
 				
-				PageInfo pi = new PageInfo(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
+				PageInfoclass pi = new PageInfoclass(listCount, currentPage, startPage, endPage, maxPage, pageLimit, boardLimit);
 				
 				ArrayList<Classes> list = new ClassService().classList(pi);
 				request.setAttribute("list", list);
