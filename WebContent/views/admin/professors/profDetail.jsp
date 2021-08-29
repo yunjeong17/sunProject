@@ -145,6 +145,8 @@ form{
 				%>
 			</tbody>
 		</table>
+		<br>
+		<br>
 		<button id="update-btn" type='submit'>수정</button>
 		<br>
 		
