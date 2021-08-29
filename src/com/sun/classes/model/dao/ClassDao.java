@@ -24,6 +24,7 @@ public class ClassDao {
 	}
 	
 	//userId
+
 	public ArrayList<Classes> selectClassList(Connection conn, String userId, String cName, PageInfo pi) {
 		ArrayList<Classes> list=new ArrayList<Classes>();
 		PreparedStatement pstmt=null;
@@ -47,14 +48,16 @@ public class ClassDao {
 			
 			while(rset.next()) {
 				Classes c = new Classes(
-							rset.getString("CLASS_NO"),
-							rset.getString("CLASS_NAME"),
-							rset.getString("CLASS_PLACE"),
-							rset.getString("CLASS_TYPE_NAME"),
-							rset.getString("P_ID"),
-							rset.getInt("CLASS_YEAR"),
-							rset.getInt("CLASS_SEMESTER")
-						);
+								rset.getString("CLASS_NO")
+								,rset.getString("CLASS_NAME")
+								,rset.getString("CLASS_PLACE")
+								,rset.getInt("CLASS_TYPE_NAME")
+								,rset.getString("P_NAME")
+								,rset.getInt("CLASS_YEAR")
+								,rset.getInt("CLASS_SEMESTER")
+								,rset.getInt("CREDIT")
+								);
+
 				list.add(c);
 			}
 			
@@ -70,7 +73,7 @@ public class ClassDao {
 
 		return list;
 	}
-	
+
 	//	userId와 현재 연도, 학기에 따른 클래스
 	public ArrayList<Classes> selectClassByYearAndSemester(Connection conn, String userId,int year, int semester) {
 		ArrayList<Classes> list=new ArrayList<Classes>();
@@ -216,10 +219,12 @@ public class ClassDao {
 						rset.getString("CLASS_NO"),
 						rset.getString("CLASS_NAME"),
 						rset.getString("CLASS_PLACE"),
-						rset.getInt("CLASS_TYPE_NO"),
-						rset.getString("P_ID"),
+						rset.getString("CLASS_TYPE_NAME"),
+						rset.getString("P_NAME"),
 						rset.getInt("CLASS_YEAR"),
-						rset.getInt("CLASS_SEMESTER")
+						rset.getInt("CLASS_SEMESTER"),
+						rset.getInt("CREDIT")
+
 						));
 			}
 			
@@ -251,10 +256,12 @@ public class ClassDao {
 						rset.getString("CLASS_NO")
 						,rset.getString("CLASS_NAME")
 						,rset.getString("CLASS_PLACE")
-						,rset.getInt("CLASS_TYPE_NO")
-						,rset.getString("P_ID")
+						,rset.getString("CLASS_TYPE_NAME")
+						,rset.getString("P_NAME")
 						,rset.getInt("CLASS_YEAR")
 						,rset.getInt("CLASS_SEMESTER")
+						,rset.getInt("CREDIT")
+
 						);
 			}
 		} catch (Exception e) {
@@ -323,7 +330,6 @@ public class ClassDao {
 		return result;
 	}
 
-
 	public int deleteClasses(Connection conn, String classNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
@@ -341,7 +347,6 @@ public class ClassDao {
       
       return result;
 	}
-      
 
 	public int updateStudent(Connection conn, String changeNO, String changeName) {
 		PreparedStatement pstmt = null;
@@ -356,7 +361,6 @@ public class ClassDao {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -364,11 +368,5 @@ public class ClassDao {
 
 		return result;
 	}
-	
-
-
-	
-
 
 }
-

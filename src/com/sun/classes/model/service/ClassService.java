@@ -12,18 +12,17 @@ import java.util.Calendar;
 import com.sun.classes.model.dao.ClassDao;
 import com.sun.classes.model.vo.Classes;
 import com.sun.classes.model.vo.PageInfoclass;
-import com.sun.professors.model.dao.ProfessorsDao;
 import com.sun.student.model.vo.PageInfo;
 
 public class ClassService {
-
+	/*
 	public ArrayList<Classes> selectClassList(String userId,String cName,PageInfo pi) {
 		Connection conn = getConnection();
 		ArrayList<Classes> list = new ClassDao().selectClassList(conn,userId,cName,pi);
 		close(conn);
 		return list;
 
-	}
+	}*/
 
 //	연도와학기
 	public ArrayList<Classes> selectClassByUserIdAndYearAndSemester(String userId) {
@@ -84,6 +83,7 @@ public class ClassService {
 			return list;
 		}
 
+		
 		public Classes ClassesDetail(String classNo) {
 			Connection conn = getConnection();
 
@@ -94,6 +94,7 @@ public class ClassService {
 			return classes;
 		}
 
+		
 		public Classes searchClasses(String search) {
 			Connection conn = getConnection();
 
@@ -130,6 +131,20 @@ public class ClassService {
 			return result;
 		}
 
+		public int updateStudent(String changeNO, String changeName) {
+			
+			Connection conn = getConnection();
+			
+			int result = new ClassDao().updateStudent(conn,changeNO,changeName);
+
+			if(result > 0) {
+				commit(conn);
+			}else {
+				rollback(conn);
+			}
+			
+			return result;
+		}
 
 		public int deleteClasses(String classNo) {
 			Connection conn = getConnection();
@@ -145,22 +160,4 @@ public class ClassService {
 			close(conn);
 			return result;
 		}
-
-
-		public int updateStudent(String changeNO, String changeName) {
-			
-			Connection conn = getConnection();
-			
-			int result = new ClassDao().updateStudent(conn,changeNO,changeName);
-
-
-			if(result > 0) {
-				commit(conn);
-			}else {
-				rollback(conn);
-			}
-			
-			return result;
-		}
-
 }

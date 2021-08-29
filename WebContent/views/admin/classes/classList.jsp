@@ -128,6 +128,7 @@ label, input {
 					<td class="head">담당교수</td>
 					<td class="head">개설연도</td>
 					<td class="head">개설학기</td>
+					<td class="head">학점</td>
 					
 				</tr>
 			</thead>
@@ -137,7 +138,7 @@ label, input {
 				%>
 
 				<tr>
-					<td colspan="7">존재하는 강의가 없습니다.</td>
+					<td colspan="8">존재하는 강의가 없습니다.</td>
 				</tr>
 
 				<%
@@ -150,10 +151,12 @@ label, input {
 					<td><%=classes.getClassNo()%></td>
 					<td><%=classes.getClassName()%></td>
 					<td><%=classes.getClassPlace()%></td>
-					<td><%=classes.getClassTypeNo()%></td>
-					<td><%=classes.getpId()%></td>
+					<td><%=classes.getClassTypeName()%></td>
+					<td><%=classes.getpName()%></td>
 					<td><%=classes.getClassYear()%></td>					
-					<td><%=classes.getClassSemester()%></td>					
+					<td><%=classes.getClassSemester()%></td>
+					<td><%=classes.getCredit()%></td>
+					
 				</tr>
 				<%
 				}
