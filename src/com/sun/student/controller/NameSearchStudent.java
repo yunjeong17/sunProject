@@ -1,6 +1,7 @@
 package com.sun.student.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -30,12 +31,11 @@ public class NameSearchStudent extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name= request.getParameter("name");
+		String nameSearch= request.getParameter("nameSearch");
 		
-		Student de = new StudentService().searchName(name);
-		request.setAttribute("de", de);
-		
-		request.getRequestDispatcher("views/admin/student/stName.jsp").forward(request, response);
+		ArrayList<Student> list = new StudentService().searchName(nameSearch);
+			request.setAttribute("list", list);
+			request.getRequestDispatcher("views/admin/student/stName.jsp").forward(request, response);		
 	}
 
 	/**

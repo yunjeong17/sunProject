@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.sun.student.model.service.StudentService;
 import com.sun.student.model.vo.Student;
@@ -17,14 +18,14 @@ import com.sun.user.model.vo.User;
 /**
  * Servlet implementation class StudentPersonalInsertServlet
  */
-@WebServlet("/stPersonal.save")
-public class StudentPersonalInsertServlet extends HttpServlet {
+@WebServlet("/aint.info")
+public class aintServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StudentPersonalInsertServlet() {
+    public aintServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,24 +40,22 @@ public class StudentPersonalInsertServlet extends HttpServlet {
 		
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
-		/*
 		String military = request.getParameter("military");
 		String address = request.getParameter("address");
 		String account = request.getParameter("account");
 		String bank = request.getParameter("bank");
 		String holder = request.getParameter("holder");
-		*/
 		
 		Student stp = new Student();
 		stp.setsPhone(phone);
 		stp.setsEmail(email);
-		/*stp.setMilitary(military);
+		stp.setMilitary(military);
 		stp.setAddress(address);
 		stp.setAccount(account);
 		stp.setBank(bank);
-		stp.setHolder(holder);*/
+		stp.setHolder(holder);
 
-		int result = new StudentService().stPersonalInsert(user.getUserId(), stp);
+		int result = new StudentService().aintInsert(user.getUserId(), stp);
 		
 		if(result>0) {
 			request.getSession().setAttribute("msg", "신상 정보 등록 성공");
