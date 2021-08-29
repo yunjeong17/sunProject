@@ -202,7 +202,8 @@ public class ProfessorsService {
 		close(conn);
 		
 		return cateList ;
-
+		
+	}
 	public int deleteProfessors(String userId) {
 		Connection conn = getConnection();
 		

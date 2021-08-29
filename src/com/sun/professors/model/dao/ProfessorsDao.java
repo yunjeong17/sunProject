@@ -436,7 +436,7 @@ public class ProfessorsDao {
 			close(stmt);
 		}
 		return cateList;
-
+	}
 	public int deleteProfessors(Connection conn, String userId) {
 		int result = 0;
 		PreparedStatement pstmt = null;
