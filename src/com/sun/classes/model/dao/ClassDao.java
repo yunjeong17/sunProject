@@ -322,5 +322,22 @@ public class ClassDao {
 				
 		return result;
 	}
+
+	public int deleteClasses(Connection conn, String classNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteClass");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, classNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 	
 }

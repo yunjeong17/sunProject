@@ -153,9 +153,7 @@ form{
 		
 		<div class="classUpdate" align="left">
 			<h4>강의 정보 수정하기</h4>
-			<h5>
-				강의 정보 삭제를 원하시면 <b id="oppositeClass"><mark>여기</mark></b>를 클릭하세요.
-			</h5>
+			
 				<form  id="update" action="<%=contextPath%>/update.class" method="post">
 					<input type="text" name="classNo" value="<%=classes.getClassNo()%>" hidden="true"></input>
 					<label for="pId">&nbsp;&nbsp; 강의번호 &nbsp;&nbsp; : &nbsp;&nbsp;</label><input
@@ -165,7 +163,17 @@ form{
 						&nbsp;&nbsp;&nbsp;
 					<button type="submit">수정하기</button>
 				</form>
+				
+				<h4>강의 정보 삭제</h4>
+			<form id="delete" action="<%=contextPath%>/delete.class" method="get">
+				<input type="text" name="classNo" value="<%=classes.getClassNo()%>"
+					hidden="true"></input> &nbsp;&nbsp; 위 강의 정보를 삭제하시려면
+				<button type="submit">삭제하기</button>
+				를 눌러주세요.
+			</form>
+			
 				<br><br>
+				
 			</div>
 		
 		</div>
