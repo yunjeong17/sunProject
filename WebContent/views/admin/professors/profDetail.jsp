@@ -149,11 +149,34 @@ form{
 		<br>
 		
 		<div class="profUpdate" align="left">
-			<h5>
-				교수 정보 삭제를 원하시면 <b id="oppositeProf"><mark>여기</mark></b>를 클릭하세요.
-			</h5>
+
+			<h4>교수 정보 수정하기</h4>
+			
+				<form  id="update" action="<%=contextPath%>/update.prof" method="post">
+					<input type="text" name="userId" value="<%=prof.getUserId()%>" hidden="true"></input>
+					<label for="pId">&nbsp;&nbsp; 지도교수 &nbsp;&nbsp; : &nbsp;&nbsp;</label><input
+						type="text" name="pId" placeholder="교수 ID 입력" required></input> 
+						&nbsp;&nbsp;
+						<button type="button" id="idCheckBtn" onclick="checkId();">교수 확인</button>
+						&nbsp;&nbsp;&nbsp;
+					<button type="submit">수정하기</button>
+				</form>
+				
+				<h4>교수 정보 삭제</h4>
+			<form id="delete" action="<%=contextPath%>/delete.prof" method="get">
+				<input type="text" name="userId" value="<%=prof.getUserId()%>"
+					hidden="true"></input> &nbsp;&nbsp; 위 교수 정보를 삭제하시려면
+				<button type="submit">삭제하기</button>
+				를 눌러주세요.
+			</form>
+			
+				<br><br>
+			</div>
+
+			
 			<br><br>
 		</div>
+
 			
 			<script>
 			$("#update-btn").click(function(){
