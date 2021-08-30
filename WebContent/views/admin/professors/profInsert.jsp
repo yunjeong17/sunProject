@@ -79,7 +79,7 @@ button:hover {
 				</tr>
 				<tr>
 					<td width="200px">교수번호</td>
-					<td><input type="text" maxlength="10" name="userId" disabled></td>
+					<td><input type="text" maxlength="10" name="userId" readonly></td>
 					</td>
 				</tr>
 				<tr>
