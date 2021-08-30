@@ -20,6 +20,22 @@ public class Classes {
 	
 
 
+	public Classes(String classNo, String className, String classPlace, String classTypeName, String pId,
+			int classYear, int classSemester ) {
+		super();
+		this.classNo = classNo;
+		this.className = className;
+		this.classPlace = classPlace;
+		this.pId = pId;
+		this.classYear=classYear;
+		this.classSemester = classSemester;
+		this.classTypeName = classTypeName;
+	}
+
+
+
+
+
 	public Classes(String classNo, String className, String classPlace, String classTypeName, String pName, int classYear,
 			int classSemester, int credit) {
 		super();

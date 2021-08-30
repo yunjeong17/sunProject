@@ -44,7 +44,7 @@ public class ClassList extends HttpServlet {
 				int boardLimit;			// 한 페이지에 보여질 게시글 최대 갯수
 				
 				// * listCount : 총 게시글 갯수 
-				listCount = new ClassService().getListCount();
+				listCount = new ClassService().getListAdmin();
 				
 				// * currentPage : 현재 페이지 (요청한 페이지)
 				currentPage = 1;

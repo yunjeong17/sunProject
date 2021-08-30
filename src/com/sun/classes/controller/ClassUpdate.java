@@ -44,11 +44,11 @@ public class ClassUpdate extends HttpServlet {
 		int updatest = new ClassService().updateStudent(changeNO,changeName);
 		
 		if(updatest > 0) {
-			request.getSession().setAttribute("msg", "학생 정보 수정을 성공했습니다.");
+			request.getSession().setAttribute("msg", "강의 정보 수정을 성공했습니다.");
 			response.sendRedirect("list.class");
 			
 		}else {
-			request.setAttribute("msg", "학생 정보 수정을 실패했습니다.");
+			request.setAttribute("msg", "강의 정보 수정을 실패했습니다.");
 			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
 			view.forward(request, response);
 		}

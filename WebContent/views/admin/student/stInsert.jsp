@@ -133,10 +133,10 @@ button:hover {
             $('#sSLevel').keyup(function(){
                 var regExp = /^[1-6]$/g;
                 if(!regExp.test($(this).val())){
-                    $("#nameResult").html("1-6 사이의 숫자만 입력 ㅡ_ㅡ").css("color","red");
+                    $("#nameResult").html("1-6 사이의 숫자만 입력").css("color","red");
                     $(this).focus().css("background","salmon");
                 }else{
-                    $("#nameResult").html("좋아요 ^___^").css("color","blue");
+                    $("#nameResult").html("적합").css("color","blue");
                     $(this).focus().css("background","white");
                 }
               });
@@ -149,7 +149,7 @@ button:hover {
                         $(this).focus().css("background","salmon");
                        // $('#idCheckBtn').attr('disabled');
                     }else{
-                        $("#userIdResult").html("좋아요 ^___^").css("color","blue");
+                        $("#userIdResult").html("적합, 중복 확인 필수").css("color","blue");
                         $(this).focus().css("background","white");
                         $('#idCheckBtn').removeAttr('disabled');
                     }
@@ -162,7 +162,7 @@ button:hover {
                         $(this).focus().css("background","salmon");
                        // $('#idCheckBtn').attr('disabled');
                     }else{
-                        $("#pIdResult").html("좋아요 ^___^").css("color","blue");
+                        $("#pIdResult").html("적합, 교수 번호 존재 유무 확인 필수").css("color","blue");
                         $(this).focus().css("background","white");
                         $('#pIdCheckBtn').removeAttr('disabled');
                     }
