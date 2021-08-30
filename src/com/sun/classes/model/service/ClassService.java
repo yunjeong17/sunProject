@@ -16,14 +16,14 @@ import com.sun.student.model.dao.StudentDao;
 import com.sun.student.model.vo.PageInfo;
 
 public class ClassService {
-	/*
+	
 	public ArrayList<Classes> selectClassList(String userId,String cName,PageInfo pi) {
 		Connection conn = getConnection();
 		ArrayList<Classes> list = new ClassDao().selectClassList(conn,userId,cName,pi);
 		close(conn);
 		return list;
 
-	}*/
+	}
 
 //	연도와학기
 	public ArrayList<Classes> selectClassByUserIdAndYearAndSemester(String userId) {
@@ -172,4 +172,6 @@ public class ClassService {
 			
 			return result;
 		}
+
+
 }

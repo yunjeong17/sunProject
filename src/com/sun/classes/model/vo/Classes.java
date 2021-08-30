@@ -32,7 +32,7 @@ public class Classes {
 		this.classSemester = classSemester;
 		this.credit = credit;
 	}
-
+	
 	
 	public Classes(String classNo, String className, String classPlace, int classYear, int classSemester,
 			String classTypeName, String pName, int credit) {

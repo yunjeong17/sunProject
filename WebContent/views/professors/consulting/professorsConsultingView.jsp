@@ -86,7 +86,7 @@
 	#footer-div{
 		position:fixed;
 		text-align:center;
-		height:100px; 
+		height:150px; 
 		bottom: 0;
     	width: 100%;
 	}
@@ -122,22 +122,22 @@
 					<button id="select-student-btn">선택</button>
 				</td>
 				<td><label for="consult-type" >상담 구분</label></td>
-				<td><input type="text" id="consult-type" name="consult-category"  disabled/></td>
+				<td><input type="text" id="consult-type" name="consult-category" placeholder="휴학상담"   disabled/></td>
 				<td rowspan="4"><label for="consult-content">상담 내용</label></td>
 				<td rowspan="4"><textArea id="consult-content" name="consultContent" cols="50" rows="6" style="resize: none;" disabled></textArea></td>
 				<td style="display: none;"><input type="hidden" id="consult-csNo"/></td>
 			</tr>
 			<tr>
 				<td><label for="consult-time">상담 시간</label></td>
-				<td><input type="text" id="consult-time" name="consult-time"  disabled/></td>
+				<td><input type="text" id="consult-time" name="consult-time" placeholder="1시간" disabled/></td>
 			</tr>
 			<tr>
 				<td><label for="consult-date">상담 날짜</label></td>
-				<td><input type="text" id="consult-date" name="consult-date"  disabled readonly/></td>
+				<td><input type="text" id="consult-date" name="consult-date" disabled readonly/></td>
 			</tr>
 			<tr>
 				<td><label for="consult-date">상담 방식</label></td>
-				<td><input type="text" id="consult-way" name="consult-way"  disabled/></td>
+				<td><input type="text" id="consult-way" name="consult-way" placeholder="대면"   disabled/></td>
 			</tr>
 		</table>
 		<br>
@@ -163,9 +163,12 @@
 	</table>
 	</div>
 	<div id="footer-div">
-		<button id="area-reset-btn" style="visibility:hidden;display:none;">추가하기</button>
+		
 	<div class="pagingArea" align="center">
+		
 	</div> 
+	<br>
+	<button id="area-reset-btn" style="visibility:hidden;display:none;">추가하기</button>
 	</div>
 
 	
