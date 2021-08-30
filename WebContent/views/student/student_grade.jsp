@@ -141,8 +141,8 @@
 								<% free=sdg.getClassCreditSum();%>
 							<%} %>
 							<% totalSum+=sdg.getClassCreditSum(); %>
+							
 						<%} %>
-					<%} %>
 						<td style="text-align: center;"><%= prerequisiteEss %></td>
 						<td style="text-align: center;"><%= prerequisiteSel %></td>
 						<td style="text-align: center;"><%= electiveEss %></td>
@@ -152,6 +152,8 @@
 						<td style="text-align: center;"><%= preSum %></td>
 						<td style="text-align: center;"><%= eleSum %></td>
 						<td style="text-align: center;"><%= totalSum %></td>
+					<%} %>
+						
 					</tr>
 				</tbody>
 			</table>

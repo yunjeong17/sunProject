@@ -123,7 +123,7 @@ label, input{
 				<tr>
 					<td><%=prof.getUserId() %></td>
 					<td><%=prof.getUserName() %></td>
-					<td><%=prof.getcNo() %></td>
+					<td><%=prof.getcName() %></td>
 					<td><%=prof.getpPhone() %></td>
 					<td><%=prof.getpEmail() %></td>
 					
@@ -134,8 +134,7 @@ label, input{
 		<br>
 		<div align="center">
 		<button onclick="history.go(-1)">뒤로가기</button>
-		<button onclick="location.href='insert.prof'">교수 추가</button>
-		<button onclick="location.href='update.prof'">교수 정보 수정</button>
+		
 		</div>
 	</div>
 	

@@ -60,7 +60,7 @@ button:hover {
 			<table>
 				<tr>
 					<td width="200px">식별번호</td>
-					<td><input type="text" name="cfNo" required></td>
+					<td><input type="text" name="cfNo" placeholder="정수만 입력" required></td>
 					<td><input type="text" name="sId" value="<%=loginUser.getUserId() %>" hidden="true"></td>
 				</tr>
 				<tr>
