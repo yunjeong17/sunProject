@@ -42,7 +42,7 @@ public class ProfessorsInsert extends HttpServlet {
 		String categoryNo= request.getParameter("categoryNo");
 		String pPhone= request.getParameter("pPhone");
 		String pEmail= request.getParameter("pEmail");
-		
+		System.out.println(userId);
 		
 		Professors prof = new Professors();
 		prof.setUserId(userId);
