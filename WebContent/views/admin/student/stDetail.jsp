@@ -224,7 +224,7 @@ b:hover {
                         $(this).focus().css("background","salmon");
                        // $('#idCheckBtn').attr('disabled');
                     }else{
-                        $("#pIdResult").html("좋아요 ^___^").css("color","blue");
+                        $("#pIdResult").html("적합").css("color","blue");
                         $(this).focus().css("background","white");
                         $('#idCheckBtn').removeAttr('disabled');
                     }

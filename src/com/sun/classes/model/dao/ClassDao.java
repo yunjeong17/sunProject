@@ -26,53 +26,51 @@ public class ClassDao {
 	//userId
 
 	public ArrayList<Classes> selectClassList(Connection conn, String userId, String cName, PageInfo pi) {
-		ArrayList<Classes> list=new ArrayList<Classes>();
-		PreparedStatement pstmt=null;
-		ResultSet rset=null;
-		String sql=prop.getProperty("selectClass");
-		
-		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-		int endRow = startRow + pi.getBoardLimit() - 1;
-		System.out.println(sql);
-		
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2,  cName);
-			
-			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
-			
-			System.out.println(cName);
-			rset= pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Classes c = new Classes(
-								rset.getString("CLASS_NO")
-								,rset.getString("CLASS_NAME")
-								,rset.getString("CLASS_PLACE")
-								,rset.getString("CLASS_TYPE_NAME")
-								,rset.getString("P_NAME")
-								,rset.getInt("CLASS_YEAR")
-								,rset.getInt("CLASS_SEMESTER")
-								,rset.getInt("CREDIT")
-								);
+	      ArrayList<Classes> list=new ArrayList<Classes>();
+	      PreparedStatement pstmt=null;
+	      ResultSet rset=null;
+	      String sql=prop.getProperty("selectClass");
+	      
+	      int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+	      int endRow = startRow + pi.getBoardLimit() - 1;
+	      System.out.println(sql);
+	      
+	      try {
+	         pstmt=conn.prepareStatement(sql);
+	         pstmt.setString(1, userId);
+	         pstmt.setString(2,  cName);
+	         
+	         pstmt.setInt(3, startRow);
+	         pstmt.setInt(4, endRow);
+	         
+	         System.out.println(cName);
+	         rset= pstmt.executeQuery();
+	         
+	         while(rset.next()) {
+	            Classes c = new Classes(
+	                     rset.getString("CLASS_NO"),
+	                     rset.getString("CLASS_NAME"),
+	                     rset.getString("CLASS_PLACE"),
+	                     rset.getString("CLASS_TYPE_NAME"),
+	                     rset.getString("P_ID"),
+	                     rset.getInt("CLASS_YEAR"),
+	                     rset.getInt("CLASS_SEMESTER")
+	                  );
+	            list.add(c);
+	         }
+	         
+	         
+	      } catch (SQLException e) {
+	         // TODO Auto-generated catch block
+	         e.printStackTrace();
+	      }finally {
+	         close(rset);
+	         close(pstmt);
+	         
+	      }
 
-				list.add(c);
-			}
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(rset);
-			close(pstmt);
-			
-		}
-
-		return list;
-	}
+	      return list;
+	   }
 
 	//	userId와 현재 연도, 학기에 따른 클래스
 	public ArrayList<Classes> selectClassByYearAndSemester(Connection conn, String userId,int year, int semester) {
@@ -138,7 +136,7 @@ public class ClassDao {
 		ArrayList<Classes> list=new ArrayList<Classes>();
 		PreparedStatement pstmt=null;
 		ResultSet rset=null;
-		String sql=prop.getProperty("selectClass");
+		String sql=prop.getProperty("adminClass");
 		System.out.println(sql);
 		try {
 			pstmt=conn.prepareStatement(sql);
@@ -173,13 +171,13 @@ public class ClassDao {
 		return list;
 	}
 	
-	public int getListCount(Connection conn) {
+	public int getListAdmin(Connection conn) {
 		int listCount = 0;
 
 		Statement stmt = null;
 		ResultSet rset = null;
 
-		String sql = prop.getProperty("getListCount");
+		String sql = prop.getProperty("getListadmin");
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(sql);

@@ -61,7 +61,7 @@ button:hover {
 			<table>
 				<tr>
 					<td width="200px">강의번호</td>
-					<td><input type="text" maxlength="5" name="cId" required></td>
+					<td><input type="text" maxlength="5" name="cId" placeholder = "L4011" required></td>
 					<td  width="200px"><button type="button" id="idCheckBtn" onclick="checkId();">중복확인</button>
 					</td>
 				</tr>
@@ -90,20 +90,20 @@ button:hover {
 					</tr>
 				<tr> <!-- 교수 체크 -->
 					<td width="200px">담당교수</td>
-					<td width="200px"><input type="text" name="pId" required></td>
-					<td  width="200px"><button type="button" id="pIdCheckBtn" onclick="checkpId();">교수확인</button>
+					<td width="200px"><input type="text" name="pId" placeholder="P40101" required></td>
+					<td  width="200px"><button type="button" id="pIdCheckBtn"  onclick="checkpId();">교수확인</button>
 				</tr>
 					<tr>
 						<td width="200px">개설연도</td>
-						<td width="200px"><input type="text" name="eYear" required></td>
+						<td width="200px"><input type="text" name="eYear" placeholder="정수만 입력"required></td>
 					</tr>
 				<tr>
 					<td width="200px">개설학기</td>
-					<td width="200px"><input type="text" name="eSemester" required></td>
+					<td width="200px"><input type="text" name="eSemester" placeholder="정수만 입력" required></td>
 				</tr>
 				<tr>
 					<td width="200px">학점</td>
-					<td width="200px"><input type="text" name="credit" required></td>
+					<td width="200px"><input type="text" name="credit" placeholder="정수만 입력" required></td>
 				</tr>
 				
 				

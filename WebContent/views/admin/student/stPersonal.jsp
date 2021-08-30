@@ -128,7 +128,7 @@
                     $("#phoneResult").html("'-' 를 포함한 정확한 번호 입력").css("color","red");
                     $(this).focus().css("background","salmon");
                 }else{
-                    $("#phoneResult").html("좋아요 ^___^").css("color","blue");
+                    $("#phoneResult").html("적합").css("color","blue");
                     $(this).focus().css("background","white");
                 }
               });
@@ -140,7 +140,7 @@
                     $("#emailResult").html("정확한 이메일 입력").css("color","red");
                     $(this).focus().css("background","salmon");
                 }else{
-                    $("#emailResult").html("좋아요 ^___^").css("color","blue");
+                    $("#emailResult").html("적합").css("color","blue");
                     $(this).focus().css("background","white");
                 }
               });
