@@ -204,7 +204,7 @@
 
 
 	$(function(){
-		let cPage;
+		let cPage=1;
 		$.datepicker.setDefaults($.datepicker.regional['ko']); 
 	    $("#consult-date" ).datepicker({
 	         changeMonth: true, 
