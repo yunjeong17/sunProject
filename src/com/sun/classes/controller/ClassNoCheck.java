@@ -31,8 +31,8 @@ public class ClassNoCheck extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String classNo = request.getParameter("classNo");
-		int result = new ClassService().classNoCheck(classNo);
+		String cId = request.getParameter("cId");
+		int result = new ClassService().classNoCheck(cId);
 		
 		PrintWriter out = response.getWriter();
 		if(result>0) {
