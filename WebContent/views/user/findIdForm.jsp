@@ -96,6 +96,15 @@ table {
 				</tr>
 			</table>
 			<br> <br>
+
+			<div class="btns" align="center">
+				<button id="find-btn" onclick="checkNull();"><B>학번/교원번호 찾기</B></button>
+			</div>
+
+		</form>
+	</div>
+
+
 	</form>
 </div>	
 
