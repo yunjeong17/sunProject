@@ -116,6 +116,7 @@ button:hover {
 		</form>
 	</div>
 	<script>
+	/*
 		function joinValidate(){
 				
 				if(!(/^[a-z][a-z\d]{3,11}$/i.test($("#enrollForm input[name=userId]").val()))){
@@ -130,32 +131,33 @@ button:hover {
 				 
 				 return true;
 						
-			}
+			}*/
 	
 			function checkId() {
-				var userId = $("#enrollForm input[name=userId]");
-				if (userId.val() == "") {
+				var cId = $("#enrollForm input[name=cId]");
+				if (cId.val() == "") {
 					alert("강의번호를 입력해주세요.");
 					return false;
 				}
 				$.ajax({
-					url : "idCheck.me",
+					url : "noCheck.class",
 					type : "post",
 					data : {
-						userId : userId.val()
+						cId : cId.val()
 					},
 					success : function(result) {
 						if (result == "fail") {
 							alert("사용할 수 없는 강의번호입니다.");
-							userId.focus();
-							userId.val("");
+							cId.focus();
+							cId.val("");
 						} else {
 							if (confirm("사용할 수 있는 강의번호입니다. 사용하시겠습니까?")) {
-								userId.attr("readonly", "true");
+								cId.attr("readonly", "true");
 								$("#joinBtn").removeAttr("disabled");
 							} else {
-								userId.focus();
+								cId.focus();
 							}
+							
 
 						}
 					},
