@@ -81,16 +81,16 @@ table {
 				<input type="radio" name="tableName" value="Student"  checked="checked">학생</input></td>
 			</tr>
 			<tr>
-				<td><label for="userId" id="userIdLabel">학번/교원번호</label>
+				<th><label for="userId" id="userIdLabel">학번/교원번호</label></th>
 				<td colspan="2"><input type="text" name="userId" id="userId"></td>
 			</tr>
 			<tr>
-				<td><label for="userName">이름</label>
+				<th><label for="userName">이름</label></th>
 				<td colspan="2"><input type="text" name="userName" id="userName"></td>
 
 			</tr>
 			<tr>
-				<td><label for="userEmail">이메일</label></td>
+				<th><label for="userEmail">이메일</label></th>
 				<td colspan="2"><input type="email" name="userEmail" id="userEmail"></td>
 			</tr>
 		</table>	
