@@ -8,7 +8,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>순대학교 학사 관리 시스템</title>
+<link href="resources/images/sunIcon.png" rel="shortcut icon" type="image/x-icon">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
 var flag= "<%=flag%>";
@@ -23,35 +24,57 @@ $(function(){
 })
 </script>
 <style>
+body{
+	background-color:#f0ffff;
+}
 button {
+	margin-bottom:10px;
 	border-style: groove;
-	border-radius: 10px;
-	background: white;
+	border-radius: 20px;
+	border:1px #ffd400;
+	background: #ffd400;
 	margin: left;
+	color: white;
+	width:150px;
+	height: 30px;
+}
+#find{
+	background-color:navy;
+	color:white;
+	font-weight:800px;
+	border: 3px solid navy;
+}
+#resetPwdForm{
+	margin:auto;
+	background-color:white;
+}
+table{
+	margin-left: 25%;
 }
 </style>
 </head>
 <body>
-<b>비밀번호 초기화</b>
+<div id="find"><b> > 비밀번호 초기화</b></div>
 	<br>
 	
 	<form id="resetPwdForm" action="<%=request.getContextPath()%>/resetPwd.us" method="post">
 		<table>
 			<tr>
-				<td><label>교원/학생</label></td>
-				<td><input type="radio" name="tableName" value="Professors">교원</input></td>
-				<td><input type="radio" name="tableName" value="Student"  checked="checked">학생</input></td>
+				<th><label>교원/학생</label></th>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<td><input type="radio" name="tableName" value="Professors">교원</input>&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="tableName" value="Student"  checked="checked">학생</input></td>
 			</tr>
 			<tr>
-				<td><label for="userId" id="userIdLabel">학번/교원번호</label>
+				<th><label for="userId" id="userIdLabel">학번/교원번호</label></th>
 				<td><input type="text" name="userId" id="userId"></td>
 			</tr>
 			<tr>
-				<td><label for="userName">이름</label>
+				<th><label for="userName">이름</label></th>
 				<td><input type="text" name="userName" id="userName"></td>
 			</tr>
 			<tr>
-				<td><label for="userEmail">이메일</label></td>
+				<th><label for="userEmail">이메일</label></th>
 				<td><input type="email" name="userEmail" id="userEmail"></td>
 			</tr>
 		</table>	
@@ -59,7 +82,7 @@ button {
 		<br>
 		
 		<div class="btns" align="center">
-			<button id="find-btn"  onclick="checkNull();">학번/교원번호 찾기</button>
+			<button id="find-btn"  onclick="checkNull();"><B>비밀번호 초기화</B></button>
 		</div>
 
 	</form>

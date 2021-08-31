@@ -11,7 +11,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>순대학교 학사 관리 시스템</title>
+<link href="resources/images/sunIcon.png" rel="shortcut icon" type="image/x-icon">
+</head>
 <style>
 	.outer{
        width: 1400px;
@@ -77,7 +79,7 @@
 				<th style="text-align: center;">학번</th>
 				<td><%=st.getUserId() %></td>
 				<th style="text-align: center;">이름</th>
-				<td><%=st.getcName() %></td>
+				<td><%=st.getUserName() %></td>
 				<th style="text-align: center;">학년</th>
 				<td><%=st.getsLevel() %></td>
 			</tr>

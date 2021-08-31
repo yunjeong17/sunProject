@@ -35,13 +35,10 @@ public class StudentGradeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		User user=(User)request.getSession().getAttribute("loginUser");
-		ArrayList<StudentSemeterGrade> Sarr = (ArrayList<StudentSemeterGrade>)request.getSession().getAttribute("Sarr");
 		
 		ArrayList<StudentDivisionGrade> list = new StudentService().student_divisionGrade(user.getUserId());
 		ArrayList<StudentSemeterGrade> SList = new StudentService().student_semesterGrade(user.getUserId());
 		ArrayList<StudentEarnCredit> EList = new StudentService().student_earnCredit(user.getUserId());
-		
-		
 		ArrayList<StudentSemeterGrade> rank =  new StudentService().student_rank(user.getUserId());
 		
 		

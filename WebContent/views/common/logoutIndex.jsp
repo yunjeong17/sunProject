@@ -4,16 +4,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<title>순대학교 학사 관리 시스템</title>
+<link href="resources/images/sunIcon.png" rel="shortcut icon"
+	type="image/x-icon">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
-<!--
-login이 안 되어있을 때의 style 
--->
 body {
-	background-color: #dae6f0;
+	background-image: url('resources/images/loginBackground.png');
+	background-size: cover;
 }
-
+.outer {
+	width:1200px;
+	margin: auto;
+	margin-top:3%;
+	
+}
 form {
 	margin-top: 20px;
 	margin-left: 100px;
@@ -23,66 +29,61 @@ td {
 	padding-top: 10px;
 	padding-right: 8px;
 }
-
-span {
-	color: black;
-}
-
-#find-div>a {
-	color: white;
-	display: block;
-}
-
 #main-container {
-	position: absolute;
-	display: inline-block;
-	margin-top: 100px;
-	margin-left: 100px;
+	margin-left: 10%;
 	width: 500px;
-	height: 500px;
-	background-color: #63718b;
+	height: 350px;
+	border: 1px solid #f0ffff;
+	background-color: #f0ffff;
+	display:inline-block;
 }
-
+#login-text {
+	font-size: 75px;
+	margin-top: 50px;
+	margin-left:30px;
+}
 #main-logo, #main-img {
 	display: block;
 }
-
-#main-div {
-	display: inline-block;
-	margin-top: 100px;
-	margin-left: 200px;
+p{
+	display:inline-block;
 }
-
-#login-btn {
-	height: 70px;
-	width: 70px;
-	background-color: #ffffff;
-	border: 0;
-	outline: 0;
-	border-radius: 4px;
-}
-
 #lock-div {
-	margin-top: 120px;
-	margin-left: 100px;
+	margin-top: 50px;
+	margin-left: 10px;
 }
-
-#login-text {
-	font-size: 70px;
-}
-
 #lock-img {
 	display: inline-block;
 	vertical-align: text-bottom;
 }
-
-#find-div {
-	margin-left: 100px;
-	margin-top: 20px;
+#serviceZone{
+	position:absolute;
+	left:49%;
+	top:35%;
 }
+#find-div{
+	width:400px;
+	height: 200px;
+	display:inline-block;
+	border-radius: 20px;
+	background-color: navy;
+	text-align:center;
+}
+#service-text{
+	font-size: 50px;
+	color: white;
+}
+#login-btn{
+	width:80px;
+	height:80px;
+	border-radius:50%;
+	background-color: #ffd400;
+	color:white;
+	border: 1px #ffd400;
+}
+
 </style>
 <script>
-
 	function loginVaildate() {
 		if ($("#userId").val().trim().length == 0) {
 			alert("아이디를 입력하세요");
@@ -99,39 +100,45 @@ span {
 </script>
 </head>
 <body>
-	<div>
+	<div class="outer">
 		<div id="main-div">
 			<img id="main-logo" src="resources/images/sunLogo1.png" alt=""
-				width="200px"> <img id="main-img"
-				src="resources/images/sunUni.jpg" alt="" width="500px">
+				width="200px">
 		</div>
 		<div id="main-container">
 			<div id="lock-div">
-				<img id="lock-img" src="resources/images/lock.png" alt=""
-					width="100px"> <span id="login-text">LOGIN</span>
+				 <span id="login-text" style="color:#ffd400;"><B>LOGIN</B></span>
+				<p style="font-size: 15px;">
+					순대학교 <d style="color:navy;"><B>학사관리시스템</B></d>에<br> 오신 것을 환영합니다
+				</p>
 			</div>
-
 			<form id="loginForm" action="<%=request.getContextPath()%>/login"
 				method="post" onsubmit="return loginVaildate();">
 				<table>
 					<tr>
-						<th><label for="userId">아이디</label></th>
-						<td><input type="text" id="userId" name="userId"></td>
+						<th><img id="lock-img" src="resources/images/loginIcon.png" alt=""></th>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" id="userId" name="userId" placeholder="아이디"></td>
 
-						<td rowspan="2"><button type="submit" id="login-btn">LOGIN</button></td>
+						<td rowspan="2">&nbsp;&nbsp;&nbsp;&nbsp;<button type="submit" id="login-btn"><B>LOGIN</B></button></td>
 					</tr>
 					<tr>
-						<th><label for="userPwd">비밀번호</label></th>
-						<td><input type="password" id="userPwd" name="userPwd"></td>
+						<th><img id="lock-img" src="resources/images/pwdIcon.png" alt=""></th>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" id="userPwd" name="userPwd" placeholder="비밀번호"></td>
 					</tr>
 				</table>
 			</form>
-
+		</div>
+		<div id="serviceZone">
 			<div id="find-div">
-				<a onclick="findId();">>학번/교직원 번호 찾기</a> <a onclick="resetPwd();">>비밀번호
-					초기화 </a>
+			<span id="service-text"><B>ServiceZone</B></span>
+				<br><br>
+				<img id="lock-img" src="resources/images/foundID.png" alt="">
+				<a onclick="findId();" style="text-align:left;"><B>학번/교직원 번호 찾기</B></a><br>
+				<br>
+				<img id="lock-img" src="resources/images/foundPWD.png" alt=""> 
+				<a onclick="resetPwd();"><B>비밀번호 초기화</B> </a>
 			</div>
 		</div>
-	</div>
+		
 </body>
 </html>
