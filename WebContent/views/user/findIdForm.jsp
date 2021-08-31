@@ -8,12 +8,11 @@ String flag = (String) request.getAttribute("flag");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>순대학교 학사 관리 시스템</title>
-<link href="resources/images/sunIcon.png" rel="shortcut icon"
-	type="image/x-icon">
 
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<title>순대학교 학사 관리 시스템</title>
+<link href="resources/images/sunIcon.png" rel="shortcut icon" type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <script>
 var uId="<%=uId%>";
 $(function(){
@@ -55,11 +54,28 @@ button {
 table{
 	margin-left: 28%;
 }
+
+h1{
+	font-size:14px;
+	background-color:#00205b;
+	color:white;
+	padding-top:4px;
+	padding-bottom:4px;
+}
+#content{
+	text-align:center;
+}
+table {
+    margin:auto; 
+}
 </style>
 </head>
 <body>
+
 	<div id="find"><b> > 학번/교원번호 찾기</b></div>
+
 	<br>
+
 	<div class="outer">
 		<form id="findIdForm" action="<%=request.getContextPath()%>/findId.us"
 			method="post">
@@ -81,12 +97,38 @@ table{
 			</table>
 			<br> <br>
 
+	<form id="findIdForm" action="<%=request.getContextPath()%>/findId.us" method="post">
+		<table>
+			<tr>
+				<td><label>교원/학생</label></td>
+				<td><input type="radio" name="tableName" value="Professors">교원</input></td>
+				<td><input type="radio" name="tableName" value="Student"  checked="checked">학생</input></td>
+			</tr>
+			<tr>
+				<td><label for="userName">이름</label>
+				<td colspan="2"><input type="text" name="userName" id="userName"></td>
+			</tr>
+			<tr>
+				<td><label for="userEmail">이메일</label></td>
+				<td colspan="2"><input type="email" name="userEmail" id="userEmail"></td>
+			</tr>
+		</table>	
+		<br>
+		
+		<div class="btns" align="center">
+			<button id="find-btn"  onclick="checkNull();">학번/교원번호 찾기</button>
+		</div>
+
 			<div class="btns" align="center">
 				<button id="find-btn" onclick="checkNull();"><B>학번/교원번호 찾기</B></button>
 			</div>
 
 		</form>
 	</div>
+
+
+	</form>
+</div>	
 
 	<script type="text/javascript">
 		function checkNull() {

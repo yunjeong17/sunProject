@@ -96,23 +96,30 @@ label, input {
 	color: rgb(2, 34, 89);
 }
 
-form{
-	margin:auto;
+form {
+	margin: auto;
 }
 
- b:hover{
- 	text-decoration : underline;
- }
+b:hover {
+	text-decoration: underline;
+}
+
+#getsIdResult{
+	margin-left: 190px;
+}
 </style>
 </head>
 <body>
 	<%@ include file="/views/common/menubar.jsp"%>
 	<br>
 	<h4 align="center">학생 정보 수정</h4>
-	<h5 align="center">학생 목록으로 돌아가시려면 <b id = "back" onclick="location.href='list.st'"><mark>여기</mark></b>를 클릭하세요</h5>
+	<h5 align="center">
+		학생 목록으로 돌아가시려면 <b id="back" onclick="location.href='list.st'"><mark>여기</mark></b>를
+		클릭하세요
+	</h5>
 	<div class="wrap" align="center">
 		<table>
-			<thead> 
+			<thead>
 				<tr>
 					<td class="head">학번</td>
 					<td class="head">이름</td>
@@ -122,7 +129,7 @@ form{
 					<td class="head">지도교수</td>
 				</tr>
 			</thead>
-			<tbody class = "st">
+			<tbody class="st">
 				<%
 				if (st == null) {
 				%>
@@ -150,23 +157,30 @@ form{
 		<br>
 		<div class="stUpdate" align="left">
 			<h4>학생 정보 수정하기</h4>
-				<form  id="update" action="<%=contextPath%>/update.st" method="post">
-					<input type="text" name="userId" value="<%=st.getUserId()%>" hidden="true"></input>
-					<label for="pId">&nbsp;&nbsp; 지도교수 &nbsp;&nbsp; : &nbsp;&nbsp;</label><input
-						type="text" name="pId" placeholder="교수 ID 입력" required></input> 
-						&nbsp;&nbsp;
-						<button type="button" id="idCheckBtn" onclick="checkId();">교수 확인</button>
-						&nbsp;&nbsp;&nbsp;
-					<button type="submit">수정하기</button>
-				</form>
-		<br>
+			<form id="update" action="<%=contextPath%>/update.st" method="post">
+				<input type="text" name="userId" value="<%=st.getUserId()%>"
+					hidden="true"></input> <label for="pId">&nbsp;&nbsp; 지도교수
+					&nbsp;&nbsp; : &nbsp;&nbsp;</label><input type="text" id="pId" name="pId"
+					placeholder="교수 ID 입력" required></input> &nbsp;&nbsp;
+				<button type="button" id="idCheckBtn" class="stBtns" onclick="checkId();" disabled>교수
+					확인</button>
+				&nbsp;&nbsp;&nbsp;
+				<button type="submit" class="stBtns" id="alter" disabled>수정하기</button>
+				&nbsp;&nbsp;&nbsp;
+				<label id="pIdResult"></label>
+			</form>
+			<br>
 			<h4>학생 정보 삭제</h4>
-				<form id="delete" action="<%=contextPath%>/delete.st" method="get">
-					<input type="text" name="userId" value="<%=st.getUserId()%>" hidden="true"></input>
-					&nbsp;&nbsp; 위 학생 정보를 삭제하시려면 <button type="submit">삭제하기</button> 를 눌러주세요.
-				</form>
-				</div>
-				<br><br>	
+			<form id="delete" action="<%=contextPath%>/delete.st" method="get">
+				<input type="text" name="userId" value="<%=st.getUserId()%>"
+					hidden="true"></input> &nbsp;&nbsp; 위 학생 정보를 삭제하시려면
+				<button type="submit">삭제하기</button>
+				를 눌러주세요.
+			</form>
+		</div>
+		<br>
+		<br>
+		
 		<script>
 		function checkId() {
 				var pId = $("#update input[name=pId]");
@@ -184,7 +198,7 @@ form{
 						if (result == "fail") {
 							if (confirm("존재하는 지도교수입니다. 사용하시겠습니까?")) {
 								pId.attr("readonly", "true");
-							//$("#joinBtn").removeAttr("disabled");
+								$("#alter").removeAttr("disabled");
 							} else {
 								pId.focus();
 							}
@@ -201,9 +215,27 @@ form{
 				})
 			}
 		</script>
-		
+		<script>
+        $(function(){
+
+		 $('#pId').keyup(function(){
+                    var regExp3 = /^[P0-9]{6}$/g;
+                    if(!regExp3.test($(this).val())){
+                        $("#pIdResult").html("P로 시작한 이후 숫자만 입력").css("color","red");
+                        $(this).focus().css("background","salmon");
+                       // $('#idCheckBtn').attr('disabled');
+                    }else{
+                        $("#pIdResult").html("적합").css("color","blue");
+                        $(this).focus().css("background","white");
+                        $('#idCheckBtn').removeAttr('disabled');
+                    }
+                  })
+                  
+        })
+		</script>
+
 		<hr>
-		
+
 		<!-- 학적 -->
 		<h4 align="center">학적 변동 사항 수정</h4>
 		<br>
@@ -254,21 +286,44 @@ form{
 			<br>
 			<h4>학적 수정하기</h4>
 			<h5>
-				학적 추가를 원하시면 <b onclick= "location.href='form.fl'"><mark>여기</mark></b>를 클릭하세요.
+				학적 추가를 원하시면 <b onclick="location.href='form.fl'"><mark>여기</mark></b>를
+				클릭하세요.
 			</h5>
-				<form  action="<%=contextPath%>/update.fl" method="post">
-					<input type="text" name="getsId" value="<%=st.getUserId()%>" hidden="true"></input>
-						<label for="flNo"> &nbsp;&nbsp; 식별번호 &nbsp;&nbsp; : &nbsp;&nbsp;</label> <input
-						type="text" maxlength="2" name="flNo" placeholder="변경할 학적의 식별번호" required></input> <label
-						for="flChange">&nbsp;&nbsp; 변동사항 &nbsp;&nbsp; :
-						&nbsp;&nbsp;</label> <input type="text" name="flChange" required></input>
-					<label for="flReason">&nbsp;&nbsp; 변동사유 &nbsp;&nbsp; :
-						&nbsp;&nbsp;</label> <input type="text" name="flReason" required></input>
-					&nbsp;&nbsp;&nbsp;&nbsp;
-					<button type="submit">수정하기</button>
-				</form>
-			</div>
+			<form action="<%=contextPath%>/update.fl" method="post">
+				<input type="text" name="getsId" value="<%=st.getUserId()%>"
+					hidden="true"></input> <label for="flNo"> &nbsp;&nbsp; 식별번호
+					&nbsp;&nbsp; : &nbsp;&nbsp;</label> <input type="text" maxlength="2"
+					id="flNo" name="flNo" placeholder="변경할 학적의 식별번호" required></input> <label
+					for="flChange">&nbsp;&nbsp; 변동사항 &nbsp;&nbsp; :
+					&nbsp;&nbsp;</label> <input type="text" name="flChange" required></input> <label
+					for="flReason">&nbsp;&nbsp; 변동사유 &nbsp;&nbsp; :
+					&nbsp;&nbsp;</label> <input type="text" name="flReason" required></input>
+				&nbsp;&nbsp;&nbsp;&nbsp;
+				<button type="submit" id= "hey" disabled>수정하기</button>
+				<br>
+				<label id="getsIdResult"></label>
+			</form>
 		</div>
-		<br><br>
+	</div>
+	<script>
+        $(function(){
+
+		 $('#flNo').keyup(function(){
+                    var regExp3 = /^[1-9]$/g;
+                    if(!regExp3.test($(this).val())){
+                        $("#getsIdResult").html("숫자만 입력").css("color","red");
+                        $(this).focus().css("background","salmon");
+                       // $('#idCheckBtn').attr('disabled');
+                    }else{
+                        $("#getsIdResult").html("적합").css("color","blue");
+                        $(this).focus().css("background","white");
+                        $('#hey').removeAttr('disabled');
+                    }
+                  })
+                  
+        })
+		</script>
+	<br>
+	<br>
 </body>
 </html>

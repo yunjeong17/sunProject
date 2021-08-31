@@ -51,12 +51,27 @@ button {
 table{
 	margin-left: 25%;
 }
+
+h1{
+	font-size:14px;
+	background-color:#00205b;
+	color:white;
+	padding-top:4px;
+	padding-bottom:4px;
+}
+#content{
+	text-align:center;
+}
+table {
+    margin:auto; 
+}
 </style>
 </head>
 <body>
+
 <div id="find"><b> > 비밀번호 초기화</b></div>
 	<br>
-	
+
 	<form id="resetPwdForm" action="<%=request.getContextPath()%>/resetPwd.us" method="post">
 		<table>
 			<tr>
@@ -66,19 +81,19 @@ table{
 				<input type="radio" name="tableName" value="Student"  checked="checked">학생</input></td>
 			</tr>
 			<tr>
-				<th><label for="userId" id="userIdLabel">학번/교원번호</label></th>
-				<td><input type="text" name="userId" id="userId"></td>
+				<td><label for="userId" id="userIdLabel">학번/교원번호</label>
+				<td colspan="2"><input type="text" name="userId" id="userId"></td>
 			</tr>
 			<tr>
-				<th><label for="userName">이름</label></th>
-				<td><input type="text" name="userName" id="userName"></td>
+				<td><label for="userName">이름</label>
+				<td colspan="2"><input type="text" name="userName" id="userName"></td>
+
 			</tr>
 			<tr>
-				<th><label for="userEmail">이메일</label></th>
-				<td><input type="email" name="userEmail" id="userEmail"></td>
+				<td><label for="userEmail">이메일</label></td>
+				<td colspan="2"><input type="email" name="userEmail" id="userEmail"></td>
 			</tr>
 		</table>	
-		<br>
 		<br>
 		
 		<div class="btns" align="center">
@@ -86,9 +101,10 @@ table{
 		</div>
 
 	</form>
-	
+
 	<script type="text/javascript">
 		function checkNull(){
+			const userId = $("#userId");
 			const userName = $("#userName");
 			const userEmail= $("#userEmail");
 			if(userId.val().trim()==""){

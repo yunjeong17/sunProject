@@ -119,7 +119,7 @@ public class StudentService {
 			commit(conn);
 		}else {
 			rollback(conn);
-		}
+		}  
 		
 		return result;
 	}
@@ -223,14 +223,15 @@ public class StudentService {
 		return result;
 	}
 
-	public Student searchName(String name) {
+	public ArrayList<Student> searchName(String name) {
+		
 		Connection conn = getConnection();
 
-		Student st = new StudentDao().searchName(conn,name);
+		ArrayList<Student> list = new StudentDao().searchName(conn,name);
 		
 		close(conn);
 		
-		return st;
+		return list;
 	}
 
   
@@ -340,6 +341,20 @@ public class StudentService {
     
 		return list;
   }
+
+	public int aintInsert(String userId, Student stp) {
+		int result=0;
+		Connection conn = getConnection();
+
+		result=new StudentDao().aintInsert(conn,stp,userId);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		
+		close(conn);
+		
+		return result;
+	}
 
 
 }

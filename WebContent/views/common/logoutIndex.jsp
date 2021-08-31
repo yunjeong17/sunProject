@@ -5,10 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>순대학교 학사 관리 시스템</title>
-<link href="resources/images/sunIcon.png" rel="shortcut icon"
-	type="image/x-icon">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="resources/images/sunIcon.png" rel="shortcut icon" type="image/x-icon">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <style>
 body {
 	background-image: url('resources/images/loginBackground.png');
@@ -139,6 +138,17 @@ p{
 				<a onclick="resetPwd();"><B>비밀번호 초기화</B> </a>
 			</div>
 		</div>
-		
+
+
+	</div>
+	<script>
+	function findId(){
+		window.open("<%=request.getContextPath()%>/findIdForm.us","아이디 찾기","width=500, height=300");
+	}
+	function resetPwd(){
+		window.open("<%=request.getContextPath()%>/resetPwdForm.us","비밀번호 초기화","width=500, height=300");
+	}
+	</script>
+
 </body>
 </html>

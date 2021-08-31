@@ -31,7 +31,6 @@ public class ProfessorsDeleteConsulting extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String csNo = request.getParameter("csNo");
-		System.out.println("delete!!!!!!");
 		int result = new ProfessorsService().deleteConsulting(Integer.parseInt(csNo));
 		
 		PrintWriter out = response.getWriter();

@@ -122,22 +122,22 @@
 					<button id="select-student-btn">선택</button>
 				</td>
 				<td><label for="consult-type" >상담 구분</label></td>
-				<td><input type="text" id="consult-type" name="consult-category"  disabled/></td>
+				<td><input type="text" id="consult-type" name="consult-category" placeholder="휴학상담"   disabled/></td>
 				<td rowspan="4"><label for="consult-content">상담 내용</label></td>
 				<td rowspan="4"><textArea id="consult-content" name="consultContent" cols="50" rows="6" style="resize: none;" disabled></textArea></td>
 				<td style="display: none;"><input type="hidden" id="consult-csNo"/></td>
 			</tr>
 			<tr>
 				<td><label for="consult-time">상담 시간</label></td>
-				<td><input type="text" id="consult-time" name="consult-time"  disabled/></td>
+				<td><input type="text" id="consult-time" name="consult-time" placeholder="1시간" disabled/></td>
 			</tr>
 			<tr>
 				<td><label for="consult-date">상담 날짜</label></td>
-				<td><input type="text" id="consult-date" name="consult-date"  disabled/></td>
+				<td><input type="text" id="consult-date" name="consult-date" disabled readonly/></td>
 			</tr>
 			<tr>
 				<td><label for="consult-date">상담 방식</label></td>
-				<td><input type="text" id="consult-way" name="consult-way"  disabled/></td>
+				<td><input type="text" id="consult-way" name="consult-way" placeholder="대면"   disabled/></td>
 			</tr>
 		</table>
 		<br>
@@ -163,16 +163,44 @@
 	</table>
 	</div>
 	<div id="footer-div">
-		<button id="area-reset-btn">추가하기</button>
+		
 	<div class="pagingArea" align="center">
+		
 	</div> 
+	<br>
+	<button id="area-reset-btn" style="visibility:hidden;display:none;">추가하기</button>
 	</div>
 
 	
 	<br>
 
 	<script>
-
+	function nullCheck(){
+		if($("#consult-type").val()==""){
+			alert("상담 구분이 비어있습니다.");
+			return false;
+		}
+		else if($("#consult-content").val()==""){
+			alert("상담 내용이 비어있습니다.");
+			return false;
+		}
+		else if($("#consult-time").val()==""){
+			alert("상담 시간이 비어있습니다.");
+			return false;
+		}
+		else if($("#consult-date").val()==""){
+			alert("상담 날짜가 비어있습니다.");
+			return false;
+		}
+		else if($("#consult-way").val()==""){
+			alert("상담 방식이 비어있습니다.");
+			return false;
+		}
+		
+		return true;
+		
+		
+	}
 
 
 	$(function(){
@@ -222,13 +250,13 @@
 			$("#consult-way").val(way);
 			$("#consult-csNo").val(csNo);
 			
- 
+			setDisabledInput(false);
 		});
 
 		
 		/* 추가하기 버튼 눌렀을 때 */
 		$("#area-reset-btn").click(function(){
-
+	
 			$('#delete-btn').css('display','none');
 			$('#update-btn').css('display','none');
 			$('#insert-btn').css('display','inline-block');
@@ -245,31 +273,38 @@
 		
 		/* 추가 버튼 눌렀을때*/
 		$("#insert-btn").click(function(){
-			$.ajax({
-				url:"insertConsulting.pr",
-				data:{
-					sId:$("#studentId").val(),
-					type:$("#consult-type").val(),
-					content:$("#consult-content").val(),
-					time:$("#consult-time").val(),
-					date:$("#consult-date").val(),
-					way:$("#consult-way").val()
-				},
-				type:"post",
-				success:function(){
-					selectConsultingList(cPage);
-					alert("저장이 완료되었습니다.");
-				},
-				error:function(){
-					console.log("ajax 통신 실패");
-				}
-			});
+			let check=nullCheck();
+			console.log("check:"+check);
+			if(check){
+				$.ajax({
+					url:"insertConsulting.pr",
+					data:{
+						sId:$("#studentId").val(),
+						type:$("#consult-type").val(),
+						content:$("#consult-content").val(),
+						time:$("#consult-time").val(),
+						date:$("#consult-date").val(),
+						way:$("#consult-way").val()
+					},
+					type:"post",
+					success:function(){
+						selectConsultingList(cPage);
+						alert("저장이 완료되었습니다.");
+					},
+					error:function(){
+						console.log("ajax 통신 실패");
+					}
+				});
+			}
+			
 		});
 	
 		
 		
 		/* 수정하기 버튼 눌렀을 때 */
 		$("#update-btn").click(function(){
+			let check=nullCheck();
+			if(check){
 			if(confirm("수정하시겠습니까?\n(수정하시려면 '확인', 수정하지 않으려면 '취소'를 누르십시오.) ")){
 				$.ajax({
 					url:"updateConsulting.pr",
@@ -301,7 +336,7 @@
 			 	alert('수정을 취소합니다.');
 			 }
 			
-			
+			}
 		});
 	
 		/* 삭제 버튼 눌렀을 때 */
@@ -335,6 +370,9 @@
 			emptyValue();
 			setDisabledInput(false);
 			selectConsultingList(1);
+			style='visibility:hidden;display:none;'
+			$('#area-reset-btn').css('visibility','visible');
+			$("#area-reset-btn").css("display", 'inline-block');
 		})
 	
 	})

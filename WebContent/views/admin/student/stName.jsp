@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.sun.student.model.vo.*"%>
+	pageEncoding="UTF-8" import="com.sun.student.model.vo.*, java.util.*"%>
 <%
-	Student de = (Student)request.getAttribute("de");	
+	ArrayList<Student> list = (ArrayList<Student>)request.getAttribute("list");	
 %>
 <!DOCTYPE html>
 <html>
@@ -56,7 +56,7 @@ nav li {
 }
 
 table, .head, td {
-	border: 1px rgb(2,34,89) solid
+	border: 1px rgb(2, 34, 89) solid
 }
 
 table {
@@ -64,7 +64,7 @@ table {
 }
 
 .head {
-	background: rgb(2,34,89);
+	background: rgb(2, 34, 89);
 	color: white;
 }
 
@@ -75,25 +75,25 @@ caption {
 
 td {
 	text-align: center;
-	color : rgb(2,34,89);
+	color: rgb(2, 34, 89);
 }
 
-button{
+button {
 	/*color: white;*/
 	border-style: groove;
 	border-radius: 10px;
-	background : white;
-	
+	background: white;
 }
 
-button:hover{
-	background : rgb(224,224,224);
+button:hover {
+	background: rgb(224, 224, 224);
 	border-style: groove;
 	border-radius: 10px;
 }
-label, input{
-	margin : left;
-	color : rgb(2,34,89);
+
+label, input {
+	margin: left;
+	color: rgb(2, 34, 89);
 }
 </style>
 </head>
@@ -101,8 +101,8 @@ label, input{
 	<%@ include file="/views/common/menubar.jsp"%>
 	<br>
 	<div class="wrap" align="center">
-	<h4 align="center">검색 결과</h4>
-		<h5 align="center">학생을 선택하면 학적 정보 수정이 가능합니다.</h5>
+		<h4 align="center">이름으로 검색한 결과</h4>
+		<h5 align="center"><mark>학생을 선택하면 학적 정보 수정이 가능합니다.</mark></h5>
 		<table>
 			<thead>
 				<tr>
@@ -115,28 +115,32 @@ label, input{
 				</tr>
 			</thead>
 			<tbody>
-				<% if(de==null){ %>
-
+				<% if(list!=null){
+					for(Student st : list){
+					%>
 				<tr>
+					<td><%=st.getUserId() %></td>
+					<td><%=st.getUserName() %></td>
+					<td><%=st.getsLevel() %>학년</td>
+					<td><%=st.getcName() %></td>
+					<td><%=st.getDeptName() %></td>
+					<td><%=st.getpName() %></td>
+				</tr>
+
+				<%}/* }else{  */
+					%>
+				<!-- <tr>
 					<td colspan="6">존재하는 학생이 없습니다.</td>
-				</tr>
+				</tr> -->
 
-				<% }else{  %>
-				<tr>
-					<td><%=de.getUserId() %></td>
-					<td><%=de.getUserName() %></td>
-					<td><%=de.getsLevel() %>학년</td>
-					<td><%=de.getcName() %></td>
-					<td><%=de.getDeptName() %></td>
-					<td><%=de.getpName() %></td>
-				</tr>
+
 				<% } %>
 			</tbody>
 		</table>
 		<br>
 		<div align="center">
-		<button onclick="location.href='list.st'">학생 목록</button>
-		<button onclick="location.href='form.st'">학생 추가</button>
+			<button onclick="location.href='list.st'">학생 목록</button>
+			<button onclick="location.href='form.st'">학생 추가</button>
 		</div>
 	</div>
 	<script>
@@ -149,7 +153,7 @@ label, input{
 			})
 		});
 	</script>
-	
+
 
 </body>
 </html>

@@ -89,6 +89,7 @@ label, input {
 	<div class="wrap" align="center">
 		<!-- 학적 -->
 		<h4 align="center">수강 내역 조회</h4>
+		<hr>
 		<h6 align="center"><b id = "back" onclick="history.go(-1)"><mark>여기</mark></b>를 클릭하시면 이전 화면으로 돌아갑니다.</h6>
 		
 		<br>

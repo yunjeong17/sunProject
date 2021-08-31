@@ -21,13 +21,14 @@ String contextPath = request.getContextPath();
 
 <!--login이 되어있을 때의 style -->
 
+
 #top{
 	
 }
 
  #logo { 
  	display:block-inline;
-	padding-right: 80%;
+	padding-right: 75%;
 	text-decoration-line: none;
 }
 
@@ -137,6 +138,9 @@ div{
 		<div id="top" style="background-color:white;">
 			<a id='logo' href="<%=contextPath%>"> <img src="resources/images/sunLogo1.png" width="140px" height="70px"></a> 
 			<span id="login-user-name"> <%=loginUser.getUserName() %>님
+			<%if(Character.toUpperCase(loginUser.getUserId().charAt(0)) != 'A'){ %>
+				<a onclick="updatePwd();">비밀번호 변경</a>
+			<%} %>
 			<a href = "<%=contextPath%>/logout">로그아웃</a></span>
 		
 	<nav id="topMenu">
@@ -146,8 +150,8 @@ div{
 	<div align="right" >
 	<ul>
 		<li><div class="menuLink" onclick="goStudentManagement();">학생 관리</div></li>
-		<li><div class="menuLink" onclick="goManageProfessors();">교수 관리</div></li>
-		<li><div class="menuLink" onclick="goManageClass();">강의 관리</div></li>
+		<li><div class="menuLink" onclick="location='<%=contextPath%>/list.prof'">교수 관리</div></li>
+		<li><div class="menuLink" onclick="location='<%=contextPath%>/list.class'">강의 관리</div></li>
 	</ul>
 	</div>
 	<%
@@ -211,11 +215,8 @@ div{
         win.focus();
     }
 	
-	function findId(){
-		window.open("<%=contextPath%>/findIdForm.us","아이디 찾기","width=500, height=300");
-	}
-	function resetPwd(){
-		window.open("<%=contextPath%>/resetPwdForm.us","비밀번호 초기화","width=500, height=300");
+	function updatePwd(){
+		window.open("<%=request.getContextPath()%>/updatePwdForm.us","비밀번호 초기화","width=500, height=300");
 	}
 	</script>
 </body>

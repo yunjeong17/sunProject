@@ -3,6 +3,7 @@ package com.sun.student.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,37 +33,40 @@ public class StudentPersonalInsertServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 
 		User user=(User)request.getSession().getAttribute("loginUser");
 		
 		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
+		/*
 		String military = request.getParameter("military");
 		String address = request.getParameter("address");
 		String account = request.getParameter("account");
 		String bank = request.getParameter("bank");
 		String holder = request.getParameter("holder");
+		*/
 		
 		Student stp = new Student();
 		stp.setsPhone(phone);
 		stp.setsEmail(email);
-		stp.setMilitary(military);
+		/*stp.setMilitary(military);
 		stp.setAddress(address);
 		stp.setAccount(account);
 		stp.setBank(bank);
-		stp.setHolder(holder);
+		stp.setHolder(holder);*/
 
 		int result = new StudentService().stPersonalInsert(user.getUserId(), stp);
-		PrintWriter out = response.getWriter();
+		
 		if(result>0) {
-			out.print("success");
-			
-		}else {
-			out.print("fail");
-			
+			request.getSession().setAttribute("msg", "신상 정보 등록 성공");
+			response.sendRedirect("StudentAcademic");
 		}
-		out.flush();
-		out.close();
+		else {
+			request.setAttribute("msg", "신상 정보 등록 실패");
+			RequestDispatcher view = request.getRequestDispatcher("views/common/errorPage.jsp");
+			view.forward(request, response);
+		}
 		
 	}
 

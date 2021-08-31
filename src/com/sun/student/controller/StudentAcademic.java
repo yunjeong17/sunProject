@@ -35,10 +35,18 @@ public class StudentAcademic extends HttpServlet {
 		User user=(User)request.getSession().getAttribute("loginUser");
 		Student st = new StudentService().selectStudent(user.getUserId());
 		Student stp = new StudentService().studentPersonalselect(user.getUserId());
-		request.setAttribute("stp", stp);
-		request.setAttribute("st", st);
-		request.getRequestDispatcher("views/admin/student/stmenu.jsp").forward(request, response);
-	
+		if(st ==null || stp==null) {
+			request.getSession().setAttribute("msg", "조회할 신상 정보가 존재하지 않습니다. 신상 등록 페이지로 넘어갑니다.");
+			request.getRequestDispatcher("views/admin/student/aintGotInfo.jsp").forward(request, response);
+
+		}else {
+
+			request.setAttribute("stp", stp);
+			request.setAttribute("st", st);
+			request.getRequestDispatcher("views/admin/student/stmenu.jsp").forward(request, response);
+		
+		}
+		
 	}	
 
 	/**
