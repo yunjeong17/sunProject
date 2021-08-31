@@ -27,7 +27,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>순대학교 학사 관리 시스템</title>
+<link href="resources/images/sunIcon.png" rel="shortcut icon" type="image/x-icon">
 </head>
 <style>
         .outer{
@@ -86,9 +87,9 @@
 								<%ranking=rank.get(i).getRank(); %>
 							<%} %>
 							<td style="text-align: center"><%=ranking %></td>
+						</tr>
 						<%} %>
 								
-						</tr>
 						
 					<%} %>
 				</tbody>
@@ -155,6 +156,7 @@
 					<%} %>
 						
 					</tr>
+					<%} %>
 				</tbody>
 			</table>
 		

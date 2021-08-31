@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>순대학교 학사 관리 시스템</title>
-<link href="resources/images/sunIcon.png" rel="shortcut icon" type="image/x-icon"></title>
+<link href="resources/images/sunIcon.png" rel="shortcut icon" type="image/x-icon">
 <style>
 /*
 body{

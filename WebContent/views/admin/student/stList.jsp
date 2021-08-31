@@ -13,7 +13,8 @@ int endPage = pi.getEndPage();
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Students Information</title>
+<title>순대학교 학사 관리 시스템</title>
+<link href="resources/images/sunIcon.png" rel="shortcut icon" type="image/x-icon">e>
 <style>
 div {
 	/*border: 1px solid red;*/

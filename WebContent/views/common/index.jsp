@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>순대학교 학사 관리 시스템</title>
+<link href="resources/images/sunIcon.png" rel="shortcut icon" type="image/x-icon">
 <script src="https://kit.fontawesome.com/92a9092640.js" crossorigin="anonymous"></script>
 <style>
 	body{
@@ -14,7 +15,7 @@
 	}
 	.outer{
 		width: 1200px;
-		margin-right:20%;
+		margin:auto;
 		/*display: inline-block;
 		width:1200px;
 		height:900px;	*/
@@ -131,13 +132,13 @@
 			var wIconUrl = '<img alt="'+result.weather[0].description+'" src="http://openweathermap.org/img/wn/'+result.weather[0].icon+'@2x.png">'
 			$('.icon').html(wIconUrl);
 			var ct = result.dt;
+			var currentTime = convertTime(ct);
 			function convertTime(t){
 				var ot = new Date(t*1000);
 				
 				return ot.toLocaleString();
 			}
 			
-			var currentTime = convertTime(ct);
 			$('.content').append(result.sys.country+', '+result.name+' '+result.weather[0].description+'<br>'+currentTime+'<br>'+result.main.temp+' º');
 			});
 		</script>
