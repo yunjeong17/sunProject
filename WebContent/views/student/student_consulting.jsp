@@ -65,14 +65,14 @@
 						<td colspan="7" style="text-align: center;">존재하는 상담 내역이 없습니다.</td>
 					</tr>
 				<%} else {%>
-					<%for(StudentConsulting sc:list){ %>
+					<%for(int i=0; i<list.size();i++){ %>
 						<tr>					
-							<td style="text-align: center;"><%= sc.getCsNo() %></td>
-				 			<td><%= sc.getCsContent() %></td>
-				 			<td style="text-align: center;"><%= sc.getCsDate() %></td>
-				 			<td style="text-align: center;"><%= sc.getCsWay() %></td>
-				 			<td style="text-align: center;"><%= sc.getCsTime() %></td>
-				 			<td style="text-align: center;"><%= sc.getCsType() %></td>
+							<td style="text-align: center;"><%= i+1 %></td>
+				 			<td><%= list.get(i).getCsContent() %></td>
+				 			<td style="text-align: center;"><%= list.get(i).getCsDate() %></td>
+				 			<td style="text-align: center;"><%= list.get(i).getCsWay() %></td>
+				 			<td style="text-align: center;"><%= list.get(i).getCsTime() %></td>
+				 			<td style="text-align: center;"><%= list.get(i).getCsType() %></td>
 			 			</tr>
 					<%} %>
 				<%} %>

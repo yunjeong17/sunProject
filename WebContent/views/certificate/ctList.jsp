@@ -64,6 +64,11 @@ tbody>td:hover{
 	background: rgb(224, 224, 224);
 	
 }
+
+#nullContent { 
+pointer-events: none; 
+}
+
 </style>
 </head>
 <body>
@@ -98,7 +103,7 @@ tbody>td:hover{
 					%>
 
 					<tr>
-						<td colspan="6">존재하는 자격증 정보가 없습니다.</td>
+						<td colspan="6" id="nullContent" >존재하는 자격증 정보가 없습니다.</td>
 					</tr>
 
 					<%
@@ -128,9 +133,15 @@ tbody>td:hover{
 		<script>
 		$(document).ready(function() {
 			$(function() {
+			
 				$("tbody>tr").click(function() {
 					var cfNo = $(this).children().eq(0).text();
-					location.href="<%=contextPath %>/remove.ct?cfNo="+cfNo;
+					if(confirm("삭제하시겠습니까?\n(삭제하시려면 '확인', 삭제하지 않으려면 '취소'를 누르십시오.) ")){
+						location.href="<%=contextPath %>/remove.ct?cfNo="+cfNo;
+					}
+					else{
+						alert("삭제를 취소합니다.");
+					}
 				})
 			})
 		});
