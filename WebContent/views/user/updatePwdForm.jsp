@@ -49,7 +49,7 @@ table {
 
 <div id="content">
 	<h1>비밀번호 재설정</h1>
-	<form id="updatePwdForm" action="<%=request.getContextPath()%>/updatePwd.us" method="post">
+	<form id="updatePwdForm" action="<%=request.getContextPath()%>/updatePwd.us" method="post" onsubmit="return checkPwd();">
 		<table>
 			<tr>
 				<td><label for="userPwd" >기존 비밀번호</label>
@@ -67,7 +67,7 @@ table {
 		<br>
 		
 		<div class="btns" align="center">
-			<button id="find-btn"  onclick="checkPwd();">비밀번호 변경</button>
+			<button id="find-btn" type="submit">비밀번호 변경</button>
 		</div>
 
 	</form>
@@ -83,22 +83,22 @@ table {
 				userPwd.focus();
 				return false;
 			}
-			else if(newPwd.val().trim()==""){
+			if(newPwd.val().trim()==""){
 				alert("새 비밀번호를 입력하세요");
 				newPwd.focus();
 				return false;
 			}
-			else if(newPwdCheck.val().trim()==""){
+			if(newPwdCheck.val().trim()==""){
 				alert("새 비밀번호 확인을 입력하세요");	
 				newPwdCheck.focus();
 				return false;
 			}
-			else if(newPwd.val()!=newPwdCheck.val()){
+			if(newPwd.val()!=newPwdCheck.val()){
 				alert("새 비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
 				newPwdCheck.focus();
 				return false;
 			}
-			$("#findIdForm").submit();
+			return true;
 		}
 
 	</script>

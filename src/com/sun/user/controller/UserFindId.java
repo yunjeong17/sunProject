@@ -48,6 +48,7 @@ public class UserFindId extends HttpServlet {
 			request.setAttribute("flag","Y");
 		}else {
 			request.setAttribute("userId",null);
+			request.setAttribute("msg", "존재하지 않는 유저입니다. 다시 시도해주십시오.");
 			request.setAttribute("flag","N");
 		}
 		view.forward(request, response);
