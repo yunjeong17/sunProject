@@ -118,7 +118,7 @@ label, input{
 				<% if(st==null){ %>
 
 				<tr>
-					<td colspan="6">존재하는 학생이 없습니다.</td>
+					<td colspan="6" >존재하는 학생이 없습니다.</td>
 				</tr>
 
 				<% }else{  %>
