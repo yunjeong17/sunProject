@@ -17,14 +17,14 @@ public class ClassHistoryService {
 		return chList;
 	}
 
-	public int updateCh(ArrayList<ClassHistory> chList) {
+	public int updateCh(ArrayList<ClassHistory> chList,String classNo) {
 		Connection conn = getConnection();
 		ArrayList<Integer> rList=new ArrayList<Integer>();
 		int result=1;
 		if(! chList.isEmpty()) {
 			for(int i=0; i<chList.size();i++) {
 				int rtemp=0;
-				rtemp=new ClassHistoryDao().updateCh(conn,chList.get(i));
+				rtemp=new ClassHistoryDao().updateCh(conn,chList.get(i),classNo);
 				rList.add(rtemp);
 
 			}

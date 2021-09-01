@@ -155,7 +155,8 @@ text-align:center;
 				$.ajax({
 					url:"updatechList.pr",
 					data:{
-						chList:chList
+						chList:chList,
+						classNo:$("#className").val()
 					},
 					type:"post",
 					success:function(){

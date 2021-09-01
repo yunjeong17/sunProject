@@ -47,7 +47,7 @@ public class ClassHistoryDao {
 
 		return list;
 	}
-	public int updateCh(Connection conn, ClassHistory ch) {
+	public int updateCh(Connection conn, ClassHistory ch,String classNo) {
 			PreparedStatement pstmt = null;
 			int result = 0;
 			String sql = prop.getProperty("updatechList");
@@ -57,6 +57,7 @@ public class ClassHistoryDao {
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setFloat(1,ch.getCgPoint());
 				pstmt.setString(2,ch.getsId());
+				pstmt.setString(3,classNo);
 				result = pstmt.executeUpdate();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
