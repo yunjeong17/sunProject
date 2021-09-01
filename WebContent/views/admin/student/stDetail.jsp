@@ -107,6 +107,12 @@ b:hover {
 #getsIdResult{
 	margin-left: 190px;
 }
+
+
+.nullContent { 
+pointer-events: none; 
+}
+
 </style>
 </head>
 <body>
@@ -135,7 +141,7 @@ b:hover {
 				%>
 
 				<tr>
-					<td colspan="6">존재하는 학생이 없습니다.</td>
+					<td colspan="6" class="nullContent">존재하는 학생이 없습니다.</td>
 				</tr>
 
 				<%
@@ -256,7 +262,7 @@ b:hover {
 				if (fl == null) {
 				%>
 				<tr>
-					<td colspan="7">존재하는 학적 변동 사항이 없습니다.</td>
+					<td colspan="7" class="nullContent">존재하는 학적 변동 사항이 없습니다.</td>
 				</tr>
 				<%
 				} else {

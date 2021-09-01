@@ -95,6 +95,11 @@ label, input{
 	margin : left;
 	color : rgb(2,34,89);
 }
+
+#nullContent { 
+pointer-events: none; 
+}
+
 </style>
 </head>
 <body>
@@ -118,7 +123,7 @@ label, input{
 				<% if(st==null){ %>
 
 				<tr>
-					<td colspan="6" >존재하는 학생이 없습니다.</td>
+					<td colspan="6" id="nullContent" >존재하는 학생이 없습니다.</td>
 				</tr>
 
 				<% }else{  %>
