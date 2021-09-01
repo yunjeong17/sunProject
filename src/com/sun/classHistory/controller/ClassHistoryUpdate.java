@@ -35,6 +35,7 @@ public class ClassHistoryUpdate extends HttpServlet {
 		String[] temp1 = null;
 		ArrayList<ClassHistory> chList=new ArrayList<ClassHistory>();
 		temp1=request.getParameterValues("chList[]");
+		String classNo=request.getParameter("classNo");
 		System.out.println("temp11"+temp1);
 		if(temp1!=null) {
 			for(int i=0; i<temp1.length;i++) {
@@ -46,7 +47,7 @@ public class ClassHistoryUpdate extends HttpServlet {
 			}
 		}
 		
-		int result = new ClassHistoryService().updateCh(chList);
+		int result = new ClassHistoryService().updateCh(chList,classNo);
 		PrintWriter out = response.getWriter();
 		if(result>0) {
 			System.out.println("success!!!!");
