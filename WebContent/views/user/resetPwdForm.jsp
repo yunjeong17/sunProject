@@ -72,7 +72,7 @@ table {
 <div id="find"><b> > 비밀번호 초기화</b></div>
 	<br>
 
-	<form id="resetPwdForm" action="<%=request.getContextPath()%>/resetPwd.us" method="post">
+	<form id="resetPwdForm" action="<%=request.getContextPath()%>/resetPwd.us" method="post" onsubmit="return checkNull();">
 		<table>
 			<tr>
 				<th><label>교원/학생</label></th>
@@ -97,28 +97,36 @@ table {
 		<br>
 		
 		<div class="btns" align="center">
-			<button id="find-btn"  onclick="checkNull();"><B>비밀번호 초기화</B></button>
+			<button id="find-btn"  type="submit"><B>비밀번호 초기화</B></button>
 		</div>
 
 	</form>
 
 	<script type="text/javascript">
-		function checkNull(){
-			const userId = $("#userId");
-			const userName = $("#userName");
-			const userEmail= $("#userEmail");
-			if(userId.val().trim()==""){
-				alert("학번을 입력하세요");
-			}
-			if(userName.val().trim()==""){
-				alert("이름을 입력하세요");
-			}
-			if(userEmail.val().trim()==""){
-				alert("이메일을 입력하세요");	
-			}
-			console.log(userName+userEmail);
-			$("#findIdForm").submit();
+	
+	function checkNull() {
+		const userName = $("#userName");
+		const userEmail = $("#userEmail");
+		const userId= $("#userId");
+		if(userId.val().trim()==""){
+			alert("교원번호/학번을 입력하세요");	
+			return false;
 		}
+		if (userName.val().trim() == "") {
+			alert("이름을 입력하세요");
+			return false;
+		}
+		if (userEmail.val().trim() == "") {
+			alert("이메일을 입력하세요");
+			return false;
+		}
+	
+	
+		return true;
+
+		
+	}
+
 
 	</script>
 </body>

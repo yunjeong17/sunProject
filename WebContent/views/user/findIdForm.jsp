@@ -3,6 +3,7 @@
 <%
 String uId = (String) request.getAttribute("userId");
 String flag = (String) request.getAttribute("flag");
+String msg= (String) request.getAttribute("msg");
 %>
 <!DOCTYPE html>
 <html>
@@ -20,9 +21,8 @@ $(function(){
 			alert("아이디는 [ <%=uId%> ]입니다.");
 			window.close();
 		}
-		if("<%=flag%>
-	" == "N") {
-			alert("존재하지 않는 유저입니다. 다시 시도해주십시오.");
+		if("<%=flag%>" == "N" & "<%=msg%>"!="null") {
+			alert("<%=msg%>");
 		}
 	})
 </script>
@@ -77,8 +77,7 @@ table {
 	<br>
 
 	<div class="outer">
-		<form id="findIdForm" action="<%=request.getContextPath()%>/findId.us"
-			method="post">
+		<form id="findIdForm" action="<%=request.getContextPath()%>/findId.us" method="post" onsubmit="return checkNull();">
 			<table>
 				<tr>
 					<th><label>교원/학생</label></th>
@@ -98,7 +97,7 @@ table {
 			<br> <br>
 
 			<div class="btns" align="center">
-				<button id="find-btn" onclick="checkNull();"><B>학번/교원번호 찾기</B></button>
+				<button id="find-btn" type="submit"><B>학번/교원번호 찾기</B></button>
 			</div>
 
 		</form>
@@ -115,12 +114,19 @@ table {
 
 			if (userName.val().trim() == "") {
 				alert("이름을 입력하세요");
+				return false;
+
 			}
 			if (userEmail.val().trim() == "") {
 				alert("이메일을 입력하세요");
+				return false;
 			}
 			console.log(userName + userEmail);
-			$("#findIdForm").submit();
+			//$("#findIdForm").submit();
+		
+			return true;
+
+			
 		}
 	</script>
 
