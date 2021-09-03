@@ -9,10 +9,10 @@
 6. 교수 > 지도학생 상담 내역 추가, 수정, 삭제, 조회
 7. 관리자> 교수 추가, 수정
 
-![picture] (./etc/leeyunjeong1.png)
-![picture] (./etc/leeyunjeong2.png)
-![picture] (./etc/leeyunjeong3.png)
-![picture] (./etc/leeyunjeong4.png)
+![picture](./etc/leeyunjeong1.PNG)
+![picture](./etc/leeyunjeong2.PNG)
+![picture](./etc/leeyunjeong3.PNG)
+![picture](./etc/leeyunjeong4.PNG)
 
 
 - 왕수빈
