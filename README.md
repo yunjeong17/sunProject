@@ -8,7 +8,9 @@
 5. 교수 > 성적 입력
 6. 교수 > 지도학생 상담 내역 추가, 수정, 삭제, 조회
 7. 관리자> 교수 추가, 수정
+
 [아래 사진은 단독으로 사용한 파일은 빨간색 박스. 겹친 부분은 주황색 박스로 체크]
+
 ![picture](./etc/leeyunjeong1.PNG)
 ![picture](./etc/leeyunjeong2.PNG)
 ![picture](./etc/leeyunjeong3.PNG)
