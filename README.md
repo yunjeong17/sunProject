@@ -45,5 +45,5 @@
 - 강재석
 1. \0
 
-- ERD
+## ERD
 ![picture](./etc/erd.png)
